@@ -33,13 +33,16 @@ uvicorn app.main:app --reload --port 8000
 Создай `frontend/.env.local`:
 
 ```
-NEXT_PUBLIC_API_BASE=https://your-ngrok-or-backend-url
+NEXT_PUBLIC_API_BASE=https://proxima-iota-rosy.vercel.app
 ```
 
 ## Deploy (Vercel)
 
 - Root directory: `frontend`
 - Установи переменную окружения `NEXT_PUBLIC_API_BASE` на URL бэкенда.
+- Frontend: https://proxima-frontend-sable.vercel.app
+- Backend API: https://proxima-iota-rosy.vercel.app
+- Swagger: https://proxima-iota-rosy.vercel.app/docs
 
 ## Notes
 
@@ -47,8 +50,3 @@ NEXT_PUBLIC_API_BASE=https://your-ngrok-or-backend-url
 - Пустые аккаунты: без аватарок, без ID в шапке, без фейковых отзывов.
 - После покупки автоматически открывается чат с продавцом.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

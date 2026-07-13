@@ -26,6 +26,22 @@ export default function Messages() {
 
   const activeChat = chats.find(c => c.id === activeChatId) || chats[0];
 
+  // Load messages for the selected chat from real API
+  useEffect(() => {
+    if (!authLoading && activeChatId && isAuthenticated) {
+      api.listMessages(activeChatId).then(msgs => {
+        setCurrentMessages(msgs || []);
+      }).catch(() => setCurrentMessages([]));
+    }
+  }, [activeChatId, authLoading, isAuthenticated]);
+
+  // Scroll to bottom when messages change or chat switch
+  useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [activeChat?.messages, activeChatId]);
+
   if (authLoading) {
     return <main className="w-full max-w-screen-xl mx-auto px-6 py-8 flex-1 flex items-center justify-center text-center">
       <p className="text-xs text-brand-textMuted">Загрузка...</p>
@@ -40,8 +56,8 @@ export default function Messages() {
           <p className="text-sm text-brand-textMuted">
             Вам необходимо войти в аккаунт или зарегистрироваться, чтобы открыть чаты.
           </p>
-          <Link 
-            href="/profile" 
+          <Link
+            href="/profile"
             className="inline-block py-3 px-6 bg-brand-red hover:bg-brand-redHover text-white text-sm font-bold rounded-xl"
           >
             Перейти к профилю
@@ -50,22 +66,6 @@ export default function Messages() {
       </main>
     );
   }
-
-  // Load messages for the selected chat from real API
-  useEffect(() => {
-    if (activeChatId && isAuthenticated) {
-      api.listMessages(activeChatId).then(msgs => {
-        setCurrentMessages(msgs || []);
-      }).catch(() => setCurrentMessages([]));
-    }
-  }, [activeChatId, isAuthenticated]);
-
-  // Scroll to bottom when messages change or chat switch
-  useEffect(() => {
-    if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [activeChat?.messages, activeChatId]);
 
   const handleSend = async (e) => {
     e.preventDefault();

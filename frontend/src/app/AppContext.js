@@ -254,14 +254,13 @@ export function AppProvider({ children }) {
           setListings(normalized);
         }
       } catch (e) {
-        // Backend (ngrok) often unreachable in this env — silent fallback is expected.
+        // Keep the local catalog available while the backend is temporarily unreachable.
         if (typeof window !== 'undefined' && !window.__listingsWarned) {
           console.info('Listings: using local data (backend not reachable).');
           window.__listingsWarned = true;
         }
       }
 
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setHydrated(true);
       setAuthLoading(false);
     }
@@ -312,7 +311,7 @@ export function AppProvider({ children }) {
   }, [purchasedLots, hydrated]);
 
   // Actions
-  const addNotification = (text) => {
+  const addNotification = useCallback((text) => {
     const newNotif = {
       id: Date.now(),
       text,
@@ -320,7 +319,7 @@ export function AppProvider({ children }) {
       read: false
     };
     setNotifications(prev => [newNotif, ...prev]);
-  };
+  }, []);
 
   const clearNotifications = () => {
     setNotifications([]);

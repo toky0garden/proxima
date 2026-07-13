@@ -30,17 +30,6 @@ export default function EditProfile() {
 
   const [formErrors, setFormErrors] = useState({}); // { name: 'error msg' }
 
-  // Keep preview in sync when the saved avatar changes (e.g. after successful upload or preset)
-  // But do NOT override a local data/blob preview with a server URL from the input
-  useEffect(() => {
-    const full = api.getFullUrl(form.avatar);
-    const isLocalPreview = avatarPreviewSrc?.startsWith('blob:') || avatarPreviewSrc?.startsWith('data:');
-    if (full && full !== avatarPreviewSrc && !isLocalPreview) {
-      setAvatarPreviewSrc(full);
-    }
-    setAvatarLoadError(false);
-  }, [form.avatar]);
-
   // Cleanup any blob URL when leaving the edit page
   useEffect(() => {
     return () => {
@@ -261,6 +250,7 @@ export default function EditProfile() {
                       <img 
                         id="edit-avatar-preview" 
                         src={avatarPreviewSrc} 
+                        alt="Предпросмотр аватара"
                         className="w-24 h-24 rounded-full object-cover border-2 border-brand-red shadow-glow-red"
                         onLoad={() => setAvatarLoadError(false)}
                         onError={() => setAvatarLoadError(true)}
@@ -347,7 +337,7 @@ export default function EditProfile() {
                       Удалить аватар
                     </button>
                   </div>
-                  <p className="text-[9px] text-brand-textMuted text-center leading-relaxed">Загрузка уходит на сервер. JPG/PNG/WEBP, до 5 МБ.</p>
+                  <p className="text-[9px] text-brand-textMuted text-center leading-relaxed">Загрузка уходит на сервер. JPG/PNG/WEBP, до 4 МБ.</p>
                 </div>
               </div>
 
@@ -363,7 +353,7 @@ export default function EditProfile() {
                 <div className="flex flex-col items-center justify-center py-4">
                   <div className="w-full h-24 rounded-xl overflow-hidden border border-white/10 relative bg-brand-input">
                     {form.banner ? (
-                      <img id="edit-banner-preview" src={form.banner} className="w-full h-full object-cover" />
+                      <img id="edit-banner-preview" src={form.banner} alt="Предпросмотр баннера" className="w-full h-full object-cover" />
                     ) : null}
                   </div>
                 </div>
@@ -441,7 +431,7 @@ export default function EditProfile() {
               {/* Top Banner image */}
               <div className="h-28 w-full overflow-hidden relative bg-brand-input">
                 {form.banner ? (
-                  <img id="edit-live-banner-preview" className="w-full h-full object-cover" src={form.banner} />
+                  <img id="edit-live-banner-preview" className="w-full h-full object-cover" src={form.banner} alt="Баннер профиля" />
                 ) : null}
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-card/90 to-transparent"></div>
               </div>
@@ -457,6 +447,7 @@ export default function EditProfile() {
                         id="edit-live-avatar-preview" 
                         className="w-full h-full object-cover rounded-full border-2 border-brand-red shadow-glow-red" 
                         src={avatarPreviewSrc} 
+                        alt="Аватар профиля"
                       />
                     ) : null}
                     {(avatarLoadError && !avatarPreviewSrc?.startsWith('data:') && !avatarPreviewSrc?.startsWith('blob:')) && (

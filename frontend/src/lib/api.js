@@ -1,6 +1,6 @@
-// IMPORTANT: Set NEXT_PUBLIC_API_BASE in .env.local to your current ngrok (or other) backend URL.
-// Using current ngrok: https://2e6d-167-148-123-70.ngrok-free.app/
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'https://2e6d-167-148-123-70.ngrok-free.app';
+const API_BASE = (
+  process.env.NEXT_PUBLIC_API_BASE || 'https://proxima-iota-rosy.vercel.app'
+).replace(/\/$/, '');
 
 export function getFullUrl(path) {
   if (!path) return path;
@@ -46,7 +46,6 @@ async function apiFetch(path, options = {}) {
   const url = `${API_BASE}${path}`;
   const headers = {
     'Content-Type': 'application/json',
-    'ngrok-skip-browser-warning': 'true',
     ...(options.headers || {}),
   };
 
@@ -61,13 +60,9 @@ async function apiFetch(path, options = {}) {
       headers,
     });
   } catch (networkErr) {
-    // Network / CORS / dead ngrok / DNS error
     throw new Error(
       `Не удалось подключиться к API. ` +
-      `Текущий адрес: ${API_BASE}. ` +
-      `1) Убедитесь что ваш ngrok (или бэкенд) запущен. ` +
-      `2) Создайте/обновите файл .env.local рядом с package.json: NEXT_PUBLIC_API_BASE=https://<ваш-новый-ngrok>.ngrok-free.app ` +
-      `3) Перезапустите npm run dev после изменения .env.local.`
+      `Текущий адрес: ${API_BASE}. Попробуйте обновить страницу.`
     );
   }
 
@@ -116,11 +111,10 @@ async function apiFetch(path, options = {}) {
 async function tryRefresh() {
   if (!refreshToken) return false;
   try {
-    const res = await fetch(`${API_BASE}/api/v1/auth/refresh?ngrok-skip-browser-warning=true`, {
+    const res = await fetch(`${API_BASE}/api/v1/auth/refresh`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'ngrok-skip-browser-warning': 'true',
       },
       body: JSON.stringify({ refresh_token: refreshToken }),
     });
@@ -259,10 +253,9 @@ export async function uploadAvatar(file) {
   const formData = new FormData();
   formData.append('file', file);
 
-  const res = await fetch(`${API_BASE}/api/v1/users/me/avatar?ngrok-skip-browser-warning=true`, {
+  const res = await fetch(`${API_BASE}/api/v1/users/me/avatar`, {
     method: 'POST',
     headers: {
-      'ngrok-skip-browser-warning': 'true',
       ...(accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {}),
     },
     body: formData,
@@ -281,10 +274,9 @@ export async function uploadAvatar(file) {
 }
 
 export async function deleteAvatar() {
-  const res = await fetch(`${API_BASE}/api/v1/users/me/avatar?ngrok-skip-browser-warning=true`, {
+  const res = await fetch(`${API_BASE}/api/v1/users/me/avatar`, {
     method: 'DELETE',
     headers: {
-      'ngrok-skip-browser-warning': 'true',
       ...(accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {}),
     },
   });

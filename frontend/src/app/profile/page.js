@@ -186,9 +186,7 @@ export default function Profile() {
           </div>
 
           <div className="mt-3 text-[9px] text-brand-textMuted border-t border-brand-border pt-2">
-            Не получается войти (Failed to fetch)?<br />
-            Скорее всего, старый ngrok в коде умер. 
-            Создайте новый туннель и укажите <code>NEXT_PUBLIC_API_BASE</code> в файле <code>.env.local</code> (см. <code>.env.local.example</code>).
+            Если API временно недоступен, обновите страницу и попробуйте снова.
           </div>
         </div>
       </main>

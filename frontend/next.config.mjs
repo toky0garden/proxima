@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  allowedDevOrigins: ['*', 'peso-sandbag-jockstrap.ngrok-free.dev', '*.ngrok-free.dev'],
   async rewrites() {
     return [
       {

@@ -3,10 +3,16 @@ from pathlib import Path
 from typing import Literal
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
+from dotenv import load_dotenv
 from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+# Vercel CLI writes linked service credentials to .env.local. Loading it into
+# os.environ also makes OIDC credentials visible to the official Blob SDK.
+load_dotenv(PROJECT_ROOT / ".env.local")
+load_dotenv(PROJECT_ROOT / ".env")
 
 
 class Settings(BaseSettings):
