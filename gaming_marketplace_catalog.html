@@ -7,18 +7,18 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #0b0c10;
-      color: #ffffff;
+      background-color: #0A0A0A;
+      color: #E0E0E0;
     }
   </style>
 <style data-purpose="custom-colors">
     :root {
-      --bg-dark: #0b0c10;
-      --bg-card: #14151a;
-      --bg-input: #1f2025;
-      --text-gray: #8b8e98;
-      --accent-red: #f42424;
-      --border-color: #272932;
+      --bg-dark: #0A0A0A;
+      --bg-card: #141414;
+      --bg-input: #1A1A1A;
+      --text-gray: #888888;
+      --accent-red: #E53935;
+      --border-color: #1F1F1F;
     }
   </style>
 <script>
@@ -27,12 +27,12 @@
         extend: {
           colors: {
             brand: {
-              red: '#f42424',
-              dark: '#0b0c10',
-              card: '#14151a',
-              input: '#1f2025',
-              border: '#272932',
-              textMuted: '#8b8e98'
+              red: '#E53935',
+              dark: '#0A0A0A',
+              card: '#141414',
+              input: '#1A1A1A',
+              border: '#1F1F1F',
+              textMuted: '#888888'
             }
           }
         }
@@ -42,45 +42,51 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" data-snapdom="injected-import"></head>
 <body class="min-h-screen text-white bg-brand-dark flex flex-col">
 <!-- BEGIN: MainHeader -->
-<header class="sticky top-0 z-50 bg-brand-dark/95 backdrop-blur-sm border-b border-brand-border py-4 px-6 flex items-center justify-between gap-6" data-purpose="main-header">
-<!-- Logo & Navigation -->
-<div class="flex items-center gap-8">
-<!-- Logo -->
-<a class="flex items-center justify-center w-10 h-12 bg-brand-dark border-2 border-brand-red rounded-lg relative overflow-hidden" data-purpose="logo" href="gaming_marketplace.html">
-<svg fill="none" height="24" stroke="#f42424" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-<line x1="9" x2="15" y1="10" y2="10"></line>
-</svg>
-</a>
-<!-- Primary Nav -->
+<header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-md border-b border-white/5 py-4 px-6 flex items-center justify-between"><div class="flex items-center space-x-8 w-full max-w-screen-2xl mx-auto">
+  <!-- Logo -->
+  <a class="flex items-center flex-shrink-0" href="gaming_marketplace.html">
+    <svg fill="none" height="46" viewBox="0 0 40 46" width="40" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 0L39.0526 11V33L20 44L0.947441 33V11L20 0Z" stroke="#E53935" stroke-width="2"></path>
+      <path d="M28.5 22.5C28.5 24.9853 26.4853 27 24 27C21.5147 27 19.5 24.9853 19.5 22.5C19.5 20.0147 21.5147 18 24 18C26.4853 18 28.5 20.0147 28.5 22.5Z" fill="#E53935"></path>
+      <path d="M16 22.5C16 24.9853 13.9853 27 11.5 27C9.01472 27 7 24.9853 7 22.5C7 20.0147 9.01472 18 11.5 18C13.9853 18 16 20.0147 16 22.5Z" fill="#E53935"></path>
+      <rect fill="#0A0A0A" height="7" width="2" x="23" y="19"></rect>
+      <rect fill="#0A0A0A" height="2" width="7" x="20.5" y="21.5"></rect>
+      <circle cx="10" cy="22.5" fill="#0A0A0A" r="1.5"></circle>
+      <circle cx="13" cy="22.5" fill="#0A0A0A" r="1.5"></circle>
+      <path d="M12.5 13L16 16.5M27.5 13L24 16.5" stroke="#E53935" stroke-linecap="round" stroke-width="2"></path>
+    </svg>
+  </a>
 
-</div>
-<!-- Search Bar -->
-<div class="flex-1" data-purpose="search-bar">
-<div class="relative">
-<svg class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-textMuted" fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-<input class="w-full bg-brand-input border border-brand-border rounded-xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:border-brand-textMuted text-white placeholder-brand-textMuted transition-colors" placeholder="Поиск по играм, категориям, объявлениям..." type="text">
-</div>
-</div>
-<!-- User Actions -->
-<div class="flex items-center gap-4"><a class="text-brand-textMuted hover:text-white transition-colors p-2 rounded-full hover:bg-brand-input" href="#"><svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><rect height="7" rx="1" width="7" x="3" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="14"></rect><rect height="7" rx="1" width="7" x="3" y="14"></rect></svg></a>
-<a class="hidden md:flex items-center gap-2 text-brand-textMuted hover:text-white transition-colors text-sm font-medium" href="#"><svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg" class=""><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg></a>
+  <!-- Search (Expanded) -->
+  <div class="flex-1">
+    <div class="relative">
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <svg class="w-5 h-5 text-brand-textMuted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+      </div>
+      <input class="block w-full pl-10 pr-3 py-2.5 border border-transparent rounded-lg leading-5 bg-brand-input text-white placeholder-brand-textMuted focus:outline-none focus:bg-white/5 focus:border-white/10 sm:text-sm transition-colors" placeholder="Поиск по играм, категориям, объявлениям..." type="text">
+    </div>
+  </div>
 
-<!-- Icon Buttons -->
-
-<button class="relative text-brand-textMuted hover:text-white transition-colors p-2 rounded-full hover:bg-brand-input">
-<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
-<span class="absolute top-1.5 right-2 w-2 h-2 bg-brand-red rounded-full"></span>
-</button>
-<!-- Avatar -->
-<button class="ml-2">
-<img alt="User Avatar" class="w-10 h-10 rounded-full border border-brand-border" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7-v7oiUF9lM-D8FIKuEJ5GakwdW7_AeNpgsCJBkCGthJmj1jHV07aVYuz0kRRSFSJTfNmoh1YJlQ9in_XteU5JMYOkT59zAvgGTbUPNwjDdW2YSOCOh1B2kxWnuR1Tlrf0NlnQ-x0DveN3PMIuLhpbAJPM51H9f7w1HcySIP-Q78R6-j-LX4GV2XJWfZJpj72IHr-bXQMTOHbNU745wJRKaBRFjaHgkqyDVa0sEZUPweqoBDOYhdUwA">
-</button>
-</div>
-</header>
+  <!-- Actions (Grouped Right) -->
+  <div class="flex items-center space-x-4 flex-shrink-0">
+    <a class="text-brand-red relative flex items-center animate-pulse" title="Категории" href="gaming_marketplace_catalog.html">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+    </a>
+    <button class="text-brand-textMuted hover:text-white relative" title="Чаты">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+    </button>
+    <button class="text-brand-textMuted hover:text-white relative" title="Уведомления">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+      <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-brand-red ring-2 ring-brand-dark"></span>
+    </button>
+    <div class="h-8 w-8 rounded-full overflow-hidden border border-white/10 cursor-pointer" title="Профиль">
+      <img alt="User Avatar" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7-v7oiUF9lM-D8FIKuEJ5GakwdW7_AeNpgsCJBkCGthJmj1jHV07aVYuz0kRRSFSJTfNmoh1YJlQ9in_XteU5JMYOkT59zAvgGTbUPNwjDdW2YSOCOh1B2kxWnuR1Tlrf0NlnQ-x0DveN3PMIuLhpbAJPM51H9f7w1HcySIP-Q78R6-j-LX4GV2XJWfZJpj72IHr-bXQMTOHbNU745wJRKaBRFjaHgkqyDVa0sEZUPweqoBDOYhdUwA">
+    </div>
+  </div>
+</div></header>
 <!-- END: MainHeader -->
 <!-- BEGIN: MainContent -->
-<main class="flex-1 max-w-7xl mx-auto w-full px-6 py-8" data-purpose="main-content">
+<main class="flex-1 w-full max-w-screen-2xl mx-auto px-6 py-8 space-y-12" data-purpose="main-content">
 <!-- Page Header -->
 <div class="mb-10">
 <h1 class="text-3xl font-bold mb-2">Каталог категорий</h1>
