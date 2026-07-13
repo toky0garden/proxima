@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>GameTrader - Профиль продавца</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0A0A0A',
+              card: '#141414',
+              input: '#1A1A1A',
+              border: '#1F1F1F',
+              red: '#E53935',
+              redHover: '#FF4D49',
+              text: '#E0E0E0',
+              textMuted: '#888888',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          boxShadow: {
+            'glass': '0 4px 30px rgba(0, 0, 0, 0.5)',
+            'glass-inset': 'inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+            'glow-red': '0 0 15px rgba(229, 57, 53, 0.4)',
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-brand-dark text-brand-text min-h-screen pb-12 font-sans antialiased selection:bg-brand-red selection:text-white">
+  
+  <!-- BEGIN: Header -->
+  <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-md border-b border-white/5 py-4 px-6 flex items-center justify-between">
+    <div class="flex items-center space-x-8 w-full max-w-screen-2xl mx-auto">
+      <!-- Logo -->
+      <a class="flex items-center flex-shrink-0" href="gaming_marketplace.html">
+        <svg fill="none" height="46" viewBox="0 0 40 46" width="40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 0L39.0526 11V33L20 44L0.947441 33V11L20 0Z" stroke="#E53935" stroke-width="2"></path>
+          <path d="M28.5 22.5C28.5 24.9853 26.4853 27 24 27C21.5147 27 19.5 24.9853 19.5 22.5C19.5 20.0147 21.5147 18 24 18C26.4853 18 28.5 20.0147 28.5 22.5Z" fill="#E53935"></path>
+          <path d="M16 22.5C16 24.9853 13.9853 27 11.5 27C9.01472 27 7 24.9853 7 22.5C7 20.0147 9.01472 18 11.5 18C13.9853 18 16 20.0147 16 22.5Z" fill="#E53935"></path>
+          <rect fill="#0A0A0A" height="7" width="2" x="23" y="19"></rect>
+          <rect fill="#0A0A0A" height="2" width="7" x="20.5" y="21.5"></rect>
+          <circle cx="10" cy="22.5" fill="#0A0A0A" r="1.5"></circle>
+          <circle cx="13" cy="22.5" fill="#0A0A0A" r="1.5"></circle>
+          <path d="M12.5 13L16 16.5M27.5 13L24 16.5" stroke="#E53935" stroke-linecap="round" stroke-width="2"></path>
+        </svg>
+      </a>
+
+      <!-- Search (Expanded) -->
+      <div class="flex-1">
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="w-5 h-5 text-brand-textMuted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </div>
+          <input class="block w-full pl-10 pr-3 py-2.5 border border-transparent rounded-lg leading-5 bg-brand-input text-white placeholder-brand-textMuted focus:outline-none focus:bg-white/5 focus:border-white/10 sm:text-sm transition-colors" placeholder="Поиск по играм, категориям, объявлениям..." type="text">
+        </div>
+      </div>
+
+      <!-- Actions (Grouped Right) -->
+      <div class="flex items-center space-x-4 flex-shrink-0">
+        <a class="text-brand-textMuted hover:text-white relative flex items-center" title="Категории" href="gaming_marketplace_catalog.html">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+        </a>
+        <a class="text-brand-textMuted hover:text-white relative flex items-center" title="Чаты" href="gaming_marketplace_messages.html">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+        </a>
+        <button class="text-brand-textMuted hover:text-white relative" title="Уведомления">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+          <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-brand-red ring-2 ring-brand-dark"></span>
+        </button>
+        <a class="h-8 w-8 rounded-full overflow-hidden border border-brand-red shadow-glow-red flex-shrink-0 cursor-pointer block" title="Профиль" href="gaming_marketplace_profile.html">
+          <img alt="User Avatar" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6rNyIAO0jU1LCzPPyhfUEhR4qR25_Rv26DfS8QfmJKr8NChObO6N-2ITz5IGjxC6Ip4ZXzPYpKtjU-kBb80pB5Trg17Fl6U7SgpyRGnOWj04HjB6PDqvfQU2IrGC_u2inSUANOpFP4ZToSVZJV6CtY0ajPo78qKz_geJE7tr8ObP7g0oXzE8hFnMHzbVQ28_VOt7MC8atbuDKl9ApPXhxF9UiKaGPeo7SM2z2I-7OSqH12BsLC7WRAw">
+        </a>
+      </div>
+    </div>
+  </header>
+  <!-- END: Header -->
+
+  <!-- BEGIN: MainContent -->
+  <main class="w-full max-w-screen-2xl mx-auto px-6 py-8 space-y-10">
+    
+    <!-- Seller Card Info -->
+    <section class="bg-brand-card rounded-3xl border border-brand-border p-8 flex flex-col lg:flex-row justify-between items-start gap-8 relative overflow-hidden">
+      <!-- Left & Center Details -->
+      <div class="flex flex-col sm:flex-row items-center sm:items-start gap-8">
+        <!-- Avatar Column -->
+        <div class="relative flex-shrink-0">
+          <div class="w-32 h-32 rounded-full overflow-hidden border-2 border-white/10 relative">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJh5PSUgB2-1C70Vxf2jAfRI9028OIeOl4UHC-ZMzGOufbZBZf8N4EhQSmm_hWI5Uqf2gBd9Cm38Vhm-TbDI92qTHIRsDyxx5ALJYIKp8WM7l7Bof29xnU6-88L85MoQmVHBSpu8ilid53hwR5KDhz2ZeopsfeyzOnWmBZHF6hdHQnVDjVWpwIFW6-k2Hg-zoozIHYgL6nvxSYlB4i-MpZ0dH52Qnr4RczULy91lt81sk3lM8D-zU0DQ" alt="GameTrader Avatar">
+          </div>
+          <!-- Online status dot -->
+          <span class="absolute bottom-1.5 right-2 block h-5 w-5 rounded-full bg-green-500 ring-4 ring-brand-card"></span>
+        </div>
+
+        <!-- Info Column -->
+        <div class="flex flex-col gap-5 text-center sm:text-left">
+          <div>
+            <div class="flex items-center justify-center sm:justify-start gap-2">
+              <h1 class="text-2xl font-bold text-white tracking-wide">GameTrader</h1>
+              <!-- Verified Red Checkmark -->
+              <svg class="w-5 h-5 text-brand-red fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <div class="flex items-center justify-center sm:justify-start gap-2 text-xs text-brand-textMuted mt-1">
+              <span class="text-green-500 font-semibold">Онлайн</span>
+              <span>·</span>
+              <span>На сайте с мая 2023</span>
+            </div>
+          </div>
+
+          <!-- Badges -->
+          <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3">
+            <div class="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
+              <i class="fa-solid fa-star text-amber-500 text-sm"></i>
+              <span class="font-bold text-white text-sm">4.9</span>
+              <span class="text-xs text-brand-textMuted">(342 отзыва)</span>
+            </div>
+            <div class="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-full border border-white/5 text-xs text-brand-textMuted font-medium">
+              <i class="fa-solid fa-shield-halved text-brand-red"></i>
+              <span>Надежный продавец</span>
+            </div>
+          </div>
+
+          <!-- Stats Block -->
+          <div class="grid grid-cols-4 gap-6 pt-5 border-t border-brand-border mt-1">
+            <div>
+              <div class="text-xl font-bold text-white">156</div>
+              <div class="text-xs text-brand-textMuted mt-0.5">Продано</div>
+            </div>
+            <div>
+              <div class="text-xl font-bold text-white">342</div>
+              <div class="text-xs text-brand-textMuted mt-0.5">Отзыва</div>
+            </div>
+            <div>
+              <div class="text-xl font-bold text-white">98%</div>
+              <div class="text-xs text-brand-textMuted mt-0.5">Успешных сделок</div>
+            </div>
+            <div>
+              <div class="text-xl font-bold text-white">24/7</div>
+              <div class="text-xs text-brand-textMuted mt-0.5">Поддержка</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Description & Buttons -->
+      <div class="flex flex-col gap-6 w-full lg:w-96 flex-shrink-0 lg:border-l lg:border-brand-border lg:pl-8">
+        <p class="text-sm text-brand-textMuted leading-relaxed">
+          Опытный продавец игровых аккаунтов и ключей. Работаю честно и быстро. Гарантирую безопасность и лучшие цены на рынке.
+        </p>
+        <div class="flex flex-col gap-3">
+          <!-- Button Write Message -->
+          <a class="w-full py-3 bg-brand-red hover:bg-brand-redHover text-white text-sm font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-glow-red" href="gaming_marketplace_messages.html">
+            <i class="fa-regular fa-comment-dots text-lg"></i>
+            <span>Написать сообщение</span>
+          </a>
+          <!-- Button Subscribe -->
+          <button class="w-full py-3 bg-transparent hover:bg-white/5 border border-brand-border hover:border-brand-textMuted text-brand-text text-sm font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300">
+            <i class="fa-regular fa-user"></i>
+            <span>Подписаться</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lots Section -->
+    <section class="space-y-6">
+      <h2 class="text-xl font-bold text-white tracking-wide">Лоты по категориям</h2>
+      
+      <!-- Lots Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        
+        <!-- GTA V Column -->
+        <div class="bg-brand-card rounded-2xl border border-brand-border overflow-hidden flex flex-col h-full hover:border-brand-textMuted/30 transition-all duration-300">
+          <div class="h-28 w-full overflow-hidden relative">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPsMMGk1uUo_QAd9jw7_kidMZGP0G401e2YzWsllj98ffaKoNbeBneTZqb3hrEN0TbX2xfPXrjUFc3ofNSKao8zJIAq-lFI3tqWLt3SEGlz0ceQAnQtiiNcknqJebsGYAp9izrMJgS-bhD-0uGUJIylIEqmAg2VPCDTddDu5iFmSABpoDR6bLCjkqHC9CakDW10MFxxxLQVd8u4Y6Do32kMKa4QTZJL6YedunQhhw2zcB_lwftzjS-2g" alt="GTA V">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-card/90 to-transparent"></div>
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <div class="mb-4">
+              <h3 class="font-bold text-base text-white">GTA V</h3>
+              <span class="text-xs text-brand-textMuted">1245 лотов</span>
+            </div>
+            
+            <!-- Lots List -->
+            <div class="space-y-3.5 mb-5">
+              <div class="flex flex-col gap-0.5">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-xs text-brand-text hover:text-white transition-colors cursor-pointer truncate">GTA V Premium Account</span>
+                  <span class="text-xs font-bold text-brand-red shrink-0">799 ₽</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-[10px] text-brand-textMuted">Онлайн</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-xs text-brand-text hover:text-white transition-colors cursor-pointer truncate">GTA Online аккаунт</span>
+                  <span class="text-xs font-bold text-brand-red shrink-0">499 ₽</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-[10px] text-brand-textMuted">Онлайн</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-xs text-brand-text hover:text-white transition-colors cursor-pointer truncate">GTA V (ПК) аккаунт</span>
+                  <span class="text-xs font-bold text-brand-red shrink-0">299 ₽</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-[10px] text-brand-textMuted">Онлайн</span>
+                </div>
+              </div>
+            </div>
+            
+            <button class="w-full py-2 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/10 text-xs font-medium text-brand-text rounded-lg transition-all duration-300">
+              Все лоты (1245)
+            </button>
+          </div>
+        </div>
+
+        <!-- CS 2 Column -->
+        <div class="bg-brand-card rounded-2xl border border-brand-border overflow-hidden flex flex-col h-full hover:border-brand-textMuted/30 transition-all duration-300">
+          <div class="h-28 w-full overflow-hidden relative">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABX4iLh8WGZ9_C-8O7hc5SeroowtzA5RiteLcGRpduf4qSySxUJ2jsx24xytlBpYQyZ8wr3EEJbf7wUbT3ONqUZqmlwTbMhxaK-yMudmqPbEE28lg49xLW2xQNxSVpcmGU4zbKj9apGnsG-wY2ubBmMpa20ssGjKhkTu_kzwxu1aJ8FC0G0VuIhNFsaEQJDRlcbmu1p8vPeE_rb_gUT4nimNRB50GEqlL2cn5ROcdhUcoD_2EEvXreUw" alt="CS 2">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-card/90 to-transparent"></div>
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <div class="mb-4">
+              <h3 class="font-bold text-base text-white">CS 2</h3>
+              <span class="text-xs text-brand-textMuted">876 лотов</span>
+            </div>
+            
+            <!-- Lots List -->
+            <div class="space-y-3.5 mb-5">
+              <div class="flex flex-col gap-0.5">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-xs text-brand-text hover:text-white transition-colors cursor-pointer truncate">CS 2 Prime Account</span>
+                  <span class="text-xs font-bold text-brand-red shrink-0">899 ₽</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-[10px] text-brand-textMuted">Онлайн</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-xs text-brand-text hover:text-white transition-colors cursor-pointer truncate">CS 2 Аккаунт</span>
+                  <span class="text-xs font-bold text-brand-red shrink-0">499 ₽</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-[10px] text-brand-textMuted">Онлайн</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-xs text-brand-text hover:text-white transition-colors cursor-pointer truncate">CS 2 Инвентарь</span>
+                  <span class="text-xs font-bold text-brand-red shrink-0">1 299 ₽</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-[10px] text-brand-textMuted">Онлайн</span>
+                </div>
+              </div>
+            </div>
+            
+            <button class="w-full py-2 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/10 text-xs font-medium text-brand-text rounded-lg transition-all duration-300">
+              Все лоты (876)
+            </button>
+          </div>
+        </div>
+
+        <!-- Steam Column -->
+        <div class="bg-brand-card rounded-2xl border border-brand-border overflow-hidden flex flex-col h-full hover:border-brand-textMuted/30 transition-all duration-300">
+          <div class="h-28 w-full overflow-hidden relative">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWNcZrNp_0IPI89qObaubHetiKhAg_uj3zHuSzju0-1cd_0pPXxO061d55XsNk8Z7TaEUOffO2nUREXrwHvn99BtQvsxFivYWP4R_9S18vSJF5M25dDD9gMnvId9pKlDnel8fyMZ5MR4uv7r38sFh9aAt6oX8SIOxLfFzvs7SiLnE5PfKHvEuKEqhHUNKY8rBLY2BKwSah4LAQo2nI3Cemwml_km79gfd98rN6Oqb39Hu108dqqNWYbQ" alt="Steam">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-card/90 to-transparent"></div>
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <div class="mb-4">
+              <h3 class="font-bold text-base text-white">Steam</h3>
+              <span class="text-xs text-brand-textMuted">342 лота</span>
+            </div>
+            
+            <!-- Lots List -->
+            <div class="space-y-3.5 mb-5">
+              <div class="flex flex-col gap-0.5">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-xs text-brand-text hover:text-white transition-colors cursor-pointer truncate">Steam Аккаунт</span>
+                  <span class="text-xs font-bold text-brand-red shrink-0">299 ₽</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-[10px] text-brand-textMuted">Онлайн</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-xs text-brand-text hover:text-white transition-colors cursor-pointer truncate">Steam (CS2 + другие)</span>
+                  <span class="text-xs font-bold text-brand-red shrink-0">499 ₽</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-[10px] text-brand-textMuted">Онлайн</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-xs text-brand-text hover:text-white transition-colors cursor-pointer truncate">Steam Инвентарь</span>
+                  <span class="text-xs font-bold text-brand-red shrink-0">399 ₽</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-[10px] text-brand-textMuted">Онлайн</span>
+                </div>
+              </div>
+            </div>
+            
+            <button class="w-full py-2 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/10 text-xs font-medium text-brand-text rounded-lg transition-all duration-300">
+              Все лоты (342)
+            </button>
+          </div>
+        </div>
+
+        <!-- Valorant Column -->
+        <div class="bg-brand-card rounded-2xl border border-brand-border overflow-hidden flex flex-col h-full hover:border-brand-textMuted/30 transition-all duration-300">
+          <div class="h-28 w-full overflow-hidden relative">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkjihwSLJqBjv1XO9emV8pWzcpE3RDlz0h49Qe173Wr-peiMX8acHRyjD9YFc5GKk46GfLKnHr4q8Ld02qG9bF7jagCKxxY3O70F3mHKHq-RkqHXWxvro8ZZGh1oNQIL3AWO5HhjdctHgCiKBkbDfw5hWu0N3fukAhUQ386ULZ_hU5SkZMmZ2UFubdlVIrMrpfyyYQtpvsPpd2OLnCFLvBLVtpqbgMskHWB2iMJDZ6-zjfX-_8hPfy7w" alt="Valorant">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-card/90 to-transparent"></div>
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <div class="mb-4">
+              <h3 class="font-bold text-base text-white">Valorant</h3>
+              <span class="text-xs text-brand-textMuted">654 лота</span>
+            </div>
+            
+            <!-- Lots List -->
+            <div class="space-y-3.5 mb-5">
+              <div class="flex flex-col gap-0.5">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-xs text-brand-text hover:text-white transition-colors cursor-pointer truncate">Valorant Аккаунт</span>
+                  <span class="text-xs font-bold text-brand-red shrink-0">1 299 ₽</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-[10px] text-brand-textMuted">Онлайн</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-xs text-brand-text hover:text-white transition-colors cursor-pointer truncate">Valorant (Прайм)</span>
+                  <span class="text-xs font-bold text-brand-red shrink-0">799 ₽</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-[10px] text-brand-textMuted">Онлайн</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-xs text-brand-text hover:text-white transition-colors cursor-pointer truncate">Valorant Скины</span>
+                  <span class="text-xs font-bold text-brand-red shrink-0">899 ₽</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-[10px] text-brand-textMuted">Онлайн</span>
+                </div>
+              </div>
+            </div>
+            
+            <button class="w-full py-2 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/10 text-xs font-medium text-brand-text rounded-lg transition-all duration-300">
+              Все лоты (654)
+            </button>
+          </div>
+        </div>
+
+        <!-- Fortnite Column -->
+        <div class="bg-brand-card rounded-2xl border border-brand-border overflow-hidden flex flex-col h-full hover:border-brand-textMuted/30 transition-all duration-300">
+          <div class="h-28 w-full overflow-hidden relative">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIc8OBnSOW4p61G-llvPlpYoyIfirHbMH5tewwjDDktIwYu8otbk47ynr37lWH675BNKQQ5fc0mgFzFwlWQYh29qkXVHenN0mxcMSZfEvXPadIO1xwhaTFVjWV2enRQcHMcSPG6zsQGPWo4S12bdCuzj-SRXB902vpX4SWgZlUsrVPzxmEuEH45Stjwj2R1IEH7IpYiok_TL5Z6sdmcHWKB3IFDtdJaoL9qHmuifDOl0Cvj06tnAAAHA" alt="Fortnite">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-card/90 to-transparent"></div>
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <div class="mb-4">
+              <h3 class="font-bold text-base text-white">Fortnite</h3>
+              <span class="text-xs text-brand-textMuted">987 лотов</span>
+            </div>
+            
+            <!-- Lots List -->
+            <div class="space-y-3.5 mb-5">
+              <div class="flex flex-col gap-0.5">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-xs text-brand-text hover:text-white transition-colors cursor-pointer truncate">Fortnite Аккаунт</span>
+                  <span class="text-xs font-bold text-brand-red shrink-0">599 ₽</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-[10px] text-brand-textMuted">Онлайн</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-xs text-brand-text hover:text-white transition-colors cursor-pointer truncate">Fortnite Скины</span>
+                  <span class="text-xs font-bold text-brand-red shrink-0">899 ₽</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-[10px] text-brand-textMuted">Онлайн</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <div class="flex justify-between items-start gap-2">
+                  <span class="text-xs text-brand-text hover:text-white transition-colors cursor-pointer truncate">Fortnite (Полный доступ)</span>
+                  <span class="text-xs font-bold text-brand-red shrink-0">1 499 ₽</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                  <span class="text-[10px] text-brand-textMuted">Онлайн</span>
+                </div>
+              </div>
+            </div>
+            
+            <button class="w-full py-2 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/10 text-xs font-medium text-brand-text rounded-lg transition-all duration-300">
+              Все лоты (987)
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="space-y-6">
+      <div class="flex justify-between items-end">
+        <div class="flex items-center gap-3">
+          <h2 class="text-xl font-bold text-white tracking-wide">Отзывы о продавце</h2>
+          <div class="flex items-center gap-1">
+            <i class="fa-solid fa-star text-amber-500 text-sm"></i>
+            <span class="text-sm font-bold text-white">4.9</span>
+            <span class="text-xs text-brand-textMuted">(342 отзыва)</span>
+          </div>
+        </div>
+        <a class="text-brand-red text-sm font-semibold hover:underline" href="#">Все отзывы</a>
+      </div>
+      
+      <!-- Review Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        
+        <!-- Review 1 -->
+        <div class="bg-brand-card rounded-2xl border border-brand-border p-5 flex flex-col justify-between gap-4 hover:border-brand-textMuted/30 transition-all duration-300">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-gray-800 overflow-hidden flex-shrink-0">
+                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7-v7oiUF9lM-D8FIKuEJ5GakwdW7_AeNpgsCJBkCGthJmj1jHV07aVYuz0kRRSFSJTfNmoh1YJlQ9in_XteU5JMYOkT59zAvgGTbUPNwjDdW2YSOCOh1B2kxWnuR1Tlrf0NlnQ-x0DveN3PMIuLhpbAJPM51H9f7w1HcySIP-Q78R6-j-LX4GV2XJWfZJpj72IHr-bXQMTOHbNU745wJRKaBRFjaHgkqyDVa0sEZUPweqoBDOYhdUwA" alt="PlayerOne">
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-white">PlayerOne</h4>
+                <!-- 5 Stars -->
+                <div class="flex items-center gap-0.5 mt-0.5">
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-brand-textMuted leading-relaxed">
+              Отличный продавец! Аккаунт получил мгновенно, всё как в описании. Рекомендую!
+            </p>
+          </div>
+          <span class="text-[10px] text-brand-textMuted">Сегодня, 12:45</span>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="bg-brand-card rounded-2xl border border-brand-border p-5 flex flex-col justify-between gap-4 hover:border-brand-textMuted/30 transition-all duration-300">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-gray-800 overflow-hidden flex-shrink-0">
+                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7-v7oiUF9lM-D8FIKuEJ5GakwdW7_AeNpgsCJBkCGthJmj1jHV07aVYuz0kRRSFSJTfNmoh1YJlQ9in_XteU5JMYOkT59zAvgGTbUPNwjDdW2YSOCOh1B2kxWnuR1Tlrf0NlnQ-x0DveN3PMIuLhpbAJPM51H9f7w1HcySIP-Q78R6-j-LX4GV2XJWfZJpj72IHr-bXQMTOHbNU745wJRKaBRFjaHgkqyDVa0sEZUPweqoBDOYhdUwA" alt="NickPro">
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-white">NickPro</h4>
+                <!-- 5 Stars -->
+                <div class="flex items-center gap-0.5 mt-0.5">
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-brand-textMuted leading-relaxed">
+              Быстрая доставка, честный продавец. Покупаю не первый раз, всегда всё на высшем уровне.
+            </p>
+          </div>
+          <span class="text-[10px] text-brand-textMuted">Вчера, 18:30</span>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="bg-brand-card rounded-2xl border border-brand-border p-5 flex flex-col justify-between gap-4 hover:border-brand-textMuted/30 transition-all duration-300">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-gray-800 overflow-hidden flex-shrink-0">
+                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7-v7oiUF9lM-D8FIKuEJ5GakwdW7_AeNpgsCJBkCGthJmj1jHV07aVYuz0kRRSFSJTfNmoh1YJlQ9in_XteU5JMYOkT59zAvgGTbUPNwjDdW2YSOCOh1B2kxWnuR1Tlrf0NlnQ-x0DveN3PMIuLhpbAJPM51H9f7w1HcySIP-Q78R6-j-LX4GV2XJWfZJpj72IHr-bXQMTOHbNU745wJRKaBRFjaHgkqyDVa0sEZUPweqoBDOYhdUwA" alt="AlexGaming">
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-white">AlexGaming</h4>
+                <!-- 5 Stars -->
+                <div class="flex items-center gap-0.5 mt-0.5">
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-brand-textMuted leading-relaxed">
+              Отличные цены и поддержка 24/7. Помогли с выбором, остался доволен!
+            </p>
+          </div>
+          <span class="text-[10px] text-brand-textMuted">Вчера, 15:20</span>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="bg-brand-card rounded-2xl border border-brand-border p-5 flex flex-col justify-between gap-4 hover:border-brand-textMuted/30 transition-all duration-300">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-gray-800 overflow-hidden flex-shrink-0">
+                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7-v7oiUF9lM-D8FIKuEJ5GakwdW7_AeNpgsCJBkCGthJmj1jHV07aVYuz0kRRSFSJTfNmoh1YJlQ9in_XteU5JMYOkT59zAvgGTbUPNwjDdW2YSOCOh1B2kxWnuR1Tlrf0NlnQ-x0DveN3PMIuLhpbAJPM51H9f7w1HcySIP-Q78R6-j-LX4GV2XJWfZJpj72IHr-bXQMTOHbNU745wJRKaBRFjaHgkqyDVa0sEZUPweqoBDOYhdUwA" alt="GameMaster">
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-white">GameMaster</h4>
+                <!-- 5 Stars -->
+                <div class="flex items-center gap-0.5 mt-0.5">
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-brand-textMuted leading-relaxed">
+              Аккаунт полностью соответствует описанию. Безопасная сделка, рекомендую!
+            </p>
+          </div>
+          <span class="text-[10px] text-brand-textMuted">2 дня назад, 20:15</span>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+  <!-- END: MainContent -->
+
+</body>
+</html>
