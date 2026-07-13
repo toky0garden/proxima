@@ -980,12 +980,9 @@
                   <h3 class="font-bold text-base text-white">${cat}</h3>
                   <span class="text-xs text-brand-textMuted">${state.listings.filter(x => x.category === cat).length} лотов</span>
                 </div>
-                <div class="space-y-3.5 mb-5">
+                <div class="space-y-3.5">
                   ${lotsListHTML || '<p class="text-xs text-brand-textMuted">Нет лотов в категории</p>'}
                 </div>
-                <button onclick="navigateTo('all_lots')" class="w-full py-2 bg-white/5 hover:bg-white/10 border border-white/5 text-xs font-medium text-brand-text rounded-lg transition-all duration-300">
-                  Все лоты
-                </button>
               </div>
             </div>
           `;
