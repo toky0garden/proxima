@@ -203,16 +203,11 @@ export function AppProvider({ children }) {
         if (me) {
           setUser(me);
           setIsAuthenticated(true);
-          // Sync ONLY name from backend. Avatar is controlled by local profile (LS / preview / explicit save).
-          // If local profile.avatar is present (incl. explicitly ''), keep it — prevents pulling backend defaults/stubs on new or cleared accounts.
           setProfile(prev => {
-            const hasLocalAvatar = prev.avatar != null;
-            // Respect explicit local name/avatar (even empty string for "пустой аккаунт") to avoid pulling backend numeric ID/username or default avatar on reload
-            const localName = prev.name != null ? prev.name : (me.username || '');
             return {
               ...prev,
-              name: localName,
-              avatar: hasLocalAvatar ? prev.avatar : (me.avatar_url ? api.getFullUrl(me.avatar_url) : ''),
+              name: me.username || '',
+              avatar: me.avatar_url ? api.getFullUrl(me.avatar_url) : '',
             };
           });
 
@@ -406,12 +401,10 @@ export function AppProvider({ children }) {
     setUser(me);
     setIsAuthenticated(true);
     setProfile(prev => {
-      const hasLocalAvatar = prev.avatar != null;
-      const localName = prev.name != null ? prev.name : (me.username || '');
       return {
         ...prev,
-        name: localName,
-        avatar: hasLocalAvatar ? prev.avatar : (me.avatar_url ? api.getFullUrl(me.avatar_url) : ''),
+        name: me.username || '',
+        avatar: me.avatar_url ? api.getFullUrl(me.avatar_url) : '',
       };
     });
     addNotification(`Добро пожаловать, ${me.username}!`);
@@ -421,17 +414,7 @@ export function AppProvider({ children }) {
   const register = async (email, username, password) => {
     await api.register({ email, username, password });
     // Auto-login after register
-    const result = await login(email, password);
-    // For a brand new account, reset to completely empty (no name/avatar shown until user explicitly saves in edit).
-    // This ensures "пустой аккаунт" has zero stubs, no numeric ID, no icons.
-    setProfile({
-      ...DEFAULT_PROFILE,
-      // do not prefill name from register username — user sets desired nick via edit "Сохранить"
-    });
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('profile', JSON.stringify({ ...DEFAULT_PROFILE }));
-    }
-    return result;
+    return login(email, password);
   };
 
   const logout = async () => {
