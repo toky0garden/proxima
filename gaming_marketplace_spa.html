@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Gaming Marketplace - Premium Interactive App</title>
+  <title>Gaming Marketplace - Ultimate Interactive Web App</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script>
     tailwind.config = {
@@ -37,58 +37,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
   <style>
-    /* Smooth page animations */
+    /* Page animations */
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .animate-fadeInUp {
-      animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     
     @keyframes fadeOutDown {
-      from {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      to {
-        opacity: 0;
-        transform: translateY(12px);
-      }
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(10px); }
     }
     .animate-fadeOutDown {
-      animation: fadeOutDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: fadeOutDown 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #0A0A0A;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #1F1F1F;
-      border-radius: 3px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #888888/30;
-    }
-    
-    /* Active navigation indicator glow */
-    .active-nav-glow {
-      box-shadow: 0 0 12px rgba(229, 57, 53, 0.3);
-    }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #0A0A0A; }
+    ::-webkit-scrollbar-thumb { background: #1F1F1F; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #888888/30; }
+
+    /* Indicator Glow */
+    .active-nav-glow { box-shadow: 0 0 12px rgba(229, 57, 53, 0.25); }
   </style>
 </head>
-<body class="bg-brand-dark text-brand-text min-h-screen font-sans antialiased overflow-x-hidden selection:bg-brand-red selection:text-white flex flex-col">
+<body class="bg-brand-dark text-brand-text min-h-screen font-sans antialiased overflow-x-hidden selection:bg-brand-red selection:text-white flex flex-col relative">
 
   <!-- Shared Header -->
   <header class="sticky top-0 z-50 bg-brand-dark/95 backdrop-blur-md border-b border-white/5 py-4 px-6">
@@ -108,12 +84,12 @@
         </svg>
       </a>
 
-      <!-- Navigation (Text Links) -->
+      <!-- Navigation Links -->
       <nav class="hidden md:flex items-center gap-6 text-sm font-semibold">
-        <button id="nav-btn-home" onclick="navigateTo('home')" class="text-brand-text hover:text-white transition-colors py-1.5 px-3 rounded-lg">Главная</button>
-        <button id="nav-btn-catalog" onclick="navigateTo('catalog')" class="text-brand-textMuted hover:text-white transition-colors py-1.5 px-3 rounded-lg">Категории</button>
-        <button id="nav-btn-messages" onclick="navigateTo('messages')" class="text-brand-textMuted hover:text-white transition-colors py-1.5 px-3 rounded-lg flex items-center gap-1.5">Чаты <span class="h-2 w-2 rounded-full bg-brand-red"></span></button>
-        <button id="nav-btn-profile" onclick="navigateTo('profile')" class="text-brand-textMuted hover:text-white transition-colors py-1.5 px-3 rounded-lg">Профиль</button>
+        <button id="nav-btn-home" onclick="navigateTo('home')" class="text-brand-text hover:text-white transition-all py-1.5 px-3 rounded-lg">Главная</button>
+        <button id="nav-btn-catalog" onclick="navigateTo('catalog')" class="text-brand-textMuted hover:text-white transition-all py-1.5 px-3 rounded-lg">Категории</button>
+        <button id="nav-btn-messages" onclick="navigateTo('messages')" class="text-brand-textMuted hover:text-white transition-all py-1.5 px-3 rounded-lg flex items-center gap-1.5">Чаты <span class="h-1.5 w-1.5 rounded-full bg-brand-red animate-ping"></span></button>
+        <button id="nav-btn-profile" onclick="navigateTo('profile')" class="text-brand-textMuted hover:text-white transition-all py-1.5 px-3 rounded-lg">Профиль</button>
       </nav>
 
       <!-- Search Bar -->
@@ -124,46 +100,78 @@
               <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
             </svg>
           </div>
-          <input id="header-search-input" oninput="handleSearch(this.value)" class="block w-full pl-9 pr-3 py-2 border border-transparent rounded-lg leading-5 bg-brand-input text-white placeholder-brand-textMuted focus:outline-none focus:bg-white/5 focus:border-brand-red/50 sm:text-xs transition-colors" placeholder="Поиск по играм, категориям, объявлениям..." type="text">
+          <input id="header-search-input" oninput="handleSearch(this.value)" class="block w-full pl-9 pr-3 py-2 border border-transparent rounded-lg bg-brand-input text-white placeholder-brand-textMuted focus:outline-none focus:bg-white/5 focus:border-brand-red/50 sm:text-xs transition-colors" placeholder="Поиск по играм, категориям, объявлениям..." type="text">
         </div>
       </div>
 
-      <!-- Actions (Icons Right) -->
-      <div class="flex items-center space-x-3.5 flex-shrink-0">
-        <!-- Categories Icon Link -->
-        <a class="text-brand-textMuted hover:text-white transition-colors cursor-pointer" onclick="navigateTo('catalog')" title="Категории">
+      <!-- Actions -->
+      <div class="flex items-center space-x-3 flex-shrink-0 relative">
+        <!-- Categories Icon -->
+        <a class="text-brand-textMuted hover:text-white transition-colors cursor-pointer p-1.5 rounded-lg hover:bg-white/5" onclick="navigateTo('catalog')" title="Категории">
           <svg class="w-5.5 h-5.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
           </svg>
         </a>
-        <!-- Chats Icon Link -->
-        <a class="text-brand-textMuted hover:text-white transition-colors relative cursor-pointer" onclick="navigateTo('messages')" title="Чаты">
+        <!-- Chats Icon -->
+        <a class="text-brand-textMuted hover:text-white transition-colors relative cursor-pointer p-1.5 rounded-lg hover:bg-white/5" onclick="navigateTo('messages')" title="Чаты">
           <svg class="w-5.5 h-5.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
           </svg>
-          <span class="absolute -top-1 -right-1 block h-2 w-2 rounded-full bg-brand-red"></span>
+          <span class="absolute top-1 right-1 block h-1.5 w-1.5 rounded-full bg-brand-red"></span>
         </a>
         <!-- Notifications button -->
-        <button class="text-brand-textMuted hover:text-white transition-colors relative" title="Уведомления" onclick="alert('Новых уведомлений нет')">
+        <button class="text-brand-textMuted hover:text-white transition-colors relative p-1.5 rounded-lg hover:bg-white/5" title="Уведомления" onclick="toggleNotifications()">
           <svg class="w-5.5 h-5.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
           </svg>
-          <span class="absolute -top-1 -right-1 block h-2 w-2 rounded-full bg-brand-red"></span>
+          <span id="notif-badge" class="absolute top-1 right-1 block h-1.5 w-1.5 rounded-full bg-brand-red"></span>
         </button>
         <!-- Profile Avatar link -->
-        <a id="header-profile-avatar" class="h-8 w-8 rounded-full overflow-hidden border border-white/10 hover:border-brand-red flex-shrink-0 cursor-pointer block transition-colors" title="Профиль" onclick="navigateTo('profile')">
+        <a id="header-profile-avatar" class="h-8 w-8 rounded-full overflow-hidden border border-white/10 hover:border-brand-red flex-shrink-0 cursor-pointer block transition-all" title="Профиль" onclick="navigateTo('profile')">
           <img alt="User Avatar" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6rNyIAO0jU1LCzPPyhfUEhR4qR25_Rv26DfS8QfmJKr8NChObO6N-2ITz5IGjxC6Ip4ZXzPYpKtjU-kBb80pB5Trg17Fl6U7SgpyRGnOWj04HjB6PDqvfQU2IrGC_u2inSUANOpFP4ZToSVZJV6CtY0ajPo78qKz_geJE7tr8ObP7g0oXzE8hFnMHzbVQ28_VOt7MC8atbuDKl9ApPXhxF9UiKaGPeo7SM2z2I-7OSqH12BsLC7WRAw">
         </a>
+
+        <!-- Notifications Dropdown Box -->
+        <div id="notifications-dropdown" class="hidden absolute right-0 top-12 bg-brand-card border border-brand-border w-80 rounded-2xl p-4 shadow-glass z-50 space-y-3">
+          <div class="flex justify-between items-center border-b border-brand-border pb-2">
+            <h4 class="text-xs font-bold text-white">Уведомления</h4>
+            <button onclick="clearNotifications()" class="text-[10px] text-brand-red hover:underline font-semibold">Очистить все</button>
+          </div>
+          <div id="notifications-list" class="space-y-2.5 max-h-60 overflow-y-auto">
+            <!-- Injected dynamically -->
+          </div>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- Page Content Target -->
+  <!-- Page Content -->
   <div id="page-content" class="flex-1 flex flex-col">
-    <!-- Component injected here dynamically by navigation router -->
+    <!-- Injected dynamically -->
   </div>
 
-  <!-- JS State Management, Routing, Component Templates and Animations -->
+  <!-- Global Modal overlays -->
+  <div id="review-submission-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-brand-card border border-brand-border rounded-3xl p-6 w-full max-w-md space-y-4">
+      <h3 class="font-bold text-white text-lg">Оцените продавца</h3>
+      <p class="text-xs text-brand-textMuted leading-relaxed">Спасибо за покупку! Оцените работу продавца GameTrader по шкале от 1 до 5 звезд.</p>
+      
+      <div class="flex justify-center gap-2.5 py-2">
+        <button onclick="setReviewStars(1)" class="star-btn text-2xl text-brand-textMuted hover:text-amber-500 transition-colors"><i class="fa-solid fa-star"></i></button>
+        <button onclick="setReviewStars(2)" class="star-btn text-2xl text-brand-textMuted hover:text-amber-500 transition-colors"><i class="fa-solid fa-star"></i></button>
+        <button onclick="setReviewStars(3)" class="star-btn text-2xl text-brand-textMuted hover:text-amber-500 transition-colors"><i class="fa-solid fa-star"></i></button>
+        <button onclick="setReviewStars(4)" class="star-btn text-2xl text-brand-textMuted hover:text-amber-500 transition-colors"><i class="fa-solid fa-star"></i></button>
+        <button onclick="setReviewStars(5)" class="star-btn text-2xl text-brand-textMuted hover:text-amber-500 transition-colors"><i class="fa-solid fa-star"></i></button>
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-semibold text-brand-textMuted">Ваш отзыв</label>
+        <textarea id="review-comment-box" rows="3" placeholder="Быстрая сделка, спасибо..." class="w-full bg-brand-input border border-brand-border focus:border-brand-red focus:ring-0 rounded-xl py-2 px-3 text-xs text-white leading-relaxed"></textarea>
+      </div>
+      <button onclick="submitReview()" class="w-full py-3 bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold rounded-xl shadow-glow-red transition-all duration-300">Отправить отзыв</button>
+    </div>
+  </div>
+
   <script>
     // --- STATE MANAGEMENT ---
     const DEFAULT_PROFILE = {
@@ -199,6 +207,13 @@
       { id: 15, category: 'Fortnite', title: 'Fortnite (Полный доступ)', description: 'Родная почта с чеками, 50 скинов', price: 1499, status: 'В наличии', tag: '', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAIc8OBnSOW4p61G-llvPlpYoyIfirHbMH5tewwjDDktIwYu8otbk47ynr37lWH675BNKQQ5fc0mgFzFwlWQYh29qkXVHenN0mxcMSZfEvXPadIO1xwhaTFVjWV2enRQcHMcSPG6zsQGPWo4S12bdCuzj-SRXB902vpX4SWgZlUsrVPzxmEuEH45Stjwj2R1IEH7IpYiok_TL5Z6sdmcHWKB3IFDtdJaoL9qHmuifDOl0Cvj06tnAAAHA' }
     ];
 
+    const DEFAULT_REVIEWS = [
+      { id: 1, user: 'PlayerOne', stars: 5, text: 'Отличный продавец! Аккаунт получил мгновенно, всё как в описании. Рекомендую!', date: 'Сегодня, 12:45' },
+      { id: 2, user: 'NickPro', stars: 5, text: 'Быстрая доставка, честный продавец. Покупаю не первый раз, всегда всё на высшем уровне.', date: 'Вчера, 18:30' },
+      { id: 3, user: 'AlexGaming', stars: 5, text: 'Отличные цены и поддержка 24/7. Помогли с выбором, остался доволен!', date: 'Вчера, 15:20' },
+      { id: 4, user: 'GameMaster', stars: 5, text: 'Аккаунт полностью соответствует описанию. Безопасная сделка, рекомендую!', date: '2 дня назад, 20:15' }
+    ];
+
     const DEFAULT_CHATS = [
       {
         id: 1,
@@ -222,30 +237,46 @@
       }
     ];
 
+    const DEFAULT_NOTIFICATIONS = [
+      { id: 1, text: 'Ваша сделка по GTA V подтверждена сервисом.', date: '5 мин. назад', read: false },
+      { id: 2, text: 'GameMaster оставил новый отзыв о вас.', date: '2 ч. назад', read: false }
+    ];
+
     const state = {
       currentView: 'home',
       profile: JSON.parse(localStorage.getItem('profile')) || DEFAULT_PROFILE,
       listings: JSON.parse(localStorage.getItem('listings')) || DEFAULT_LISTINGS,
       chats: JSON.parse(localStorage.getItem('chats')) || DEFAULT_CHATS,
+      reviews: JSON.parse(localStorage.getItem('reviews')) || DEFAULT_REVIEWS,
+      notifications: JSON.parse(localStorage.getItem('notifications')) || DEFAULT_NOTIFICATIONS,
+      favorites: JSON.parse(localStorage.getItem('favorites')) || [],
+      purchasedLots: JSON.parse(localStorage.getItem('purchasedLots')) || [],
       activeChatId: 1,
       selectedItem: null,
       searchQuery: '',
       catalogFilter: 'all',
-      profileTab: 'lots', // lots, reviews, about
-      isEditing: false
+      profileTab: 'lots', // lots, reviews, about, purchases
+      selectedStars: 5,
+      tempPurchasedItem: null
     };
 
     function saveState() {
       localStorage.setItem('profile', JSON.stringify(state.profile));
       localStorage.setItem('listings', JSON.stringify(state.listings));
       localStorage.setItem('chats', JSON.stringify(state.chats));
+      localStorage.setItem('reviews', JSON.stringify(state.reviews));
+      localStorage.setItem('notifications', JSON.stringify(state.notifications));
+      localStorage.setItem('favorites', JSON.stringify(state.favorites));
+      localStorage.setItem('purchasedLots', JSON.stringify(state.purchasedLots));
     }
 
     // --- NAVIGATION ROUTER ---
     function navigateTo(view, params = {}) {
       const pageWrapper = document.getElementById('page-content');
       
-      // Animate out
+      // Close open widgets
+      document.getElementById('notifications-dropdown').classList.add('hidden');
+      
       pageWrapper.classList.remove('animate-fadeInUp');
       pageWrapper.classList.add('animate-fadeOutDown');
 
@@ -255,16 +286,13 @@
           state.selectedItem = state.listings.find(x => x.id === params.itemId);
         }
         
-        // Render content
         renderView();
-
-        // Update nav active states
         updateNavHighlight();
 
-        // Animate in
         pageWrapper.classList.remove('animate-fadeOutDown');
         pageWrapper.classList.add('animate-fadeInUp');
-      }, 200);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 150);
     }
 
     function updateNavHighlight() {
@@ -282,25 +310,27 @@
         }
       });
 
-      // Header profile avatar border active
+      // Notification badge counter
+      const unreadCount = state.notifications.filter(x => !x.read).length;
+      const badge = document.getElementById('notif-badge');
+      if (badge) {
+        if (unreadCount > 0) badge.classList.remove('hidden');
+        else badge.classList.add('hidden');
+      }
+
+      // Header profile avatar border
       const avatarBtn = document.getElementById('header-profile-avatar');
       if (avatarBtn) {
-        if (state.currentView === 'profile') {
-          avatarBtn.classList.add('border-brand-red', 'shadow-glow-red');
-        } else {
-          avatarBtn.classList.remove('border-brand-red', 'shadow-glow-red');
-        }
+        if (state.currentView === 'profile') avatarBtn.classList.add('border-brand-red', 'shadow-glow-red');
+        else avatarBtn.classList.remove('border-brand-red', 'shadow-glow-red');
       }
     }
 
-    // --- SEARCH HANDLE ---
+    // --- SEARCH ---
     function handleSearch(q) {
       state.searchQuery = q.trim().toLowerCase();
-      if (state.currentView !== 'catalog') {
-        navigateTo('catalog');
-      } else {
-        renderCatalogContent();
-      }
+      if (state.currentView !== 'catalog') navigateTo('catalog');
+      else renderCatalogContent();
     }
 
     // --- VIEW RENDERER ---
@@ -331,10 +361,74 @@
       }
     }
 
-    // --- MOCK LOGIC ---
-    function handleAddListing(e) {
-      e.preventDefault();
-      const form = e.target;
+    // --- INTERACTIVE ACTIONS ---
+    function toggleFavorite(itemId, e) {
+      if (e) e.stopPropagation();
+      const index = state.favorites.indexOf(itemId);
+      if (index === -1) {
+        state.favorites.push(itemId);
+        // Add to notifications
+        const item = state.listings.find(x => x.id === itemId);
+        addNotification(`Лот "${item.title}" добавлен в избранное.`);
+      } else {
+        state.favorites.splice(index, 1);
+      }
+      saveState();
+      renderView();
+    }
+
+    function deleteListing(itemId, e) {
+      if (e) e.stopPropagation();
+      if (!confirm('Вы действительно хотите удалить этот лот?')) return;
+      state.listings = state.listings.filter(x => x.id !== itemId);
+      saveState();
+      renderView();
+      alert('Лот успешно удален.');
+    }
+
+    function toggleNotifications() {
+      const dropdown = document.getElementById('notifications-dropdown');
+      const isHidden = dropdown.classList.contains('hidden');
+      if (isHidden) {
+        // Mark all as read
+        state.notifications.forEach(n => n.read = true);
+        saveState();
+        updateNavHighlight();
+        
+        // Render
+        const list = document.getElementById('notifications-list');
+        if (state.notifications.length === 0) {
+          list.innerHTML = `<p class="text-center text-[10px] text-brand-textMuted py-4">Нет новых уведомлений</p>`;
+        } else {
+          list.innerHTML = state.notifications.map(n => `
+            <div class="bg-white/5 border border-white/5 rounded-xl p-3 text-xs leading-relaxed space-y-1">
+              <p class="text-white">${n.text}</p>
+              <span class="text-[9px] text-brand-textMuted block">${n.date}</span>
+            </div>
+          `).join('');
+        }
+        dropdown.classList.remove('hidden');
+      } else {
+        dropdown.classList.add('hidden');
+      }
+    }
+
+    function clearNotifications() {
+      state.notifications = [];
+      saveState();
+      toggleNotifications(); // close and refresh
+    }
+
+    function addNotification(text) {
+      state.notifications.unshift({ id: Date.now(), text, date: 'Только что', read: false });
+      saveState();
+      updateNavHighlight();
+    }
+
+    // --- FORM HANDLERS ---
+    function handleAddListing(event) {
+      event.preventDefault();
+      const form = event.target;
       const newListing = {
         id: Date.now(),
         category: form.category.value,
@@ -348,27 +442,30 @@
 
       state.listings.unshift(newListing);
       saveState();
+      document.getElementById('add-listing-modal').classList.add('hidden');
+      addNotification(`Вы выставили на продажу новый лот: "${newListing.title}"`);
       navigateTo('profile');
-      alert('Объявление успешно добавлено!');
+      alert('Объявление успешно опубликовано!');
     }
 
-    function handleEditProfile(e) {
-      e.preventDefault();
-      const form = e.target;
+    function handleEditProfile(event) {
+      event.preventDefault();
+      const form = event.target;
       state.profile.name = form.name.value;
       state.profile.description = form.description.value;
       saveState();
       
-      // Update header avatar too
       const headerAvatar = document.querySelector('#header-profile-avatar img');
       if (headerAvatar) headerAvatar.src = state.profile.avatar;
 
+      document.getElementById('edit-profile-modal').classList.add('hidden');
+      addNotification('Данные вашего профиля обновлены.');
       navigateTo('profile');
       alert('Профиль успешно обновлен!');
     }
 
-    function handleSendMessage(e) {
-      e.preventDefault();
+    function handleSendMessage(event) {
+      event.preventDefault();
       const input = document.getElementById('message-input-box');
       const text = input.value.trim();
       if (!text) return;
@@ -381,7 +478,6 @@
         saveState();
         renderView();
         
-        // Mock seller auto-response
         setTimeout(() => {
           chat.messages.push({
             sender: 'receiver',
@@ -389,11 +485,134 @@
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
           });
           saveState();
-          if (state.currentView === 'messages') {
-            renderView();
-          }
-        }, 1500);
+          if (state.currentView === 'messages') renderView();
+        }, 1200);
       }
+    }
+
+    // --- PURCHASE & REVIEW MOCK ENGINE ---
+    function handlePurchase() {
+      const container = document.getElementById('purchase-modal-content');
+      container.innerHTML = `
+        <div class="flex flex-col items-center justify-center p-8 gap-4 text-center">
+          <div class="w-12 h-12 border-4 border-brand-red border-t-transparent rounded-full animate-spin"></div>
+          <h3 class="font-bold text-white text-base mt-2">Обработка транзакции...</h3>
+          <p class="text-[10px] text-brand-textMuted">Пожалуйста, подождите.</p>
+        </div>
+      `;
+
+      setTimeout(() => {
+        state.purchasedLots.unshift(state.selectedItem);
+        state.profile.soldCount = parseFloat(state.profile.soldCount) + 1;
+        state.tempPurchasedItem = state.selectedItem;
+        saveState();
+
+        container.innerHTML = `
+          <div class="flex flex-col items-center justify-center p-8 gap-4 text-center">
+            <div class="w-14 h-14 bg-green-500/10 border border-green-500/30 text-green-500 rounded-full flex items-center justify-center shadow-glow-green animate-bounce">
+              <i class="fa-solid fa-check text-2xl"></i>
+            </div>
+            <h3 class="font-bold text-white text-base mt-2">Оплата прошла успешно!</h3>
+            <p class="text-[11px] text-brand-textMuted max-w-xs">Безопасная сделка оформлена. Получите данные в чате.</p>
+            <div class="flex gap-3 mt-4 w-full">
+              <button onclick="closePurchaseModal(); showReviewModal();" class="flex-1 px-4 py-2.5 bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold rounded-lg shadow-glow-red transition-all">
+                Оценить продавца
+              </button>
+              <button onclick="navigateTo('messages'); closePurchaseModal();" class="flex-1 px-4 py-2.5 bg-brand-input hover:bg-white/5 border border-brand-border text-white text-xs font-bold rounded-lg transition-all">
+                В чат
+              </button>
+            </div>
+          </div>
+        `;
+        addNotification(`Вы успешно приобрели лот: "${state.selectedItem.title}"`);
+      }, 1500);
+    }
+
+    function showReviewModal() {
+      setReviewStars(5);
+      document.getElementById('review-comment-box').value = '';
+      document.getElementById('review-submission-modal').classList.remove('hidden');
+    }
+
+    function setReviewStars(stars) {
+      state.selectedStars = stars;
+      const btns = document.querySelectorAll('.star-btn');
+      btns.forEach((btn, idx) => {
+        if (idx < stars) {
+          btn.className = 'star-btn text-2xl text-amber-500 transition-colors';
+        } else {
+          btn.className = 'star-btn text-2xl text-brand-textMuted transition-colors';
+        }
+      });
+    }
+
+    function submitReview() {
+      const comment = document.getElementById('review-comment-box').value.trim() || 'Отличный товар, всё быстро выдано!';
+      const newReview = {
+        id: Date.now(),
+        user: 'Ваш Профиль',
+        stars: state.selectedStars,
+        text: comment,
+        date: 'Только что'
+      };
+      
+      state.reviews.unshift(newReview);
+      state.profile.reviewsCount += 1;
+      
+      // Calculate rating average
+      const totalStars = state.reviews.reduce((acc, r) => acc + r.stars, 0);
+      state.profile.rating = (totalStars / state.reviews.length).toFixed(1);
+      
+      saveState();
+      document.getElementById('review-submission-modal').classList.add('hidden');
+      alert('Отзыв отправлен! Рейтинг продавца обновлен.');
+      navigateTo('profile');
+    }
+
+    function showPurchaseModal() {
+      document.getElementById('purchase-modal').classList.remove('hidden');
+    }
+
+    function closePurchaseModal() {
+      document.getElementById('purchase-modal').classList.add('hidden');
+    }
+
+    // --- OTHER INTERACTIVE ACTIONS ---
+    function clearChatHistory(chatId) {
+      if (!confirm('Вы действительно хотите удалить всю историю сообщений в этом чате?')) return;
+      const chat = state.chats.find(x => x.id === chatId);
+      if (chat) {
+        chat.messages = [];
+        saveState();
+        renderView();
+      }
+    }
+
+    function insertEmoji(emoji) {
+      const input = document.getElementById('message-input-box');
+      if (input) {
+        input.value += emoji;
+        input.focus();
+      }
+    }
+
+    function handleFileAttach() {
+      const fileTypes = ['.png', '.jpg', '.txt', '.pdf'];
+      const randomType = fileTypes[Math.floor(Math.random() * fileTypes.length)];
+      const input = document.getElementById('message-input-box');
+      if (input) {
+        input.value += ` [Вложение: screenshot_evidence${randomType}] `;
+        input.focus();
+      }
+    }
+
+    function blockChatUser(chatId) {
+      alert('Пользователь временно заблокирован.');
+    }
+
+    function toggleChatMenu() {
+      const menu = document.getElementById('chat-actions-menu');
+      if (menu) menu.classList.toggle('hidden');
     }
 
     function selectChat(chatId) {
@@ -401,74 +620,22 @@
       renderView();
     }
 
-    function handlePurchase() {
-      // Show payment loading animation
-      const modal = document.getElementById('purchase-modal');
-      const container = document.getElementById('purchase-modal-content');
-      
-      container.innerHTML = `
-        <div class="flex flex-col items-center justify-center p-8 gap-4 text-center">
-          <div class="w-12 h-12 border-4 border-brand-red border-t-transparent rounded-full animate-spin"></div>
-          <h3 class="font-bold text-white text-lg mt-2">Обработка платежа...</h3>
-          <p class="text-xs text-brand-textMuted">Пожалуйста, не закрывайте вкладку.</p>
-        </div>
-      `;
-
-      setTimeout(() => {
-        container.innerHTML = `
-          <div class="flex flex-col items-center justify-center p-8 gap-4 text-center">
-            <div class="w-14 h-14 bg-green-500/10 border border-green-500/30 text-green-500 rounded-full flex items-center justify-center shadow-glow-green animate-bounce">
-              <i class="fa-solid fa-check text-2xl"></i>
-            </div>
-            <h3 class="font-bold text-white text-lg mt-2">Оплата прошла успешно!</h3>
-            <p class="text-xs text-brand-textMuted max-w-xs">Безопасная сделка оформлена. Чат с продавцом открыт для получения данных.</p>
-            <button onclick="navigateTo('messages'); closePurchaseModal();" class="mt-4 px-6 py-2.5 bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold rounded-lg shadow-glow-red transition-all duration-300">
-              Перейти в чат
-            </button>
-          </div>
-        `;
-      }, 2000);
-    }
-
-    function showPurchaseModal() {
-      const modal = document.getElementById('purchase-modal');
-      if (modal) modal.classList.remove('hidden');
-    }
-
-    function closePurchaseModal() {
-      const modal = document.getElementById('purchase-modal');
-      if (modal) modal.classList.add('hidden');
-    }
-
-    function getGameImagePlaceholder(category) {
-      const match = state.listings.find(x => x.category === category);
-      return match ? match.img : 'https://lh3.googleusercontent.com/aida-public/AB6AXuAIc8OBnSOW4p61G-llvPlpYoyIfirHbMH5tewwjDDktIwYu8otbk47ynr37lWH675BNKQQ5fc0mgFzFwlWQYh29qkXVHenN0mxcMSZfEvXPadIO1xwhaTFVjWV2enRQcHMcSPG6zsQGPWo4S12bdCuzj-SRXB902vpX4SWgZlUsrVPzxmEuEH45Stjwj2R1IEH7IpYiok_TL5Z6sdmcHWKB3IFDtdJaoL9qHmuifDOl0Cvj06tnAAAHA';
-    }
-
-    function scrollToChatBottom() {
-      const chatArea = document.getElementById('chat-messages-area');
-      if (chatArea) {
-        chatArea.scrollTop = chatArea.scrollHeight;
-      }
-    }
-
     // --- HTML GENERATORS ---
 
     // 1. HOME SCREEN
     function getHomeHTML() {
-      // Banner categories
       const categories = [
-        { name: 'GTA V', count: '1 245 объявлений', icon: 'fa-gamepad', bg: 'bg-green-900/20 border-green-500/20' },
-        { name: 'Steam', count: '3 842 объявлений', icon: 'fa-envelope-open', bg: 'bg-blue-900/20 border-blue-500/20' },
-        { name: 'Fortnite', count: '987 объявлений', icon: 'fa-person-running', bg: 'bg-indigo-900/20 border-indigo-500/20' },
-        { name: 'Valorant', count: '1 102 объявлений', icon: 'fa-circle-dot', bg: 'bg-red-950/20 border-brand-red/20' },
-        { name: 'CS 2', count: '1 756 объявлений', icon: 'fa-crosshairs', bg: 'bg-amber-900/20 border-amber-500/20' },
+        { name: 'GTA V', count: '1 245 объявлений', icon: 'fa-gamepad' },
+        { name: 'Steam', count: '3 842 объявлений', icon: 'fa-envelope-open' },
+        { name: 'Fortnite', count: '987 объявлений', icon: 'fa-person-running' },
+        { name: 'Valorant', count: '1 102 объявлений', icon: 'fa-circle-dot' },
+        { name: 'CS 2', count: '1 756 объявлений', icon: 'fa-crosshairs' },
       ];
 
       const cardsHTML = categories.map(c => `
         <a class="bg-brand-card rounded-xl p-4 flex items-center justify-between hover:bg-white/5 hover:-translate-y-0.5 transition-all duration-300 border border-white/5 cursor-pointer" onclick="state.catalogFilter='${c.name}'; navigateTo('catalog');">
           <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 rounded-lg flex items-center justify-center overflow-hidden bg-brand-input border border-white/5">
+            <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-brand-input border border-white/5">
               <i class="fa-solid ${c.icon} text-brand-red text-xl"></i>
             </div>
             <div>
@@ -480,36 +647,42 @@
         </a>
       `).join('');
 
-      // Listings
-      const listingsHTML = state.listings.slice(0, 4).map(item => `
-        <div onclick="navigateTo('item_detail', {itemId: ${item.id}})" class="bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 hover:shadow-glass hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full">
-          <div class="relative h-44 bg-brand-input overflow-hidden">
-            <img alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="${item.img}">
-            ${item.tag ? `<div class="absolute top-3 left-3 bg-brand-red text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-glow-red">${item.tag}</div>` : ''}
-          </div>
-          <div class="p-5 flex-1 flex flex-col justify-between">
-            <div>
-              <h3 class="font-medium text-base mb-1 text-white group-hover:text-brand-red transition-colors line-clamp-1">${item.title}</h3>
-              <p class="text-xs text-brand-textMuted mb-4 line-clamp-2">${item.description}</p>
-            </div>
-            <div class="flex items-end justify-between mt-auto">
-              <div>
-                <p class="text-lg font-bold text-brand-red">${item.price} ₽</p>
-                <div class="flex items-center space-x-2 mt-1.5">
-                  <div class="w-2 h-2 rounded-full bg-green-500 shadow-glow-green"></div>
-                  <span class="text-[10px] text-brand-textMuted">В наличии · Моментально</span>
-                </div>
-              </div>
-              <button class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center border border-white/5 transition-all">
-                <i class="fa-solid fa-arrow-right text-xs text-brand-textMuted group-hover:text-white"></i>
+      const listingsHTML = state.listings.slice(0, 4).map(item => {
+        const isFav = state.favorites.includes(item.id);
+        return `
+          <div onclick="navigateTo('item_detail', {itemId: ${item.id}})" class="bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 hover:shadow-glass hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full relative">
+            <div class="relative h-44 bg-brand-input overflow-hidden">
+              <img alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="${item.img}">
+              ${item.tag ? `<div class="absolute top-3 left-3 bg-brand-red text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-glow-red">${item.tag}</div>` : ''}
+              
+              <!-- Favorite Heart Button -->
+              <button onclick="toggleFavorite(${item.id}, event)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-black/95 text-white flex items-center justify-center border border-white/10 transition-colors">
+                <i class="fa-heart ${isFav ? 'fa-solid text-brand-red' : 'fa-regular text-white'}"></i>
               </button>
             </div>
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-medium text-sm mb-1 text-white group-hover:text-brand-red transition-colors line-clamp-1">${item.title}</h3>
+                <p class="text-xs text-brand-textMuted mb-4 line-clamp-2">${item.description}</p>
+              </div>
+              <div class="flex items-end justify-between mt-auto">
+                <div>
+                  <p class="text-base font-bold text-brand-red">${item.price} ₽</p>
+                  <div class="flex items-center space-x-2 mt-1">
+                    <div class="w-1.5 h-1.5 rounded-full bg-green-500 shadow-glow-green"></div>
+                    <span class="text-[9px] text-brand-textMuted">В наличии · Автовыдача</span>
+                  </div>
+                </div>
+                <button class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center border border-white/5 transition-all">
+                  <i class="fa-solid fa-arrow-right text-xs text-brand-textMuted group-hover:text-white"></i>
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
 
       return `
-        <!-- Hero Section -->
         <main class="w-full max-w-screen-2xl mx-auto px-6 py-8 space-y-10">
           <section class="relative rounded-3xl overflow-hidden h-[340px] flex items-center bg-brand-card border border-white/5 shadow-glass">
             <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/70 to-transparent z-10"></div>
@@ -558,17 +731,23 @@
 
     // 2. CATALOG SCREEN
     function getCatalogHTML() {
-      const categories = ['all', 'GTA V', 'CS 2', 'Steam', 'Valorant', 'Fortnite'];
-      const tabsHTML = categories.map(cat => `
-        <button onclick="state.catalogFilter='${cat}'; renderCatalogContent();" 
-          class="catalog-tab-btn py-2 px-4 rounded-xl text-xs font-bold transition-all duration-300 border ${state.catalogFilter === cat ? 'bg-brand-red text-white border-brand-red shadow-glow-red' : 'bg-brand-card text-brand-textMuted border-brand-border hover:text-white'}">
-          ${cat === 'all' ? 'Все игры' : cat}
-        </button>
-      `).join('');
+      const categories = ['all', 'GTA V', 'CS 2', 'Steam', 'Valorant', 'Fortnite', 'Favorites'];
+      const tabsHTML = categories.map(cat => {
+        let label = cat;
+        if (cat === 'all') label = 'Все игры';
+        if (cat === 'Favorites') label = '♥ Избранное';
+        
+        return `
+          <button onclick="state.catalogFilter='${cat}'; renderCatalogContent();" 
+            class="catalog-tab-btn py-2 px-4 rounded-xl text-xs font-bold transition-all duration-300 border ${state.catalogFilter === cat ? 'bg-brand-red text-white border-brand-red shadow-glow-red' : 'bg-brand-card text-brand-textMuted border-brand-border hover:text-white'}">
+            ${label}
+          </button>
+        `;
+      }).join('');
 
       return `
         <main class="w-full max-w-screen-2xl mx-auto px-6 py-8 space-y-8 flex-1 flex flex-col">
-          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-brand-border pb-6">
             <div>
               <h1 class="text-2xl font-bold text-white tracking-wide">Каталог товаров</h1>
               <p class="text-xs text-brand-textMuted mt-1">Используйте поиск и фильтры по играм для быстрого поиска.</p>
@@ -581,20 +760,20 @@
 
           <!-- Catalog Target Results -->
           <div id="catalog-results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 flex-1">
-            <!-- Rendered by renderCatalogContent() -->
+            <!-- Injected dynamically -->
           </div>
         </main>
       `;
     }
 
     function renderCatalogContent() {
-      // Highlight correct tab
       const btns = document.querySelectorAll('.catalog-tab-btn');
       btns.forEach(btn => {
         const text = btn.innerText.trim();
         const isAll = state.catalogFilter === 'all' && text === 'Все игры';
+        const isFav = state.catalogFilter === 'Favorites' && text === '♥ Избранное';
         const isGame = text === state.catalogFilter;
-        if (isAll || isGame) {
+        if (isAll || isFav || isGame) {
           btn.className = 'catalog-tab-btn py-2 px-4 rounded-xl text-xs font-bold transition-all duration-300 border bg-brand-red text-white border-brand-red shadow-glow-red';
         } else {
           btn.className = 'catalog-tab-btn py-2 px-4 rounded-xl text-xs font-bold transition-all duration-300 border bg-brand-card text-brand-textMuted border-brand-border hover:text-white';
@@ -606,12 +785,14 @@
 
       let items = state.listings;
       
-      // Filter by category
-      if (state.catalogFilter !== 'all') {
+      // Filter by category or favorites
+      if (state.catalogFilter === 'Favorites') {
+        items = items.filter(x => state.favorites.includes(x.id));
+      } else if (state.catalogFilter !== 'all') {
         items = items.filter(x => x.category === state.catalogFilter);
       }
 
-      // Filter by search query
+      // Filter by search
       if (state.searchQuery) {
         items = items.filter(x => 
           x.title.toLowerCase().includes(state.searchQuery) ||
@@ -624,39 +805,47 @@
         container.className = "flex flex-col items-center justify-center py-16 gap-3 text-center col-span-full";
         container.innerHTML = `
           <i class="fa-solid fa-magnifying-glass text-brand-textMuted text-4xl mb-2 animate-pulse"></i>
-          <h3 class="text-white font-bold text-lg">Объявления не найдены</h3>
-          <p class="text-xs text-brand-textMuted max-w-xs">Попробуйте изменить поисковый запрос или выбрать другую категорию игры.</p>
+          <h3 class="text-white font-bold text-base">Объявления не найдены</h3>
+          <p class="text-xs text-brand-textMuted max-w-xs">Попробуйте изменить поисковый запрос или выбрать другую категорию.</p>
         `;
         return;
       }
 
       container.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6";
-      container.innerHTML = items.map(item => `
-        <div onclick="navigateTo('item_detail', {itemId: ${item.id}})" class="bg-brand-card rounded-2xl overflow-hidden border border-brand-border hover:border-brand-textMuted/30 hover:shadow-glass hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full">
-          <div class="relative h-44 bg-brand-input overflow-hidden">
-            <img alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="${item.img}">
-            ${item.tag ? `<div class="absolute top-3 left-3 bg-brand-red text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-glow-red">${item.tag}</div>` : ''}
-          </div>
-          <div class="p-5 flex-1 flex flex-col justify-between">
-            <div>
-              <h3 class="font-medium text-base mb-1 text-white group-hover:text-brand-red transition-colors line-clamp-1">${item.title}</h3>
-              <p class="text-xs text-brand-textMuted mb-4 line-clamp-2">${item.description}</p>
-            </div>
-            <div class="flex items-end justify-between mt-auto">
-              <div>
-                <p class="text-lg font-bold text-brand-red">${item.price} ₽</p>
-                <div class="flex items-center space-x-2 mt-1.5">
-                  <div class="w-2 h-2 rounded-full bg-green-500 shadow-glow-green"></div>
-                  <span class="text-[10px] text-brand-textMuted">В наличии · Моментально</span>
-                </div>
-              </div>
-              <button class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center border border-white/5 transition-all">
-                <i class="fa-solid fa-arrow-right text-xs text-brand-textMuted group-hover:text-white"></i>
+      container.innerHTML = items.map(item => {
+        const isFav = state.favorites.includes(item.id);
+        return `
+          <div onclick="navigateTo('item_detail', {itemId: ${item.id}})" class="bg-brand-card rounded-2xl overflow-hidden border border-brand-border hover:border-brand-textMuted/30 hover:shadow-glass hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full relative">
+            <div class="relative h-44 bg-brand-input overflow-hidden">
+              <img alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="${item.img}">
+              ${item.tag ? `<div class="absolute top-3 left-3 bg-brand-red text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-glow-red">${item.tag}</div>` : ''}
+              
+              <!-- Favorite Button -->
+              <button onclick="toggleFavorite(${item.id}, event)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-black/95 text-white flex items-center justify-center border border-white/10 transition-colors">
+                <i class="fa-heart ${isFav ? 'fa-solid text-brand-red' : 'fa-regular text-white'}"></i>
               </button>
             </div>
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-medium text-sm mb-1 text-white group-hover:text-brand-red transition-colors line-clamp-1">${item.title}</h3>
+                <p class="text-xs text-brand-textMuted mb-4 line-clamp-2">${item.description}</p>
+              </div>
+              <div class="flex items-end justify-between mt-auto">
+                <div>
+                  <p class="text-base font-bold text-brand-red">${item.price} ₽</p>
+                  <div class="flex items-center space-x-2 mt-1">
+                    <div class="w-1.5 h-1.5 rounded-full bg-green-500 shadow-glow-green"></div>
+                    <span class="text-[9px] text-brand-textMuted">В наличии · Автовыдача</span>
+                  </div>
+                </div>
+                <button class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center border border-white/5 transition-all">
+                  <i class="fa-solid fa-arrow-right text-xs text-brand-textMuted group-hover:text-white"></i>
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     // 3. MESSAGES SCREEN
@@ -680,7 +869,7 @@
       `).join('');
 
       const messagesHTML = activeChat.messages.map(msg => `
-        <div class="flex ${msg.sender === 'sender' ? 'self-end' : 'self-start'} max-w-[70%]">
+        <div class="flex ${msg.sender === 'sender' ? 'self-end' : 'self-start'} max-w-[70%] animate-fadeInUp">
           <div class="${msg.sender === 'sender' ? 'bg-gradient-to-br from-brand-red to-red-700 border border-white/15' : 'bg-brand-input border border-white/5'} py-2.5 px-4 rounded-2xl ${msg.sender === 'sender' ? 'rounded-tr-sm' : 'rounded-tl-sm'} relative flex items-end gap-3.5 shadow-glass-inset">
             <p class="text-sm leading-relaxed text-white font-light">${msg.text}</p>
             <div class="flex items-center gap-1 shrink-0 pb-0.5 text-[10px] ${msg.sender === 'sender' ? 'text-white/70' : 'text-brand-textMuted'}">
@@ -691,10 +880,15 @@
         </div>
       `).join('');
 
+      const emojis = ['🎮', '🔥', '👍', '📦', '💬', '⭐', '🤝', '😎'];
+      const emojiBtnsHTML = emojis.map(em => `
+        <button type="button" onclick="insertEmoji('${em}')" class="hover:scale-125 transition-transform text-base">${em}</button>
+      `).join('');
+
       return `
         <main class="flex-1 flex overflow-hidden w-full max-w-screen-2xl mx-auto px-6 py-6 gap-6 z-10 relative">
-          <!-- Sidebar Chats -->
-          <aside class="w-[280px] bg-brand-card rounded-3xl flex flex-col border border-brand-border shadow-glass shrink-0 overflow-hidden relative">
+          <!-- Sidebar -->
+          <aside class="w-[290px] bg-brand-card rounded-3xl flex flex-col border border-brand-border shadow-glass shrink-0 overflow-hidden relative">
             <div class="p-5 border-b border-brand-border shrink-0">
               <h2 class="text-lg font-bold text-white">Сообщения</h2>
             </div>
@@ -706,7 +900,7 @@
           <!-- Chat Window -->
           <section class="flex-1 bg-brand-card rounded-3xl flex flex-col border border-brand-border shadow-glass overflow-hidden relative">
             <!-- Chat Header -->
-            <div class="px-6 py-3.5 border-b border-brand-border flex justify-between items-center bg-white/[0.01] shrink-0">
+            <div class="px-6 py-3.5 border-b border-brand-border flex justify-between items-center bg-white/[0.01] shrink-0 relative">
               <div class="flex items-center gap-4">
                 <img alt="avatar" class="w-10 h-10 rounded-full border border-white/10 object-cover" src="${activeChat.avatar}">
                 <div>
@@ -714,28 +908,41 @@
                   <span class="text-[10px] font-semibold text-green-500 uppercase tracking-wider">${activeChat.online ? 'онлайн' : 'офлайн'}</span>
                 </div>
               </div>
+              <div class="relative">
+                <button onclick="toggleChatMenu()" class="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white/5 text-brand-textMuted hover:text-white transition-colors">
+                  <i class="fa-solid fa-ellipsis-vertical text-base"></i>
+                </button>
+                <!-- Actions Menu Dropdown -->
+                <div id="chat-actions-menu" class="hidden absolute right-0 top-9 bg-brand-input border border-brand-border w-48 rounded-xl p-1.5 shadow-glass z-20 space-y-0.5">
+                  <button onclick="clearChatHistory(${activeChat.id})" class="w-full text-left px-3 py-2 text-xs text-brand-text hover:bg-white/5 rounded-lg flex items-center gap-2"><i class="fa-regular fa-trash-can"></i> Очистить историю</button>
+                  <button onclick="blockChatUser(${activeChat.id})" class="w-full text-left px-3 py-2 text-xs text-brand-red hover:bg-brand-red/10 rounded-lg flex items-center gap-2"><i class="fa-solid fa-ban"></i> Заблокировать</button>
+                </div>
+              </div>
             </div>
 
             <!-- Messages Area -->
             <div id="chat-messages-area" class="flex-1 overflow-y-auto p-6 flex flex-col gap-4 bg-black/10">
-              ${messagesHTML}
+              ${messagesHTML || '<p class="text-xs text-brand-textMuted text-center py-8">История пуста. Начните общение!</p>'}
             </div>
 
-            <!-- Chat Input Area -->
-            <form onsubmit="handleSendMessage(event)" class="p-3 bg-white/[0.01] border-t border-brand-border shrink-0">
-              <div class="bg-brand-input border border-white/5 shadow-glass-inset rounded-xl flex items-center p-1.5 gap-2 focus-within:border-brand-red/50 transition-all duration-300">
-                <button type="button" class="p-2 rounded-lg text-brand-textMuted hover:text-white transition-colors">
-                  <i class="fa-solid fa-paperclip text-sm"></i>
-                </button>
-                <input id="message-input-box" class="flex-1 bg-transparent border-none text-white focus:ring-0 placeholder-brand-textMuted text-xs font-light px-1" placeholder="Напишите сообщение..." type="text"/>
-                <button type="button" class="p-2 rounded-lg text-brand-textMuted hover:text-white transition-colors">
-                  <i class="fa-regular fa-face-smile text-sm"></i>
-                </button>
-                <button type="submit" class="w-8.5 h-8.5 bg-brand-red hover:bg-brand-redHover text-white rounded-lg flex items-center justify-center transition-all duration-300 shadow-glow-red">
-                  <i class="fa-solid fa-paper-plane text-xs"></i>
-                </button>
+            <!-- Emojis & Chat Input Area -->
+            <div class="bg-white/[0.01] border-t border-brand-border shrink-0 p-3 space-y-2">
+              <!-- Emojis row -->
+              <div class="flex items-center gap-3.5 px-2">
+                ${emojiBtnsHTML}
               </div>
-            </form>
+              <form onsubmit="handleSendMessage(event)">
+                <div class="bg-brand-input border border-white/5 shadow-glass-inset rounded-xl flex items-center p-1.5 gap-2 focus-within:border-brand-red/50 transition-all duration-300">
+                  <button type="button" onclick="handleFileAttach()" class="p-2 rounded-lg text-brand-textMuted hover:text-white transition-colors" title="Прикрепить файл">
+                    <i class="fa-solid fa-paperclip text-sm"></i>
+                  </button>
+                  <input id="message-input-box" class="flex-1 bg-transparent border-none text-white focus:ring-0 placeholder-brand-textMuted text-xs font-light px-1" placeholder="Напишите сообщение..." type="text"/>
+                  <button type="submit" class="w-8.5 h-8.5 bg-brand-red hover:bg-brand-redHover text-white rounded-lg flex items-center justify-center transition-all duration-300 shadow-glow-red">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
           </section>
         </main>
       `;
@@ -743,19 +950,21 @@
 
     // 4. PROFILE SCREEN
     function getProfileHTML() {
-      // Render dynamic tabs
       let tabsContent = '';
       if (state.profileTab === 'lots') {
-        // Group lots by category
         const categories = ['GTA V', 'CS 2', 'Steam', 'Valorant', 'Fortnite'];
         const colsHTML = categories.map(cat => {
           const catListings = state.listings.filter(x => x.category === cat).slice(0, 3);
           const banner = getGameImagePlaceholder(cat);
           const lotsListHTML = catListings.map(item => `
-            <div class="flex flex-col gap-0.5">
+            <div class="flex flex-col gap-0.5 group/item">
               <div class="flex justify-between items-start gap-2">
-                <span class="text-xs text-brand-text hover:text-white truncate cursor-pointer" onclick="navigateTo('item_detail', {itemId: ${item.id}})">${item.title}</span>
-                <span class="text-xs font-bold text-brand-red shrink-0">${item.price} ₽</span>
+                <span class="text-xs text-brand-text hover:text-white truncate cursor-pointer flex-1" onclick="navigateTo('item_detail', {itemId: ${item.id}})">${item.title}</span>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-brand-red">${item.price} ₽</span>
+                  <!-- Delete item icon -->
+                  <button onclick="deleteListing(${item.id}, event)" class="hidden group-hover/item:block text-[10px] text-brand-textMuted hover:text-brand-red transition-colors p-0.5" title="Удалить лот"><i class="fa-regular fa-trash-can"></i></button>
+                </div>
               </div>
             </div>
           `).join('');
@@ -795,44 +1004,60 @@
           </div>
         `;
       } else if (state.profileTab === 'reviews') {
-        const reviews = [
-          { user: 'PlayerOne', text: 'Отличный продавец! Аккаунт получил мгновенно, всё как в описании. Рекомендую!', date: 'Сегодня, 12:45' },
-          { user: 'NickPro', text: 'Быстрая доставка, честный продавец. Покупаю не первый раз, всегда всё на высшем уровне.', date: 'Вчера, 18:30' },
-          { user: 'AlexGaming', text: 'Отличные цены и поддержка 24/7. Помогли с выбором, остался доволен!', date: 'Вчера, 15:20' },
-          { user: 'GameMaster', text: 'Аккаунт полностью соответствует описанию. Безопасная сделка, рекомендую!', date: '2 дня назад, 20:15' }
-        ];
-
-        const reviewsHTML = reviews.map(r => `
-          <div class="bg-brand-card rounded-2xl border border-brand-border p-5 flex flex-col justify-between gap-4 hover:border-brand-textMuted/30 transition-all">
-            <div class="space-y-3">
-              <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-full bg-gray-800 overflow-hidden flex-shrink-0 flex items-center justify-center text-xs font-bold text-white">
-                  ${r.user[0]}
-                </div>
-                <div>
-                  <h4 class="text-xs font-bold text-white">${r.user}</h4>
-                  <div class="flex items-center gap-0.5 mt-0.5">
-                    <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
-                    <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
-                    <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
-                    <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
-                    <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+        const reviewsHTML = state.reviews.map(r => {
+          let starsHTML = '';
+          for (let i = 0; i < 5; i++) {
+            starsHTML += `<i class="fa-solid fa-star ${i < r.stars ? 'text-green-500' : 'text-brand-border'} text-[10px]"></i>`;
+          }
+          return `
+            <div class="bg-brand-card rounded-2xl border border-brand-border p-5 flex flex-col justify-between gap-4 hover:border-brand-textMuted/30 transition-all duration-300">
+              <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-full bg-brand-input overflow-hidden flex-shrink-0 flex items-center justify-center text-xs font-bold text-white border border-white/5">
+                    ${r.user[0]}
+                  </div>
+                  <div>
+                    <h4 class="text-xs font-bold text-white">${r.user}</h4>
+                    <div class="flex items-center gap-0.5 mt-0.5">
+                      ${starsHTML}
+                    </div>
                   </div>
                 </div>
+                <p class="text-xs text-brand-textMuted leading-relaxed">${r.text}</p>
               </div>
-              <p class="text-xs text-brand-textMuted leading-relaxed">${r.text}</p>
+              <span class="text-[10px] text-brand-textMuted">${r.date}</span>
             </div>
-            <span class="text-[10px] text-brand-textMuted">${r.date}</span>
+          `;
+        }).join('');
+
+        tabsContent = `
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            ${reviewsHTML || '<p class="text-xs text-brand-textMuted col-span-full py-8 text-center">Отзывов пока нет</p>'}
+          </div>
+        `;
+      } else if (state.profileTab === 'purchases') {
+        const purchasesHTML = state.purchasedLots.map(item => `
+          <div class="bg-brand-card border border-brand-border rounded-xl p-4 flex items-center justify-between gap-4 hover:border-brand-red/30 transition-all duration-200">
+            <div class="flex items-center gap-4">
+              <img class="w-16 h-12 object-cover rounded-lg border border-white/10" src="${item.img}" alt="${item.title}">
+              <div>
+                <h4 class="text-xs font-bold text-white">${item.title}</h4>
+                <p class="text-[10px] text-brand-textMuted mt-1">${item.category} · Безопасная сделка</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-xs font-bold text-brand-red">${item.price} ₽</div>
+              <span class="text-[9px] text-green-500 font-semibold mt-1 block">Получено</span>
+            </div>
           </div>
         `).join('');
 
         tabsContent = `
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            ${reviewsHTML}
+          <div class="max-w-xl space-y-3.5">
+            ${purchasesHTML || '<p class="text-xs text-brand-textMuted py-8">Вы еще ничего не приобрели</p>'}
           </div>
         `;
       } else {
-        // About Tab
         tabsContent = `
           <div class="bg-brand-card border border-brand-border rounded-2xl p-6 space-y-4 max-w-xl">
             <h3 class="font-bold text-white text-base">Информация о GameTrader</h3>
@@ -909,7 +1134,7 @@
 
       return `
         <main class="w-full max-w-screen-2xl mx-auto px-6 py-8 space-y-8">
-          <!-- Seller Profile Card -->
+          <!-- Seller profile details -->
           <section class="bg-brand-card rounded-3xl border border-brand-border p-8 flex flex-col lg:flex-row justify-between items-start gap-8 relative overflow-hidden">
             <div class="flex flex-col sm:flex-row items-center sm:items-start gap-8">
               <div class="relative flex-shrink-0">
@@ -982,6 +1207,7 @@
             <div class="flex border-b border-brand-border gap-6 text-sm font-semibold">
               <button onclick="state.profileTab='lots'; renderView();" class="pb-3 transition-colors ${state.profileTab === 'lots' ? 'text-brand-red border-b-2 border-brand-red font-bold' : 'text-brand-textMuted hover:text-white'}">Лоты по категориям</button>
               <button onclick="state.profileTab='reviews'; renderView();" class="pb-3 transition-colors ${state.profileTab === 'reviews' ? 'text-brand-red border-b-2 border-brand-red font-bold' : 'text-brand-textMuted hover:text-white'}">Отзывы о продавце</button>
+              <button onclick="state.profileTab='purchases'; renderView();" class="pb-3 transition-colors ${state.profileTab === 'purchases' ? 'text-brand-red border-b-2 border-brand-red font-bold' : 'text-brand-textMuted hover:text-white'}">Мои покупки (${state.purchasedLots.length})</button>
               <button onclick="state.profileTab='about'; renderView();" class="pb-3 transition-colors ${state.profileTab === 'about' ? 'text-brand-red border-b-2 border-brand-red font-bold' : 'text-brand-textMuted hover:text-white'}">О себе</button>
             </div>
             
@@ -1004,7 +1230,7 @@
         const catListings = state.listings.filter(x => x.category === cat);
         const banner = getGameImagePlaceholder(cat);
         const rowsHTML = catListings.map(item => `
-          <tr class="hover:bg-white/[0.02] transition-colors border-b border-brand-border/30">
+          <tr class="hover:bg-white/[0.02] transition-colors border-b border-brand-border/30 group/item">
             <td class="p-4 pl-6 font-medium text-white max-w-md truncate cursor-pointer" onclick="navigateTo('item_detail', {itemId: ${item.id}})">${item.title}</td>
             <td class="p-4 text-brand-textMuted">${item.description}</td>
             <td class="p-4 text-green-500 font-medium">${item.status}</td>
@@ -1012,6 +1238,7 @@
               <div class="flex items-center justify-end gap-3.5">
                 <span class="font-bold text-brand-red text-base">${item.price} ₽</span>
                 <button onclick="navigateTo('item_detail', {itemId: ${item.id}})" class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                <button onclick="deleteListing(${item.id}, event)" class="hidden group-hover/item:block text-brand-textMuted hover:text-brand-red transition-colors p-1" title="Удалить"><i class="fa-regular fa-trash-can"></i></button>
               </div>
             </td>
           </tr>
@@ -1020,10 +1247,10 @@
         return `
           <section class="space-y-4">
             <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center border border-white/10 bg-brand-input">
+              <div class="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center border border-white/10 bg-brand-input cursor-pointer" onclick="state.catalogFilter='${cat}'; navigateTo('catalog');">
                 <img class="w-full h-full object-cover" src="${banner}" alt="${cat}">
               </div>
-              <h2 class="text-base font-bold text-white">${cat} <span class="text-xs text-brand-textMuted font-normal ml-2">(${catListings.length} лотов)</span></h2>
+              <h2 class="text-base font-bold text-white hover:underline cursor-pointer" onclick="state.catalogFilter='${cat}'; navigateTo('catalog');">${cat} <span class="text-xs text-brand-textMuted font-normal ml-2">(${catListings.length} лотов)</span></h2>
             </div>
             
             <div class="bg-brand-card rounded-2xl border border-brand-border overflow-hidden">
@@ -1033,7 +1260,7 @@
                     <th class="p-4 pl-6">Описание товара</th>
                     <th class="p-4">Категория</th>
                     <th class="p-4">Наличие</th>
-                    <th class="p-4 text-right pr-6 w-44">Цена / Купить</th>
+                    <th class="p-4 text-right pr-6 w-48">Цена / Купить</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-brand-border text-brand-text">
@@ -1127,14 +1354,12 @@
 
           <!-- Product Main Card -->
           <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Left & Center Details -->
             <div class="lg:col-span-2 space-y-6">
               <div class="relative rounded-3xl overflow-hidden h-[360px] bg-brand-card border border-brand-border shadow-glass">
                 <img class="w-full h-full object-cover" src="${item.img}" alt="${item.title}">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent"></div>
               </div>
 
-              <!-- Content details -->
               <div class="bg-brand-card rounded-3xl border border-brand-border p-6 space-y-6">
                 <div>
                   <h1 class="text-2xl font-bold text-white tracking-wide">${item.title}</h1>
@@ -1156,9 +1381,8 @@
               </div>
             </div>
 
-            <!-- Right Purchasing Sidebar -->
+            <!-- Right purchasing sidebar -->
             <div class="space-y-6">
-              <!-- Pricing Card -->
               <div class="bg-brand-card rounded-3xl border border-brand-border p-6 space-y-6">
                 <div class="space-y-1">
                   <span class="text-xs text-brand-textMuted uppercase font-bold tracking-wider">Цена лота</span>
@@ -1184,8 +1408,8 @@
                     <h4 class="text-xs font-bold text-white hover:underline cursor-pointer" onclick="navigateTo('profile')">${state.profile.name}</h4>
                     <div class="flex items-center gap-1 text-[10px] text-brand-textMuted mt-0.5">
                       <i class="fa-solid fa-star text-amber-500"></i>
-                      <span>4.9</span>
-                      <span>(342 отзыва)</span>
+                      <span>${state.profile.rating}</span>
+                      <span>(${state.profile.reviewsCount} отзывов)</span>
                     </div>
                   </div>
                 </div>
@@ -1205,10 +1429,24 @@
       updateNavHighlight();
     });
 
-    // Handle Forms Intercepts
-    window.handleEditProfile = handleEditProfile;
-    window.handleAddListing = handleAddListing;
-    window.handleSendMessage = handleSendMessage;
+    // Exports to window namespace for inline HTML buttons
+    window.navigateTo = navigateTo;
+    window.toggleFavorite = toggleFavorite;
+    window.deleteListing = deleteListing;
+    window.toggleNotifications = toggleNotifications;
+    window.clearNotifications = clearNotifications;
+    window.clearChatHistory = clearChatHistory;
+    window.blockChatUser = blockChatUser;
+    window.toggleChatMenu = toggleChatMenu;
+    window.selectChat = selectChat;
+    window.insertEmoji = insertEmoji;
+    window.handleFileAttach = handleFileAttach;
+    window.showPurchaseModal = showPurchaseModal;
+    window.closePurchaseModal = closePurchaseModal;
+    window.handlePurchase = handlePurchase;
+    window.showReviewModal = showReviewModal;
+    window.setReviewStars = setReviewStars;
+    window.submitReview = submitReview;
   </script>
 </body>
 </html>
