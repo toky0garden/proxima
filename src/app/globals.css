@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-dark: #0A0A0A;
+  --color-brand-card: #141414;
+  --color-brand-input: #1A1A1A;
+  --color-brand-border: #1F1F1F;
+  --color-brand-red: #E53935;
+  --color-brand-redHover: #D32F2F;
+  --color-brand-text: #E0E0E0;
+  --color-brand-textMuted: #888888;
+
+  --shadow-glass: 0 4px 30px rgba(0, 0, 0, 0.5);
+  --shadow-glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-glow-red: 0 0 15px rgba(229, 57, 53, 0.4);
+  --shadow-glow-green: 0 0 12px rgba(16, 185, 129, 0.4);
+
+  --font-sans: 'Inter', sans-serif;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+::-webkit-scrollbar-thumb {
+  background: #1F1F1F;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(136, 136, 136, 0.3);
+}
+
+/* Nav Glow */
+.active-nav-glow {
+  box-shadow: 0 0 12px rgba(229, 57, 53, 0.25);
+}
+
+/* Page Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fadeInUp {
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+.animate-fadeOutDown {
+  animation: fadeOutDown 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+body {
+  background-color: #0A0A0A;
+  color: #E0E0E0;
+}
