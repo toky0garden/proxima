@@ -1,0 +1,374 @@
+<!DOCTYPE html><html lang="ru" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Каталог категорий</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style data-purpose="custom-fonts">
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0c10;
+      color: #ffffff;
+    }
+  </style>
+<style data-purpose="custom-colors">
+    :root {
+      --bg-dark: #0b0c10;
+      --bg-card: #14151a;
+      --bg-input: #1f2025;
+      --text-gray: #8b8e98;
+      --accent-red: #f42424;
+      --border-color: #272932;
+    }
+  </style>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#f42424',
+              dark: '#0b0c10',
+              card: '#14151a',
+              input: '#1f2025',
+              border: '#272932',
+              textMuted: '#8b8e98'
+            }
+          }
+        }
+      }
+    }
+  </script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" data-snapdom="injected-import"></head>
+<body class="min-h-screen text-white bg-brand-dark flex flex-col">
+<!-- BEGIN: MainHeader -->
+<header class="sticky top-0 z-50 bg-brand-dark/95 backdrop-blur-sm border-b border-brand-border py-4 px-6 flex items-center justify-between gap-6" data-purpose="main-header">
+<!-- Logo & Navigation -->
+<div class="flex items-center gap-8">
+<!-- Logo -->
+<a class="flex items-center justify-center w-10 h-12 bg-brand-dark border-2 border-brand-red rounded-lg relative overflow-hidden" data-purpose="logo" href="#">
+<svg fill="none" height="24" stroke="#f42424" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+<line x1="9" x2="15" y1="10" y2="10"></line>
+</svg>
+</a>
+<!-- Primary Nav -->
+
+</div>
+<!-- Search Bar -->
+<div class="flex-1" data-purpose="search-bar">
+<div class="relative">
+<svg class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-textMuted" fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+<input class="w-full bg-brand-input border border-brand-border rounded-xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:border-brand-textMuted text-white placeholder-brand-textMuted transition-colors" placeholder="Поиск по играм, категориям, объявлениям..." type="text">
+</div>
+</div>
+<!-- User Actions -->
+<div class="flex items-center gap-4"><a class="text-brand-textMuted hover:text-white transition-colors p-2 rounded-full hover:bg-brand-input" href="#"><svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><rect height="7" rx="1" width="7" x="3" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="14"></rect><rect height="7" rx="1" width="7" x="3" y="14"></rect></svg></a>
+<a class="hidden md:flex items-center gap-2 text-brand-textMuted hover:text-white transition-colors text-sm font-medium" href="#"><svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg" class=""><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg></a>
+
+<!-- Icon Buttons -->
+
+<button class="relative text-brand-textMuted hover:text-white transition-colors p-2 rounded-full hover:bg-brand-input">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+<span class="absolute top-1.5 right-2 w-2 h-2 bg-brand-red rounded-full"></span>
+</button>
+<!-- Avatar -->
+<button class="ml-2">
+<img alt="User Avatar" class="w-10 h-10 rounded-full border border-brand-border" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7-v7oiUF9lM-D8FIKuEJ5GakwdW7_AeNpgsCJBkCGthJmj1jHV07aVYuz0kRRSFSJTfNmoh1YJlQ9in_XteU5JMYOkT59zAvgGTbUPNwjDdW2YSOCOh1B2kxWnuR1Tlrf0NlnQ-x0DveN3PMIuLhpbAJPM51H9f7w1HcySIP-Q78R6-j-LX4GV2XJWfZJpj72IHr-bXQMTOHbNU745wJRKaBRFjaHgkqyDVa0sEZUPweqoBDOYhdUwA">
+</button>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 max-w-7xl mx-auto w-full px-6 py-8" data-purpose="main-content">
+<!-- Page Header -->
+<div class="mb-10">
+<h1 class="text-3xl font-bold mb-2">Каталог категорий</h1>
+<p class="text-brand-textMuted text-sm">Выберите категорию и найдите лучшие предложения</p>
+</div>
+<!-- BEGIN: Games Section -->
+<section class="mb-12" data-purpose="games-section">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-xl font-bold">Игры</h2>
+<a class="text-brand-red text-sm hover:underline" href="#">Показать все</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+<!-- Game Card 1 -->
+<a class="group bg-brand-card rounded-2xl overflow-hidden border border-brand-border hover:border-brand-textMuted/50 transition-colors flex flex-col h-full" href="#">
+<div class="h-36 w-full overflow-hidden bg-gray-800">
+<img alt="Counter-Strike 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVOvppoIf6vo-EWBezej1n29a7YgamWWvklNj-n5SUCHF0MteXh7j5xRG9O0rk2mYoUYGMuhKde7MwEuxto6GXhWzGhwx_r7g1PpYnGW2gWYhJ1_mmryVPICEI0eLwidX1Xbu8AJyIaf4FgFG6r3DFCOD07PRvvgZe1B6Ur3CvPXGwdHEnKsTWdtUsAhDNqPGlSOE3amMHbkZSDhtwVttBWct78uPKbugDW5zSYma8ZALg01jsetmAAQ">
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-semibold text-sm mb-1 text-white group-hover:text-brand-red transition-colors">Counter-Strike 2</h3>
+<p class="text-xs text-brand-textMuted">1 756 объявлений</p>
+</div>
+<svg class="text-brand-textMuted group-hover:text-white transition-colors" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+</a>
+<!-- Game Card 2 -->
+<a class="group bg-brand-card rounded-2xl overflow-hidden border border-brand-border hover:border-brand-textMuted/50 transition-colors flex flex-col h-full" href="#">
+<div class="h-36 w-full overflow-hidden bg-gray-800">
+<img alt="Dota 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8Uz9LBNAAVuFI6rpAtP8xGEBImGnn1vdkl69OpLoJBhW6KGDvJFgS0kdq9KToz0M2yEDO36E5sM4hgARkZx8lHmV8-259e3ZX66iho1g8V5r0rEiWFmiuEYXx39wh4s1LRgZHXmeJ14YDXo4OYhPKEMiAX_QJgojT3nNfGPDQTJOfxrjHV1k-GEWtcuFSf6H2yxfxNvPl9Agckhsp8os8_fEnKhVt1jH1kncDt67Pvnzrbo1KxqOZKw">
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-semibold text-sm mb-1 text-white group-hover:text-brand-red transition-colors">Dota 2</h3>
+<p class="text-xs text-brand-textMuted">2 342 объявлений</p>
+</div>
+<svg class="text-brand-textMuted group-hover:text-white transition-colors" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+</a>
+<!-- Game Card 3 -->
+<a class="group bg-brand-card rounded-2xl overflow-hidden border border-brand-border hover:border-brand-textMuted/50 transition-colors flex flex-col h-full" href="#">
+<div class="h-36 w-full overflow-hidden bg-gray-800">
+<img alt="GTA V" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Es-0SDn1aqVojuI0C4mMklCx-QqkgRmQ5_epCJA1yXFfsQvIOxYeuE-lGh1KJOV6n4kASzB8e9h29N0TVwQ_lRS6fFUR6l8vb46csLWsrbPSFu1spND_y94mbtbuHMoJSE3eHDfuHlYDncXN9HqhucTCJm8ka_5ocVv9XWVou5OtOV6GZ8IwqVBRg8Yls26oH2cbkegb0hhyFx1NLgNGHLwt8GJg1sq3ACojWEqEh3_EMhYNZ9-IBw">
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-semibold text-sm mb-1 text-white group-hover:text-brand-red transition-colors">GTA V</h3>
+<p class="text-xs text-brand-textMuted">1 245 объявлений</p>
+</div>
+<svg class="text-brand-textMuted group-hover:text-white transition-colors" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+</a>
+<!-- Game Card 4 -->
+<a class="group bg-brand-card rounded-2xl overflow-hidden border border-brand-border hover:border-brand-textMuted/50 transition-colors flex flex-col h-full" href="#">
+<div class="h-36 w-full overflow-hidden bg-gray-800">
+<img alt="Fortnite" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIc8OBnSOW4p61G-llvPlpYoyIfirHbMH5tewwjDDktIwYu8otbk47ynr37lWH675BNKQQ5fc0mgFzFwlWQYh29qkXVHenN0mxcMSZfEvXPadIO1xwhaTFVjWV2enRQcHMcSPG6zsQGPWo4S12bdCuzj-SRXB902vpX4SWgZlUsrVPzxmEuEH45Stjwj2R1IEH7IpYiok_TL5Z6sdmcHWKB3IFDtdJaoL9qHmuifDOl0Cvj06tnAAAHA">
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-semibold text-sm mb-1 text-white group-hover:text-brand-red transition-colors">Fortnite</h3>
+<p class="text-xs text-brand-textMuted">987 объявлений</p>
+</div>
+<svg class="text-brand-textMuted group-hover:text-white transition-colors" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+</a>
+<!-- Game Card 5 -->
+<a class="group bg-brand-card rounded-2xl overflow-hidden border border-brand-border hover:border-brand-textMuted/50 transition-colors flex flex-col h-full" href="#">
+<div class="h-36 w-full overflow-hidden bg-gray-800">
+<img alt="Valorant" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkjihwSLJqBjv1XO9emV8pWzcpE3RDlz0h49Qe173Wr-peiMX8acHRyjD9YFc5GKk46GfLKnHr4q8Ld02qG9bF7jagCKxxY3O70F3mHKHq-RkqHXWxvro8ZZGh1oNQIL3AWO5HhjdctHgCiKBkbDfw5hWu0N3fukAhUQ386ULZ_hU5SkZMmZ2UFubdlVIrMrpfyyYQtpvsPpd2OLnCFLvBLVtpqbgMskHWB2iMJDZ6-zjfX-_8hPfy7w">
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-semibold text-sm mb-1 text-white group-hover:text-brand-red transition-colors">Valorant</h3>
+<p class="text-xs text-brand-textMuted">1 102 объявлений</p>
+</div>
+<svg class="text-brand-textMuted group-hover:text-white transition-colors" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+</a>
+<!-- Game Card 6 -->
+<a class="group bg-brand-card rounded-2xl overflow-hidden border border-brand-border hover:border-brand-textMuted/50 transition-colors flex flex-col h-full" href="#">
+<div class="h-36 w-full overflow-hidden bg-gray-800 relative">
+<img alt="Steam" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWNcZrNp_0IPI89qObaubHetiKhAg_uj3zHuSzju0-1cd_0pPXxO061d55XsNk8Z7TaEUOffO2nUREXrwHvn99BtQvsxFivYWP4R_9S18vSJF5M25dDD9gMnvId9pKlDnel8fyMZ5MR4uv7r38sFh9aAt6oX8SIOxLfFzvs7SiLnE5PfKHvEuKEqhHUNKY8rBLY2BKwSah4LAQo2nI3Cemwml_km79gfd98rN6Oqb39Hu108dqqNWYbQ">
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-semibold text-sm mb-1 text-white group-hover:text-brand-red transition-colors">Steam</h3>
+<p class="text-xs text-brand-textMuted">3 842 объявлений</p>
+</div>
+<svg class="text-brand-textMuted group-hover:text-white transition-colors" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+</a>
+<!-- Game Card 7 -->
+<a class="group bg-brand-card rounded-2xl overflow-hidden border border-brand-border hover:border-brand-textMuted/50 transition-colors flex flex-col h-full" href="#">
+<div class="h-36 w-full overflow-hidden bg-gray-800">
+<img alt="Minecraft" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5mtTh2d3qklEt9r04PASqJeFnWh9wr1twgZ8uYx94r3SPaNtudLYU6RaOfWQtPR5RP2uZxQzYbFIwrChXdqLWqjafYbfsiUc5FRuTb8g0_mJxEfAN4bLcoZSJIdrV3Q34CvAQpYwe2SdzH8GSakLkR20cHEoQBYDn2LSNAKoyxS0iv6uEGn9lPRT1Ep_AwlOUKr19GPmBYLjYNxh_V_5AgDuHsT7WzByPmd_AM__bs-jHVfMYQluURQ">
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-semibold text-sm mb-1 text-white group-hover:text-brand-red transition-colors">Minecraft</h3>
+<p class="text-xs text-brand-textMuted">1 567 объявлений</p>
+</div>
+<svg class="text-brand-textMuted group-hover:text-white transition-colors" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+</a>
+<!-- Game Card 8 -->
+<a class="group bg-brand-card rounded-2xl overflow-hidden border border-brand-border hover:border-brand-textMuted/50 transition-colors flex flex-col h-full" href="#">
+<div class="h-36 w-full overflow-hidden bg-gray-800">
+<img alt="Apex Legends" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxf5S8JI273h6dav9OKbRpydNExvmmkmetOMYVgHtHp-l-ve3IvIfF052peYY8rLLUz0oe3aHcqcJUWuN1HHqpRe4LNVUIZKLjS1_j-Pq4fPuT59ciQYE2yQd_JXdu3xNOV0hSExxB-Zak93kbDNoIUckzHF4Vn_1szz9C5gHNHQu0q_COOW1BrUUwWodgmhqV99U8sdQyQfUuwn4xkpHGRNgFkBXK5Ezx2JHNnT2hy2qJ_mjioreEfQ">
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-semibold text-sm mb-1 text-white group-hover:text-brand-red transition-colors">Apex Legends</h3>
+<p class="text-xs text-brand-textMuted">689 объявлений</p>
+</div>
+<svg class="text-brand-textMuted group-hover:text-white transition-colors" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+</a>
+<!-- Game Card 9 -->
+<a class="group bg-brand-card rounded-2xl overflow-hidden border border-brand-border hover:border-brand-textMuted/50 transition-colors flex flex-col h-full" href="#">
+<div class="h-36 w-full overflow-hidden bg-gray-800">
+<img alt="PUBG" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsd1ZQx8AlA1V8Ogub4OGh6WgPLBJzCydHZ95su8JlosFBZf7a3Mzgp1HK8IufSo9FPsuxK3qhrQPLbi6zgjqxsv5lK0aM5geqQ8I2RfcmOrcsUezj89yO9e7biAOXR--0tgbCFA4uSSpFfZn_ynaIe7YeAebxs0w7BjsnrlUkLOEvUN7ImfSOvCJuCXGfzu6s5S_FUQQ4YYvBTQvic-2AUuRw2JADp4NlWsczL_9B7lku2F6hz3KgcQ">
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-semibold text-sm mb-1 text-white group-hover:text-brand-red transition-colors">PUBG</h3>
+<p class="text-xs text-brand-textMuted">764 объявлений</p>
+</div>
+<svg class="text-brand-textMuted group-hover:text-white transition-colors" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+</a>
+<!-- Game Card 10 -->
+<a class="group bg-brand-card rounded-2xl overflow-hidden border border-brand-border hover:border-brand-textMuted/50 transition-colors flex flex-col h-full" href="#">
+<div class="h-36 w-full overflow-hidden bg-gray-800">
+<img alt="World of Warcraft" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf1AAb4fldH27jPUPmagMNQ6DQa7Mvww5RnaGWf7glmXMcqr7Yf_FchN2dRGOGzWfUVsbDY8uGnXA-_Y6ec18TYDPDJYsWuxrVmSU-RD5KPEFobXDpB7cbLnXCKsNi63j8ljYu6ly24RqEMEheRO_-ZR59orZ8Lvy13Ue-IRgWbWSj7WlsfpvGoX7NQvkQjS6t7C7HK954s-8VSn4kK_yvP6dEkFyAh2FydGZLw63lUglQN15IKIy8Hw">
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-semibold text-sm mb-1 text-white group-hover:text-brand-red transition-colors">World of Warcraft</h3>
+<p class="text-xs text-brand-textMuted">512 объявлений</p>
+</div>
+<svg class="text-brand-textMuted group-hover:text-white transition-colors" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+</a>
+</div>
+</section>
+<!-- END: Games Section -->
+<!-- BEGIN: AI Services Section -->
+<section class="mb-12" data-purpose="ai-services-section">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-xl font-bold">AI сервисы и инструменты</h2>
+<a class="text-brand-red text-sm hover:underline" href="#">Показать все</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+<!-- AI Card 1 -->
+<a class="group bg-brand-card rounded-2xl border border-brand-border hover:border-brand-textMuted/50 transition-colors p-4 flex items-center justify-between gap-4" href="#">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-green-500/20 text-green-500 rounded-xl flex items-center justify-center shrink-0">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+</div>
+<div>
+<h3 class="font-semibold text-sm text-white group-hover:text-brand-red transition-colors">ChatGPT</h3>
+<p class="text-xs text-brand-textMuted">2 156 объявлений</p>
+</div>
+</div>
+<svg class="text-brand-textMuted group-hover:text-white transition-colors shrink-0" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg>
+</a>
+<!-- AI Card 2 -->
+<a class="group bg-brand-card rounded-2xl border border-brand-border hover:border-brand-textMuted/50 transition-colors p-4 flex items-center justify-between gap-4" href="#">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center shrink-0 border border-gray-700">
+<svg class="text-white" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+</div>
+<div>
+<h3 class="font-semibold text-sm text-white group-hover:text-brand-red transition-colors">Midjourney</h3>
+<p class="text-xs text-brand-textMuted">1 034 объявлений</p>
+</div>
+</div>
+<svg class="text-brand-textMuted group-hover:text-white transition-colors shrink-0" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg>
+</a>
+<!-- AI Card 3 -->
+<a class="group bg-brand-card rounded-2xl border border-brand-border hover:border-brand-textMuted/50 transition-colors p-4 flex items-center justify-between gap-4" href="#">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-orange-200 text-orange-900 rounded-xl flex items-center justify-center shrink-0 font-bold text-lg">
+               AI
+             </div>
+<div>
+<h3 class="font-semibold text-sm text-white group-hover:text-brand-red transition-colors">Claude</h3>
+<p class="text-xs text-brand-textMuted">642 объявления</p>
+</div>
+</div>
+<svg class="text-brand-textMuted group-hover:text-white transition-colors shrink-0" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg>
+</a>
+<!-- AI Card 4 -->
+<a class="group bg-brand-card rounded-2xl border border-brand-border hover:border-brand-textMuted/50 transition-colors p-4 flex items-center justify-between gap-4" href="#">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-purple-600 text-white rounded-xl flex items-center justify-center shrink-0">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="13.5" cy="6.5" fill="currentColor" r=".5"></circle><circle cx="17.5" cy="10.5" fill="currentColor" r=".5"></circle><circle cx="8.5" cy="7.5" fill="currentColor" r=".5"></circle><circle cx="6.5" cy="12.5" fill="currentColor" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg>
+</div>
+<div>
+<h3 class="font-semibold text-sm text-white group-hover:text-brand-red transition-colors truncate max-w-[100px]" title="Stable Diffusion">Stable Diffusion</h3>
+<p class="text-xs text-brand-textMuted">587 объявлений</p>
+</div>
+</div>
+<svg class="text-brand-textMuted group-hover:text-white transition-colors shrink-0" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg>
+</a>
+<!-- AI Card 5 -->
+<a class="group bg-brand-card rounded-2xl border border-brand-border hover:border-brand-textMuted/50 transition-colors p-4 flex items-center justify-between gap-4" href="#">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-white text-black rounded-xl flex items-center justify-center shrink-0">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+</div>
+<div>
+<h3 class="font-semibold text-sm text-white group-hover:text-brand-red transition-colors">GitHub Copilot</h3>
+<p class="text-xs text-brand-textMuted">423 объявления</p>
+</div>
+</div>
+<svg class="text-brand-textMuted group-hover:text-white transition-colors shrink-0" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg>
+</a>
+</div>
+</section>
+<!-- END: AI Services Section -->
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: Footer Trust Bar -->
+<footer class="mt-auto border-t border-brand-border bg-brand-card/50 py-6" data-purpose="trust-bar">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Trust Badge 1 -->
+<div class="flex items-start gap-4 p-4 rounded-xl hover:bg-brand-input/50 transition-colors">
+<div class="text-brand-red shrink-0 mt-1">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path><path d="m9 12 2 2 4-4"></path></svg>
+</div>
+<div>
+<h4 class="font-semibold text-sm text-white mb-1">Гарантия безопасности</h4>
+<p class="text-xs text-brand-textMuted leading-relaxed">Проверяем продавцов и гарантируем безопасность сделок</p>
+</div>
+</div>
+<!-- Trust Badge 2 -->
+<div class="flex items-start gap-4 p-4 rounded-xl hover:bg-brand-input/50 transition-colors">
+<div class="text-brand-red shrink-0 mt-1">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+</div>
+<div>
+<h4 class="font-semibold text-sm text-white mb-1">Мгновенные сделки</h4>
+<p class="text-xs text-brand-textMuted leading-relaxed">Быстрое оформление и моментальная выдача</p>
+</div>
+</div>
+<!-- Trust Badge 3 -->
+<div class="flex items-start gap-4 p-4 rounded-xl hover:bg-brand-input/50 transition-colors">
+<div class="text-brand-red shrink-0 mt-1">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+</div>
+<div>
+<h4 class="font-semibold text-sm text-white mb-1">Поддержка 24/7</h4>
+<p class="text-xs text-brand-textMuted leading-relaxed">Наша поддержка всегда на связи с вами</p>
+</div>
+</div>
+<!-- Trust Badge 4 -->
+<div class="flex items-start gap-4 p-4 rounded-xl hover:bg-brand-input/50 transition-colors">
+<div class="text-brand-red shrink-0 mt-1">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="12" rx="2" width="20" x="2" y="6"></rect><path d="M6 12h4"></path><path d="M8 10v4"></path><path d="M15 13h.01"></path><path d="M18 11h.01"></path></svg>
+</div>
+<div>
+<h4 class="font-semibold text-sm text-white mb-1">Большой выбор</h4>
+<p class="text-xs text-brand-textMuted leading-relaxed">Тысячи предложений каждый день</p>
+</div>
+</div>
+</div>
+</footer>
+<!-- END: Footer Trust Bar -->
+
+
+</body></html>

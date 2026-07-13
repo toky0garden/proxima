@@ -1,0 +1,329 @@
+<!DOCTYPE html><html class="dark" lang="ru" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Gaming Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#E53935',
+              dark: '#0A0A0A',
+              card: '#141414',
+              input: '#1A1A1A',
+              text: '#E0E0E0',
+              muted: '#888888'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style data-purpose="custom-styles">
+    body {
+      background-color: #0A0A0A;
+      color: #E0E0E0;
+      font-family: 'Inter', sans-serif;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-brand-dark text-brand-text min-h-screen pb-12">
+<!-- BEGIN: Header -->
+<header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-md border-b border-white/5 py-4 px-6 flex items-center justify-between"><div class="flex items-center space-x-8 w-full max-w-screen-2xl mx-auto">
+  <!-- Logo -->
+  <a class="flex items-center flex-shrink-0" href="#">
+    <svg fill="none" height="46" viewBox="0 0 40 46" width="40" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 0L39.0526 11V33L20 44L0.947441 33V11L20 0Z" stroke="#E53935" stroke-width="2"></path>
+      <path d="M28.5 22.5C28.5 24.9853 26.4853 27 24 27C21.5147 27 19.5 24.9853 19.5 22.5C19.5 20.0147 21.5147 18 24 18C26.4853 18 28.5 20.0147 28.5 22.5Z" fill="#E53935"></path>
+      <path d="M16 22.5C16 24.9853 13.9853 27 11.5 27C9.01472 27 7 24.9853 7 22.5C7 20.0147 9.01472 18 11.5 18C13.9853 18 16 20.0147 16 22.5Z" fill="#E53935"></path>
+      <rect fill="#0A0A0A" height="7" width="2" x="23" y="19"></rect>
+      <rect fill="#0A0A0A" height="2" width="7" x="20.5" y="21.5"></rect>
+      <circle cx="10" cy="22.5" fill="#0A0A0A" r="1.5"></circle>
+      <circle cx="13" cy="22.5" fill="#0A0A0A" r="1.5"></circle>
+      <path d="M12.5 13L16 16.5M27.5 13L24 16.5" stroke="#E53935" stroke-linecap="round" stroke-width="2"></path>
+    </svg>
+  </a>
+
+  <!-- Search (Expanded) -->
+  <div class="flex-1">
+    <div class="relative">
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <svg class="w-5 h-5 text-brand-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+      </div>
+      <input class="block w-full pl-10 pr-3 py-2.5 border border-transparent rounded-lg leading-5 bg-brand-input text-white placeholder-brand-muted focus:outline-none focus:bg-white/5 focus:border-white/10 sm:text-sm transition-colors" placeholder="Поиск по играм, категориям, объявлениям..." type="text">
+    </div>
+  </div>
+
+  <!-- Actions (Grouped Right) -->
+  <div class="flex items-center space-x-4 flex-shrink-0">
+    <button class="text-brand-muted hover:text-white relative" title="Категории">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+    </button>
+    <button class="text-brand-muted hover:text-white relative" title="Чаты">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+    </button>
+    <button class="text-brand-muted hover:text-white relative" title="Уведомления">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+      <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-brand-red ring-2 ring-brand-dark"></span>
+    </button>
+    <div class="h-8 w-8 rounded-full overflow-hidden border border-white/10 cursor-pointer" title="Профиль">
+      <img alt="User Avatar" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6rNyIAO0jU1LCzPPyhfUEhR4qR25_Rv26DfS8QfmJKr8NChObO6N-2ITz5IGjxC6Ip4ZXzPYpKtjU-kBb80pB5Trg17Fl6U7SgpyRGnOWj04HjB6PDqvfQU2IrGC_u2inSUANOpFP4ZToSVZJV6CtY0ajPo78qKz_geJE7tr8ObP7g0oXzE8hFnMHzbVQ28_VOt7MC8atbuDKl9ApPXhxF9UiKaGPeo7SM2z2I-7OSqH12BsLC7WRAw">
+    </div>
+  </div>
+</div></header>
+<!-- END: Header -->
+<main class="w-full max-w-screen-2xl mx-auto px-6 py-8 space-y-12">
+<!-- BEGIN: Hero Section -->
+<section class="relative rounded-2xl overflow-hidden h-[400px] flex items-center bg-brand-card">
+<div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/80 to-transparent z-10"></div>
+<img alt="Hero Background" class="absolute inset-0 w-full h-full object-cover object-top opacity-50 mix-blend-screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRKkDMiNlaCO_nqrVwtGCACIrd9KUHyfHOA8uTiWx0bT0vFeFKByNztcFx-gBGQ8ORUE4EcR0k5AWR_wbJWRtc4wBjQZz1Fu9tt90aWJd1_dEAQBDwoghG8Q7CS-xm1Zs3M4WN7yF1fYW-y9EAigetXxBo3zmnrGz45xLrdnHJDWtxSnr6W-dVHCHziUHmFTswbWyaMYKIWeA4Z-gGI693z-VlkgUIU__o_8XQYsw4x6YejsT0-eLsBs4SaQahi_Pw_ts">
+<div class="relative z-20 px-12 max-w-2xl">
+<h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
+          Покупай и продавай<br>
+          игровые аккаунты<br>
+<span class="text-brand-red">безопасно</span>
+</h1>
+<div class="flex items-center space-x-8 mt-10 text-sm">
+<div class="flex items-center space-x-3">
+<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="text-gray-300">Гарантия<br>безопасности</span>
+</div>
+<div class="flex items-center space-x-3">
+<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="text-gray-300">Мгновенные<br>сделки</span>
+</div>
+<div class="flex items-center space-x-3">
+<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="text-gray-300">Поддержка<br>24/7</span>
+</div>
+</div>
+</div>
+<!-- Dots -->
+<div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
+<div class="w-2 h-2 rounded-full bg-brand-red"></div>
+<div class="w-2 h-2 rounded-full bg-white/30"></div>
+<div class="w-2 h-2 rounded-full bg-white/30"></div>
+</div>
+</section>
+<!-- END: Hero Section -->
+<!-- BEGIN: Popular Categories -->
+<section>
+<div class="flex justify-between items-end mb-6">
+<h2 class="text-2xl font-semibold">Популярные категории</h2>
+<a class="text-brand-red text-sm hover:underline" href="#">Показать все</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+<!-- Card 1 -->
+<a class="bg-brand-card rounded-xl p-4 flex items-center justify-between hover:bg-white/5 transition-colors border border-white/5" href="#">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 rounded-lg bg-green-900 flex items-center justify-center overflow-hidden">
+<img alt="GTA V" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPsMMGk1uUo_QAd9jw7_kidMZGP0G401e2YzWsllj98ffaKoNbeBneTZqb3hrEN0TbX2xfPXrjUFc3ofNSKao8zJIAq-lFI3tqWLt3SEGlz0ceQAnQtiiNcknqJebsGYAp9izrMJgS-bhD-0uGUJIylIEqmAg2VPCDTddDu5iFmSABpoDR6bLCjkqHC9CakDW10MFxxxLQVd8u4Y6Do32kMKa4QTZJL6YedunQhhw2zcB_lwftzjS-2g">
+</div>
+<div>
+<h3 class="font-medium text-sm">GTA V</h3>
+<p class="text-xs text-brand-muted mt-1">1 245 объявлений</p>
+</div>
+</div>
+<svg class="w-4 h-4 text-brand-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+<!-- Card 2 -->
+<a class="bg-brand-card rounded-xl p-4 flex items-center justify-between hover:bg-white/5 transition-colors border border-white/5" href="#">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 rounded-lg bg-blue-900 flex items-center justify-center overflow-hidden">
+<img alt="Steam" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW3dQN7ShGvn4kdU7u7ih6-3dMtaJclbJgnYaQ1hiepanbtpOYBWWEPKZJFlhPEXvYkDCF11-4QSPIglHb5TGZuSc7662S6ernDyNGAFXBBrjk30BQB9ico_geXuiv5lDqlVf8hqNc5OPYnLiE6P0fY-d-WNC7f158tXRW9jfmsSIYR8rLYt9MblisJddns0VROfbWmUK-6urYlUGdoTeQAUWry1WQ1QypS86i1zhNp_J8Dy92cj4piA">
+</div>
+<div>
+<h3 class="font-medium text-sm">Steam</h3>
+<p class="text-xs text-brand-muted mt-1">3 842 объявлений</p>
+</div>
+</div>
+<svg class="w-4 h-4 text-brand-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+<!-- Card 3 -->
+<a class="bg-brand-card rounded-xl p-4 flex items-center justify-between hover:bg-white/5 transition-colors border border-white/5" href="#">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 rounded-lg bg-blue-500 flex items-center justify-center text-white font-bold text-xl">
+               F
+            </div>
+<div>
+<h3 class="font-medium text-sm">Fortnite</h3>
+<p class="text-xs text-brand-muted mt-1">987 объявлений</p>
+</div>
+</div>
+<svg class="w-4 h-4 text-brand-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+<!-- Card 4 -->
+<a class="bg-brand-card rounded-xl p-4 flex items-center justify-between hover:bg-white/5 transition-colors border border-white/5" href="#">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold">
+               V
+            </div>
+<div>
+<h3 class="font-medium text-sm">Valorant</h3>
+<p class="text-xs text-brand-muted mt-1">1 102 объявлений</p>
+</div>
+</div>
+<svg class="w-4 h-4 text-brand-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+<!-- Card 5 -->
+<a class="bg-brand-card rounded-xl p-4 flex items-center justify-between hover:bg-white/5 transition-colors border border-white/5" href="#">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center overflow-hidden">
+<img alt="CS 2" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABX4iLh8WGZ9_C-8O7hc5SeroowtzA5RiteLcGRpduf4qSySxUJ2jsx24xytlBpYQyZ8wr3EEJbf7wUbT3ONqUZqmlwTbMhxaK-yMudmqPbEE28lg49xLW2xQNxSVpcmGU4zbKj9apGnsG-wY2ubBmMpa20ssGjKhkTu_kzwxu1aJ8FC0G0VuIhNFsaEQJDRlcbmu1p8vPeE_rb_gUT4nimNRB50GEqlL2cn5ROcdhUcoD_2EEvXreUw">
+</div>
+<div>
+<h3 class="font-medium text-sm">CS 2</h3>
+<p class="text-xs text-brand-muted mt-1">1 756 объявлений</p>
+</div>
+</div>
+<svg class="w-4 h-4 text-brand-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+</section>
+<!-- END: Popular Categories -->
+<!-- BEGIN: Latest Listings -->
+<section>
+<div class="flex justify-between items-end mb-6">
+<h2 class="text-2xl font-semibold">Последние объявления</h2>
+<a class="text-brand-red text-sm hover:underline" href="#">Показать все объявления</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Item 1 -->
+<div class="bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 transition-colors group">
+<div class="relative h-48 bg-gray-800">
+<img alt="GTA V Account" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIPWdst2vh-lEeE8MBDmRoH7ZR-gacKzR-Wx9L0k0n8V_bErIarmzbeLukt4ZrPui2ElF0QjX679A1f6ImqA7khGt2sni3nB2Ln2H0NPvC8ezLef0VQO4Px5dLkdA5_4BvjPBpBoW9XeW4MIJiZr5PKi0_QhjOiOpnKaHtN0-b0xbJnJ7udpxU847-3h1P-QlZ4DjEWrn4wq8OUNIKDdezVOQIEEhOmW0V1HjqWOd_SFX1ptVqa8Mr7Q">
+<div class="absolute top-3 left-3 bg-brand-red text-white text-xs font-bold px-2 py-1 rounded">ХИТ</div>
+</div>
+<div class="p-5">
+<h3 class="font-medium text-base mb-1 line-clamp-1">GTA V Premium Account</h3>
+<p class="text-sm text-brand-muted mb-4">(Онлайн + сюжет)</p>
+<div class="flex items-end justify-between mt-auto">
+<div>
+<p class="text-xl font-bold text-brand-red">799 ₽</p>
+<div class="flex items-center space-x-2 mt-2">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span class="text-xs text-brand-muted">Онлайн · 5 мин. назад</span>
+</div>
+</div>
+<button class="text-brand-muted hover:text-white transition-colors">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 transition-colors group">
+<div class="relative h-48 bg-gray-800">
+<img alt="Rust Account" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQIyuDhC8p3sLxR83BzEIhHbHO8Vx9nB1fU2oLjAkjbp7fGuvJOvbmEt6BllLrxODt_Zo3taFheipbyCAqrXIX_QE2WXlpe_VUvItp-6aPl1POZ-1fsRCVCOEfOttG5c2QFHF2rJ0HIoFfvFvFQaZJXxWj_wDIMnQEVtN_opextcm-cIRA1NhIf2kmjuVjY_Ftg9e4iMNTWdJFqmuu4laZeeJt0mF6tzJe_EZnc2QSJ9uicSuOt-m0RQ">
+<div class="absolute top-3 left-3 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded">НОВИНКА</div>
+</div>
+<div class="p-5">
+<h3 class="font-medium text-base mb-1 line-clamp-1">Rust Аккаунт</h3>
+<p class="text-sm text-brand-muted mb-4">(1000+ часов)</p>
+<div class="flex items-end justify-between mt-auto">
+<div>
+<p class="text-xl font-bold text-brand-red">499 ₽</p>
+<div class="flex items-center space-x-2 mt-2">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span class="text-xs text-brand-muted">Онлайн · 10 мин. назад</span>
+</div>
+</div>
+<button class="text-brand-muted hover:text-white transition-colors">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 transition-colors group">
+<div class="relative h-48 bg-gray-800 flex items-center justify-center">
+<img alt="Steam Account" class="absolute inset-0 w-full h-full object-cover opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMIJl3w1qWVGxWUciGFYyd5pBx7-Zr4n6SI2E35FFdoG4YQonh8ba40KaTvFcAFBAdk7cw1ivoTHYRWpUs0iUgHiXWhlfDQ_G8QutEUON21s038HA7hrzchfpXevuF8M6BXhGJBnfz1aa1lSQ9F19nX7j5dfj09DW4DSd6IXkcJpyFetlsy_sBAItfvsh1lUz0krPWGsvc3Z5UZcR4OONIa-HVPVCosldpxX4CziAYIkIdEtJIGmh-UQ">
+<div class="absolute top-3 left-3 bg-brand-red text-white text-xs font-bold px-2 py-1 rounded z-10">ХИТ</div>
+<div class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center z-10">
+<img class="w-8 h-8 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEUND6Y_dqidqzL6XP_3gA4HdXzx3Zd5swPWXKTwbrcFfO08KKbC1w1mUUZ3GKa6YnQ5_P9iv3uwNhNHoICSPk2RA1U5ezV_wLX8-CdloC_yXgispgVxgGxDgX4QELLcjJ75_p7S3DlnldGIucRtzcMW-sEeutEV2bHuEXnsEDAVyx4ZlANOcYdL7mVHD4zVB6zOobjkuAxNaAIfNDehDOaf9GPwX5mF4bQtTxZpSLMzrJWDCFQ9nmgQ">
+</div>
+</div>
+<div class="p-5">
+<h3 class="font-medium text-base mb-1 line-clamp-1">Steam Аккаунт</h3>
+<p class="text-sm text-brand-muted mb-4">(50+ игр)</p>
+<div class="flex items-end justify-between mt-auto">
+<div>
+<p class="text-xl font-bold text-brand-red">299 ₽</p>
+<div class="flex items-center space-x-2 mt-2">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span class="text-xs text-brand-muted">Онлайн · 15 мин. назад</span>
+</div>
+</div>
+<button class="text-brand-muted hover:text-white transition-colors">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 transition-colors group">
+<div class="relative h-48 bg-gray-800">
+<img alt="Valorant Account" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl2oM2mguu4jfQUntWWR0X2X-YuqHM5TkBE7Jg9bZ0kdBVbHEYZiBDMB2qIb3fEacVXqVaptzFFqD1f_dk3yu-lge1pIURDWcX_q-3SGhCH170hKnaiz4d88fQy1Gg1YXxd7NUeE7sWIJwi7mjV_ioGebAin49X1eXRPbzJAXYJKyH7Sys5hyQZE6uL2XM9qrAlRrQUGb9vaoWOYXTwUf0zrc4WjHNUizac1cpGeczquGFbimnmLN4uA">
+<div class="absolute top-3 left-3 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded">НОВИНКА</div>
+</div>
+<div class="p-5">
+<h3 class="font-medium text-base mb-1 line-clamp-1">Valorant Аккаунт</h3>
+<p class="text-sm text-brand-muted mb-4">(Ранг: Алмаз)</p>
+<div class="flex items-end justify-between mt-auto">
+<div>
+<p class="text-xl font-bold text-brand-red">1 299 ₽</p>
+<div class="flex items-center space-x-2 mt-2">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span class="text-xs text-brand-muted">Онлайн · 20 мин. назад</span>
+</div>
+</div>
+<button class="text-brand-muted hover:text-white transition-colors">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 transition-colors group">
+<div class="relative h-48 bg-gray-800">
+<img alt="Fortnite Account" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsi1-0Zx0psiMpDfN-5CAj_FCP37KMB52oLMXCjGZC_NwAl9BwAhMoco6QztOCNpc3VXftdvwYPwHbuLjX7pCzzlSJanV2eNIB6gssGSLPNz14-cIqojc8GNLPOeCrmp8ZjcMm9SYAGydqu7faG2R710aLcJ9IE6uNS8ftDwG4-6A7hUK8t9M18I3dTd9cgc7ugZE4dOLxY5J7gZctJqg6Qgbw71WkvysYtH2bsv0s9zaZKJtGj0ZBGg">
+<div class="absolute top-3 left-3 bg-brand-red text-white text-xs font-bold px-2 py-1 rounded">ХИТ</div>
+</div>
+<div class="p-5">
+<h3 class="font-medium text-base mb-1 line-clamp-1">Fortnite Аккаунт</h3>
+<p class="text-sm text-brand-muted mb-4">(100+ скинов)</p>
+<div class="flex items-end justify-between mt-auto">
+<div>
+<p class="text-xl font-bold text-brand-red">599 ₽</p>
+<div class="flex items-center space-x-2 mt-2">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span class="text-xs text-brand-muted">Онлайн · 25 мин. назад</span>
+</div>
+</div>
+<button class="text-brand-muted hover:text-white transition-colors">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Latest Listings -->
+</main>
+
+
+</body></html>
