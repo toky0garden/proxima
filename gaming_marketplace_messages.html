@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Game Market - Chats</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'gm-dark': '#0a0a0c',
+            'gm-panel': 'rgba(26, 26, 30, 0.65)',
+            'gm-red': '#e62e3d',
+            'gm-red-hover': '#ff3b4b',
+            'gm-text': '#f3f4f6',
+            'gm-text-muted': '#9ca3af',
+            'gm-border': 'rgba(255, 255, 255, 0.08)',
+            'gm-input': 'rgba(255, 255, 255, 0.04)',
+            'gm-msg-received': 'rgba(255, 255, 255, 0.06)',
+            'gm-online': '#10b981',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          boxShadow: {
+            'glass': '0 4px 30px rgba(0, 0, 0, 0.5)',
+            'glass-inset': 'inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+            'glow-red': '0 0 15px rgba(230, 46, 61, 0.4)',
+            'glow-white': '0 0 10px rgba(255, 255, 255, 0.3)',
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style data-purpose="custom-utilities">
+    body {
+      background-color: #0A0A0A;
+      color: #E0E0E0;
+    }
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
+<body class="h-screen flex flex-col font-sans antialiased overflow-hidden selection:bg-gm-red selection:text-white">
+<!-- BEGIN: MainHeader -->
+<header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-md border-b border-white/5 py-4 px-6 flex items-center justify-between"><div class="flex items-center space-x-8 w-full max-w-screen-2xl mx-auto">
+  <!-- Logo -->
+  <a class="flex items-center flex-shrink-0" href="gaming_marketplace.html">
+    <svg fill="none" height="46" viewBox="0 0 40 46" width="40" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 0L39.0526 11V33L20 44L0.947441 33V11L20 0Z" stroke="#E53935" stroke-width="2"></path>
+      <path d="M28.5 22.5C28.5 24.9853 26.4853 27 24 27C21.5147 27 19.5 24.9853 19.5 22.5C19.5 20.0147 21.5147 18 24 18C26.4853 18 28.5 20.0147 28.5 22.5Z" fill="#E53935"></path>
+      <path d="M16 22.5C16 24.9853 13.9853 27 11.5 27C9.01472 27 7 24.9853 7 22.5C7 20.0147 9.01472 18 11.5 18C13.9853 18 16 20.0147 16 22.5Z" fill="#E53935"></path>
+      <rect fill="#0A0A0A" height="7" width="2" x="23" y="19"></rect>
+      <rect fill="#0A0A0A" height="2" width="7" x="20.5" y="21.5"></rect>
+      <circle cx="10" cy="22.5" fill="#0A0A0A" r="1.5"></circle>
+      <circle cx="13" cy="22.5" fill="#0A0A0A" r="1.5"></circle>
+      <path d="M12.5 13L16 16.5M27.5 13L24 16.5" stroke="#E53935" stroke-linecap="round" stroke-width="2"></path>
+    </svg>
+  </a>
+
+  <!-- Search (Expanded) -->
+  <div class="flex-1">
+    <div class="relative">
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <svg class="w-5 h-5 text-gm-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+      </div>
+      <input class="block w-full pl-10 pr-3 py-2.5 border border-transparent rounded-lg leading-5 bg-gm-input text-white placeholder-gm-text-muted focus:outline-none focus:bg-white/5 focus:border-white/10 sm:text-sm transition-colors" placeholder="Поиск по играм, категориям, объявлениям..." type="text">
+    </div>
+  </div>
+
+  <!-- Actions (Grouped Right) -->
+  <div class="flex items-center space-x-4 flex-shrink-0">
+    <a class="text-gm-text-muted hover:text-white relative flex items-center" title="Категории" href="gaming_marketplace_catalog.html">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+    </a>
+    <a class="text-gm-red relative flex items-center animate-pulse" title="Чаты" href="gaming_marketplace_messages.html">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+    </a>
+    <button class="text-gm-text-muted hover:text-white relative" title="Уведомления">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+      <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-gm-red ring-2 ring-brand-dark"></span>
+    </button>
+    <div class="h-8 w-8 rounded-full overflow-hidden border border-white/10 cursor-pointer" title="Профиль">
+      <img alt="User Avatar" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7-v7oiUF9lM-D8FIKuEJ5GakwdW7_AeNpgsCJBkCGthJmj1jHV07aVYuz0kRRSFSJTfNmoh1YJlQ9in_XteU5JMYOkT59zAvgGTbUPNwjDdW2YSOCOh1B2kxWnuR1Tlrf0NlnQ-x0DveN3PMIuLhpbAJPM51H9f7w1HcySIP-Q78R6-j-LX4GV2XJWfZJpj72IHr-bXQMTOHbNU745wJRKaBRFjaHgkqyDVa0sEZUPweqoBDOYhdUwA">
+    </div>
+  </div>
+</div></header>
+<!-- END: MainHeader -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 flex overflow-hidden w-full max-w-screen-2xl mx-auto px-6 py-6 gap-6 z-10 relative">
+<!-- BEGIN: Sidebar (Chat List) -->
+<aside class="w-[340px] bg-gm-panel backdrop-blur-2xl rounded-3xl flex flex-col border border-gm-border shadow-glass shrink-0 overflow-hidden relative">
+<div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
+<!-- Sidebar Header & Tabs -->
+<div class="p-6 border-b border-gm-border/50 shrink-0 relative z-10">
+<h2 class="text-2xl font-semibold mb-6 tracking-tight text-white drop-shadow-md">Чаты</h2>
+<div class="flex gap-8 text-sm font-medium">
+<button class="text-gm-red border-b-2 border-gm-red pb-1.5 shadow-[0_1px_0_#e62e3d]">Все</button>
+<button class="text-gm-text-muted hover:text-white transition-colors pb-1.5">Непрочитанные</button>
+<button class="text-gm-text-muted hover:text-white transition-colors pb-1.5">Архив</button>
+</div>
+</div>
+<!-- Chat List Items -->
+<div class="flex-1 overflow-y-auto relative z-10">
+<!-- Active Chat -->
+<div class="flex items-center gap-4 p-5 bg-white/5 border-l-[3px] border-gm-red cursor-pointer hover:bg-white/10 transition-all duration-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]">
+<div class="relative shrink-0">
+<img alt="GTA V" class="w-14 h-14 rounded-2xl object-cover bg-gm-dark border border-white/10 shadow-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJh5PSUgB2-1C70Vxf2jAfRI9028OIeOl4UHC-ZMzGOufbZBZf8N4EhQSmm_hWI5Uqf2gBd9Cm38Vhm-TbDI92qTHIRsDyxx5ALJYIKp8WM7l7Bof29xnU6-88L85MoQmVHBSpu8ilid53hwR5KDhz2ZeopsfeyzOnWmBZHF6hdHQnVDjVWpwIFW6-k2Hg-zoozIHYgL6nvxSYlB4i-MpZ0dH52Qnr4RczULy91lt81sk3lM8D-zU0DQ"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1.5">
+<span class="font-medium text-white truncate tracking-wide">Продавец GTA V <span class="text-gm-online text-[10px] uppercase tracking-wider font-semibold ml-2 drop-shadow-[0_0_4px_rgba(16,185,129,0.5)]">онлайн</span></span>
+<span class="text-xs text-gm-text-muted shrink-0 ml-2 font-light">12:45</span>
+</div>
+<div class="flex justify-between items-center">
+<p class="text-sm text-gm-text-muted truncate font-light">Вы: Отлично, когда можно...</p>
+<span class="bg-gradient-to-br from-gm-red to-red-800 text-white text-xs font-semibold w-5 h-5 rounded-full flex items-center justify-center shrink-0 ml-2 shadow-[0_0_10px_rgba(230,46,61,0.4)] border border-gm-red/50">2</span>
+</div>
+</div>
+</div>
+<!-- Chat 2 -->
+<div class="flex items-center gap-4 p-5 cursor-pointer hover:bg-white/[0.03] transition-all duration-300 border-b border-gm-border/30">
+<div class="relative shrink-0">
+<img alt="Steam" class="w-14 h-14 rounded-2xl object-cover bg-gm-dark border border-white/10 shadow-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKs5eAjLhOev7uFN7lhAnHmTSkf17Ek-uIvErom3ZOYIeUEAtU_5pjE-3YTKUJGJ3SKPoLvLyNyU-j6uUrEXQMWy6EF3qiGb_oKFmduWnpvmK4UP6rsdQIVF_Me4W4-sS8_FBwzMnw3O1IuxpP_skxbYrM63mkgIOcnXrUHz7PlmKaqgvdL0WsmXpS1vfhOwVRgce9bzd00sjC-Ct5qXu8TR--d1kqvGNbdAfhP2iTs7t2rHAHuO_X2Q"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-medium text-white/90 truncate tracking-wide">Steam Аккаунт</span>
+<span class="text-xs text-gm-text-muted shrink-0 ml-2 font-light">11:30</span>
+</div>
+<p class="text-[11px] text-gm-text-muted mb-1.5 font-light">был(а) 5 мин. назад</p>
+<div class="flex justify-between items-center">
+<p class="text-sm text-gm-text-muted truncate font-light">Продавец: Готово, проверьте</p>
+<span class="bg-gradient-to-br from-gm-red to-red-800 text-white text-xs font-semibold w-5 h-5 rounded-full flex items-center justify-center shrink-0 ml-2 shadow-[0_0_10px_rgba(230,46,61,0.4)] border border-gm-red/50">1</span>
+</div>
+</div>
+</div>
+<!-- Chat 3 -->
+<div class="flex items-center gap-4 p-5 cursor-pointer hover:bg-white/[0.03] transition-all duration-300 border-b border-gm-border/30">
+<div class="relative shrink-0">
+<div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#1da1f2] to-[#0d7bbd] flex items-center justify-center border border-white/10 shadow-lg">
+<span class="text-white font-bold text-2xl drop-shadow-md">F</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-medium text-white/90 truncate tracking-wide">Fortnite Аккаунт</span>
+<span class="text-xs text-gm-text-muted shrink-0 ml-2 font-light">10:15</span>
+</div>
+<p class="text-[11px] text-gm-online mb-1.5 font-light drop-shadow-[0_0_2px_rgba(16,185,129,0.3)]">онлайн</p>
+<p class="text-sm text-gm-text-muted truncate font-light">Вы: Спасибо!</p>
+</div>
+</div>
+<!-- Chat 4 -->
+<div class="flex items-center gap-4 p-5 cursor-pointer hover:bg-white/[0.03] transition-all duration-300 border-b border-gm-border/30">
+<div class="relative shrink-0">
+<div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#ff4655] to-[#c72633] flex items-center justify-center border border-white/10 shadow-lg">
+<i class="fa-solid fa-v text-white text-xl drop-shadow-md"></i>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-medium text-white/90 truncate tracking-wide">Valorant Аккаунт</span>
+<span class="text-xs text-gm-text-muted shrink-0 ml-2 font-light">Вчера</span>
+</div>
+<p class="text-[11px] text-gm-text-muted mb-1.5 font-light">был(а) 1 час назад</p>
+<p class="text-sm text-gm-text-muted truncate font-light">Вы: А есть ещё почта?</p>
+</div>
+</div>
+<!-- Chat 5 -->
+<div class="flex items-center gap-4 p-5 cursor-pointer hover:bg-white/[0.03] transition-all duration-300 border-b border-gm-border/30">
+<div class="relative shrink-0">
+<img alt="Rust" class="w-14 h-14 rounded-2xl object-cover border border-white/10 shadow-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcG6x2eG4rA_fHE-ePf1oKFX4g35AaI-BfRD15EvTRYQV9BMauqCug_n5_y_TKfXvw0ihaCl526Ez9ZW773lU3ml-A54ZMWANHlpZ48Qx3kvizvtNstAqht6x73sIEKRNTigNd37hM2L11BAuFMJ0btMi-BVsGO6eaoHEAGuxq04l-h-esdpllicg50pXzHqlLH0_QMYzUasqH6q8vNQ-aJxpUrY_4Y1IM8xzeuYQ8aMq-Cl-gWNM19A"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-medium text-white/90 truncate tracking-wide">Rust Аккаунт</span>
+<span class="text-xs text-gm-text-muted shrink-0 ml-2 font-light">Вчера</span>
+</div>
+<p class="text-[11px] text-gm-text-muted mb-1.5 font-light">был(а) 2 часа назад</p>
+<p class="text-sm text-gm-text-muted truncate font-light">Продавец: Нет, только этот</p>
+</div>
+</div>
+<!-- Chat 6 (Support) -->
+<div class="flex items-center gap-4 p-5 cursor-pointer hover:bg-white/[0.03] transition-all duration-300 border-b border-gm-border/30">
+<div class="relative shrink-0">
+<div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-lg shadow-glass-inset">
+<i class="fa-solid fa-headset text-xl text-white/90 drop-shadow-md"></i>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-medium text-white/90 truncate tracking-wide">Поддержка</span>
+<span class="text-xs text-gm-text-muted shrink-0 ml-2 font-light">Вчера</span>
+</div>
+<p class="text-[11px] text-gm-online mb-1.5 font-light drop-shadow-[0_0_2px_rgba(16,185,129,0.3)]">онлайн</p>
+<p class="text-sm text-gm-text-muted truncate font-light">Оператор: Здравствуйте! Чем...</p>
+</div>
+</div>
+<!-- Chat 7 -->
+<div class="flex items-center gap-4 p-5 cursor-pointer hover:bg-white/[0.03] transition-all duration-300">
+<div class="relative shrink-0">
+<img alt="Minecraft" class="w-14 h-14 rounded-2xl object-cover border border-white/10 shadow-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbNuZrrMwKr-gqEGvFk9yTIxwzAmSMgSn2NRY-0Hs1-nAprgJzg_julX9IwDCuHFAyWiu3LLFOtei0spXRNdA2IqL6NOMUcSlpyHK_L_2NNFoVvxgmoPAZ9ogWRYp-QILAmXLVcF9gC2O3Q7V3ynUIAcnvNZk0yfK1Sx-vTJvglkqaYh02BRIQRZ28AJNTX-MKHemH5gycMQ6eGuThNQ9rLzsuolzWLdPMGWwvDuH9zVhb1pUX2BzyFg"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-medium text-white/90 truncate tracking-wide">Minecraft Аккаунт</span>
+<span class="text-xs text-gm-text-muted shrink-0 ml-2 font-light">3 дня назад</span>
+</div>
+<p class="text-[11px] text-gm-text-muted mb-1.5 font-light">был(а) 3 дня назад</p>
+<p class="text-sm text-gm-text-muted truncate font-light">Вы: Понял, спасибо</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: Chat Window -->
+<section class="flex-1 bg-gm-panel backdrop-blur-2xl rounded-3xl flex flex-col border border-gm-border shadow-glass overflow-hidden relative">
+<div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
+<!-- Chat Header -->
+<div class="px-8 py-5 border-b border-gm-border/50 flex justify-between items-center bg-white/[0.01] z-10 shrink-0 relative">
+<div class="flex items-center gap-5">
+<button class="w-10 h-10 rounded-xl flex items-center justify-center text-gm-text-muted hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all duration-300">
+<i class="fa-solid fa-arrow-left text-lg"></i>
+</button>
+<img alt="GTA V" class="w-12 h-12 rounded-2xl border border-white/10 shadow-lg object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbpuw_ccXDglj7fqnJcny0cOYvV2YdcOU8Ep8TeCwLQG-HefcJU-YpnENBX3YKBzw63LRHCkJudUbHBfMnmGeNpKubI5gbajALFzk2WGzUFthUPg3kg7Y-4Z00pyWnLOLuUGwONQ5-ZYAdbgRUldqeG1qO_klX8bA6cjg9bbuhJXObCfpK_mLQyw7rP9_TLAUrzD7zeC2p-T8pMXAOxf_jCeG4Fn-KORiMDfJZyere3-rHSWfX9bE4nA"/>
+<div>
+<h3 class="font-medium text-lg leading-tight tracking-wide text-white drop-shadow-sm">Продавец GTA V</h3>
+<span class="text-xs font-medium text-gm-online uppercase tracking-wider drop-shadow-[0_0_4px_rgba(16,185,129,0.5)]">онлайн</span>
+</div>
+</div>
+<button class="w-10 h-10 rounded-xl flex items-center justify-center text-gm-text-muted hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all duration-300">
+<i class="fa-solid fa-ellipsis-vertical text-xl"></i>
+</button>
+</div>
+<!-- Item Card in Chat -->
+<div class="p-4 mx-8 mt-6 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-glass-inset flex items-center justify-between shrink-0 relative z-10 hover:bg-white/[0.07] transition-colors duration-300">
+<div class="flex items-center gap-5">
+<img alt="GTA V Game" class="w-24 h-16 rounded-xl object-cover border border-white/10 shadow-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqZ-x_KFh6K20gXiJIVTHzKs90-STOnDh0VApppYP-LLfLRpaDkpwSjq62QN6EW2QnPF1sltXeG0WJJTnNTLGzD35XmWKwQGyCLvaI1tBqRKM7J-c1F-IcMH8Ndffc20g2vWMj44k6qFIm5942ag9oFx3IAuOZcBIGUrH84UJPm-fRyT0YR7Ij2tMQARbX6ZyavJjTsc3JkJ7dV96a9_WN4VolRMs1igNqGxu-HBVNkMpYsZkAHi3ZVg"/>
+<div>
+<h4 class="font-medium text-white mb-1.5 tracking-wide">GTA V Premium Account</h4>
+<div class="text-xs text-gm-text-muted mb-2 flex items-center gap-2 font-light">
+<span>Онлайн + сюжет</span>
+<span class="opacity-50">•</span>
+<span>Гарантия</span>
+</div>
+<span class="text-gm-red font-semibold text-sm drop-shadow-[0_0_5px_rgba(230,46,61,0.5)]">799 ₽</span>
+</div>
+</div>
+<button class="px-5 py-2.5 bg-white/5 hover:bg-white/10 backdrop-blur-sm border border-white/10 hover:border-white/20 text-sm font-medium rounded-xl transition-all duration-300 shadow-glass-inset">
+          Открыть объявление
+        </button>
+</div>
+<!-- Messages Area -->
+<div class="flex-1 overflow-y-auto p-8 flex flex-col gap-5 relative z-10 scroll-smooth">
+<!-- Date Separator -->
+<div class="flex justify-center my-4">
+<span class="text-xs font-medium tracking-wider uppercase text-gm-text-muted bg-white/5 backdrop-blur-md border border-white/5 shadow-glass-inset px-4 py-1.5 rounded-full">Сегодня</span>
+</div>
+<!-- Received Message 1 -->
+<div class="flex self-start max-w-[70%]">
+<div class="bg-gm-msg-received backdrop-blur-sm border border-white/5 shadow-glass-inset rounded-2xl rounded-tl-sm p-4 relative group">
+<p class="text-[15px] leading-relaxed text-white/90 font-light">Здравствуйте! Аккаунт GTA V ещё в наличии.</p>
+<div class="h-3 w-12 float-right ml-3"></div> <!-- Spacer for time text -->
+<span class="text-[11px] font-medium text-gm-text-muted absolute bottom-2.5 right-3.5">12:30</span>
+</div>
+</div>
+<!-- Sent Message 1 -->
+<div class="flex self-end max-w-[70%]">
+<div class="bg-gradient-to-br from-[#a11f2a] to-[#7a121d] border border-white/10 shadow-[0_4px_15px_rgba(161,31,42,0.3)] shadow-glass-inset rounded-2xl rounded-tr-sm p-4 relative flex items-end gap-3">
+<p class="text-[15px] leading-relaxed text-white/95 font-light">Да, интересует. Можно больше подробностей?</p>
+<div class="flex items-center gap-1.5 shrink-0 pb-0.5">
+<span class="text-[11px] font-medium text-white/70">12:31</span>
+<i class="fa-solid fa-check-double text-[11px] text-white/70"></i>
+</div>
+</div>
+</div>
+<!-- Received Message 2 (List) -->
+<div class="flex self-start max-w-[70%]">
+<div class="bg-gm-msg-received backdrop-blur-sm border border-white/5 shadow-glass-inset rounded-2xl rounded-tl-sm p-5 relative">
+<p class="text-[15px] leading-relaxed text-white/90 font-light mb-3">Да, конечно. Аккаунт с полной доступностью:</p>
+<ul class="text-[15px] font-light text-white/80 list-none space-y-1.5 mb-3">
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gm-red/70 shadow-glow-red"></span>Онлайн режим доступен</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gm-red/70 shadow-glow-red"></span>Пройден сюжет на 100%</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gm-red/70 shadow-glow-red"></span>Есть все персонажи</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gm-red/70 shadow-glow-red"></span>Гарантия на момент покупки</li>
+</ul>
+<div class="flex justify-end">
+<span class="text-[11px] font-medium text-gm-text-muted">12:33</span>
+</div>
+</div>
+</div>
+<!-- Sent Message 2 -->
+<div class="flex self-end max-w-[70%]">
+<div class="bg-gradient-to-br from-[#a11f2a] to-[#7a121d] border border-white/10 shadow-[0_4px_15px_rgba(161,31,42,0.3)] shadow-glass-inset rounded-2xl rounded-tr-sm p-4 relative flex items-end gap-3">
+<p class="text-[15px] leading-relaxed text-white/95 font-light">Отлично, цена окончательная?</p>
+<div class="flex items-center gap-1.5 shrink-0 pb-0.5">
+<span class="text-[11px] font-medium text-white/70">12:34</span>
+<i class="fa-solid fa-check-double text-[11px] text-white/70"></i>
+</div>
+</div>
+</div>
+<!-- Received Message 3 -->
+<div class="flex self-start max-w-[70%]">
+<div class="bg-gm-msg-received backdrop-blur-sm border border-white/5 shadow-glass-inset rounded-2xl rounded-tl-sm p-4 relative flex items-end gap-4">
+<p class="text-[15px] leading-relaxed text-white/90 font-light">Да, 799 ₽ — окончательная цена.</p>
+<span class="text-[11px] font-medium text-gm-text-muted shrink-0 pb-0.5">12:34</span>
+</div>
+</div>
+<!-- Sent Message 3 -->
+<div class="flex self-end max-w-[70%]">
+<div class="bg-gradient-to-br from-[#a11f2a] to-[#7a121d] border border-white/10 shadow-[0_4px_15px_rgba(161,31,42,0.3)] shadow-glass-inset rounded-2xl rounded-tr-sm p-4 relative flex items-end gap-3">
+<p class="text-[15px] leading-relaxed text-white/95 font-light">Хорошо, беру! Как будем оплачивать?</p>
+<div class="flex items-center gap-1.5 shrink-0 pb-0.5">
+<span class="text-[11px] font-medium text-white/70">12:35</span>
+<i class="fa-solid fa-check-double text-[11px] text-white/70"></i>
+</div>
+</div>
+</div>
+<!-- Received Message 4 -->
+<div class="flex self-start max-w-[70%]">
+<div class="bg-gm-msg-received backdrop-blur-sm border border-white/5 shadow-glass-inset rounded-2xl rounded-tl-sm p-5 relative">
+<p class="text-[15px] leading-relaxed text-white/90 font-light">Можете оформить через безопасную сделку на сайте.<br/><span class="mt-1 block">После оплаты дам данные от аккаунта.</span></p>
+<div class="flex justify-end mt-2">
+<span class="text-[11px] font-medium text-gm-text-muted">12:36</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Chat Input Area -->
+<div class="p-6 bg-white/[0.01] border-t border-gm-border/50 shrink-0 relative z-10">
+<div class="bg-white/5 backdrop-blur-xl border border-white/10 shadow-glass-inset rounded-2xl flex items-center p-2 gap-2 focus-within:border-white/20 focus-within:bg-white/[0.07] transition-all duration-300">
+<button class="p-3 rounded-xl text-gm-text-muted hover:text-white hover:bg-white/5 transition-colors">
+<i class="fa-solid fa-paperclip text-lg"></i>
+</button>
+<input class="flex-1 bg-transparent border-none text-white focus:ring-0 placeholder-gm-text-muted/60 text-[15px] font-light px-2" placeholder="Напишите сообщение..." type="text"/>
+<button class="p-3 rounded-xl text-gm-text-muted hover:text-white hover:bg-white/5 transition-colors">
+<i class="fa-regular fa-face-smile text-lg"></i>
+</button>
+<button class="w-12 h-12 bg-gradient-to-br from-gm-red to-red-700 hover:from-gm-red-hover hover:to-red-600 text-white rounded-xl flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(230,46,61,0.4)] border border-white/20">
+<i class="fa-solid fa-paper-plane text-lg shadow-sm"></i>
+</button>
+</div>
+</div>
+</section>
+<!-- END: Chat Window -->
+</main>
+<!-- END: MainContent -->
+</body></html>
