@@ -1,0 +1,23 @@
+# Secrets and local environment files
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Python and local tooling
+**/.venv/
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.ruff_cache/
+**/.mypy_cache/
+
+# Local runtime data
+**/*.db
+**/uploads/
+**/.vercel/
+**/.codex-run/
+**/.coverage
+**/htmlcov/

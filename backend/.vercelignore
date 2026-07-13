@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+.venv/
+.vercel/
+.codex-run/
+.git/
+.pytest_cache/
+.ruff_cache/
+**/__pycache__/
+**/*.pyc
+tests/
+scripts/
+uploads/
+proxima.db
+*.db
