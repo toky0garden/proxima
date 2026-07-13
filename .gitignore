@@ -1,6 +1,4 @@
-﻿# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
+﻿# Root
 /node_modules
 /.pnp
 .pnp.*
@@ -13,9 +11,9 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
+# next.js (frontend)
+/frontend/.next/
+/frontend/out/
 
 # production
 /build
@@ -30,8 +28,12 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files
 .env*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
 
 # vercel
 .vercel
@@ -40,15 +42,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Secrets and local environment files
-.env
-.env.*
-!.env.example
-**/.env
-**/.env.*
-!**/.env.example
-
-# Python and local tooling
+# Python backend
 **/.venv/
 **/__pycache__/
 **/*.py[cod]
@@ -56,10 +50,9 @@ next-env.d.ts
 **/.ruff_cache/
 **/.mypy_cache/
 
-# Local runtime data
+# data
 **/*.db
 **/uploads/
-**/.vercel/
 **/.codex-run/
 **/.coverage
 **/htmlcov/
