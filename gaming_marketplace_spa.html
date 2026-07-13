@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Gaming Marketplace - Premium Interactive App</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0A0A0A',
+              card: '#141414',
+              input: '#1A1A1A',
+              border: '#1F1F1F',
+              red: '#E53935',
+              redHover: '#FF4D49',
+              text: '#E0E0E0',
+              textMuted: '#888888',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          boxShadow: {
+            'glass': '0 4px 30px rgba(0, 0, 0, 0.5)',
+            'glass-inset': 'inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+            'glow-red': '0 0 15px rgba(229, 57, 53, 0.4)',
+            'glow-green': '0 0 12px rgba(16, 185, 129, 0.4)',
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    /* Smooth page animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .animate-fadeInUp {
+      animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    
+    @keyframes fadeOutDown {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+    }
+    .animate-fadeOutDown {
+      animation: fadeOutDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0A0A0A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1F1F1F;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #888888/30;
+    }
+    
+    /* Active navigation indicator glow */
+    .active-nav-glow {
+      box-shadow: 0 0 12px rgba(229, 57, 53, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-brand-dark text-brand-text min-h-screen font-sans antialiased overflow-x-hidden selection:bg-brand-red selection:text-white flex flex-col">
+
+  <!-- Shared Header -->
+  <header class="sticky top-0 z-50 bg-brand-dark/95 backdrop-blur-md border-b border-white/5 py-4 px-6">
+    <div class="flex items-center justify-between w-full max-w-screen-2xl mx-auto gap-4">
+      
+      <!-- Logo -->
+      <a class="flex items-center flex-shrink-0 cursor-pointer" onclick="navigateTo('home')">
+        <svg fill="none" height="42" viewBox="0 0 40 46" width="37" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 0L39.0526 11V33L20 44L0.947441 33V11L20 0Z" stroke="#E53935" stroke-width="2"></path>
+          <path d="M28.5 22.5C28.5 24.9853 26.4853 27 24 27C21.5147 27 19.5 24.9853 19.5 22.5C19.5 20.0147 21.5147 18 24 18C26.4853 18 28.5 20.0147 28.5 22.5Z" fill="#E53935"></path>
+          <path d="M16 22.5C16 24.9853 13.9853 27 11.5 27C9.01472 27 7 24.9853 7 22.5C7 20.0147 9.01472 18 11.5 18C13.9853 18 16 20.0147 16 22.5Z" fill="#E53935"></path>
+          <rect fill="#0A0A0A" height="7" width="2" x="23" y="19"></rect>
+          <rect fill="#0A0A0A" height="2" width="7" x="20.5" y="21.5"></rect>
+          <circle cx="10" cy="22.5" fill="#0A0A0A" r="1.5"></circle>
+          <circle cx="13" cy="22.5" fill="#0A0A0A" r="1.5"></circle>
+          <path d="M12.5 13L16 16.5M27.5 13L24 16.5" stroke="#E53935" stroke-linecap="round" stroke-width="2"></path>
+        </svg>
+      </a>
+
+      <!-- Navigation (Text Links) -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold">
+        <button id="nav-btn-home" onclick="navigateTo('home')" class="text-brand-text hover:text-white transition-colors py-1.5 px-3 rounded-lg">Главная</button>
+        <button id="nav-btn-catalog" onclick="navigateTo('catalog')" class="text-brand-textMuted hover:text-white transition-colors py-1.5 px-3 rounded-lg">Категории</button>
+        <button id="nav-btn-messages" onclick="navigateTo('messages')" class="text-brand-textMuted hover:text-white transition-colors py-1.5 px-3 rounded-lg flex items-center gap-1.5">Чаты <span class="h-2 w-2 rounded-full bg-brand-red"></span></button>
+        <button id="nav-btn-profile" onclick="navigateTo('profile')" class="text-brand-textMuted hover:text-white transition-colors py-1.5 px-3 rounded-lg">Профиль</button>
+      </nav>
+
+      <!-- Search Bar -->
+      <div class="flex-1 max-w-xl mx-4">
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="w-4 h-4 text-brand-textMuted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </div>
+          <input id="header-search-input" oninput="handleSearch(this.value)" class="block w-full pl-9 pr-3 py-2 border border-transparent rounded-lg leading-5 bg-brand-input text-white placeholder-brand-textMuted focus:outline-none focus:bg-white/5 focus:border-brand-red/50 sm:text-xs transition-colors" placeholder="Поиск по играм, категориям, объявлениям..." type="text">
+        </div>
+      </div>
+
+      <!-- Actions (Icons Right) -->
+      <div class="flex items-center space-x-3.5 flex-shrink-0">
+        <!-- Categories Icon Link -->
+        <a class="text-brand-textMuted hover:text-white transition-colors cursor-pointer" onclick="navigateTo('catalog')" title="Категории">
+          <svg class="w-5.5 h-5.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+        </a>
+        <!-- Chats Icon Link -->
+        <a class="text-brand-textMuted hover:text-white transition-colors relative cursor-pointer" onclick="navigateTo('messages')" title="Чаты">
+          <svg class="w-5.5 h-5.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+          <span class="absolute -top-1 -right-1 block h-2 w-2 rounded-full bg-brand-red"></span>
+        </a>
+        <!-- Notifications button -->
+        <button class="text-brand-textMuted hover:text-white transition-colors relative" title="Уведомления" onclick="alert('Новых уведомлений нет')">
+          <svg class="w-5.5 h-5.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+          <span class="absolute -top-1 -right-1 block h-2 w-2 rounded-full bg-brand-red"></span>
+        </button>
+        <!-- Profile Avatar link -->
+        <a id="header-profile-avatar" class="h-8 w-8 rounded-full overflow-hidden border border-white/10 hover:border-brand-red flex-shrink-0 cursor-pointer block transition-colors" title="Профиль" onclick="navigateTo('profile')">
+          <img alt="User Avatar" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6rNyIAO0jU1LCzPPyhfUEhR4qR25_Rv26DfS8QfmJKr8NChObO6N-2ITz5IGjxC6Ip4ZXzPYpKtjU-kBb80pB5Trg17Fl6U7SgpyRGnOWj04HjB6PDqvfQU2IrGC_u2inSUANOpFP4ZToSVZJV6CtY0ajPo78qKz_geJE7tr8ObP7g0oXzE8hFnMHzbVQ28_VOt7MC8atbuDKl9ApPXhxF9UiKaGPeo7SM2z2I-7OSqH12BsLC7WRAw">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Content Target -->
+  <div id="page-content" class="flex-1 flex flex-col">
+    <!-- Component injected here dynamically by navigation router -->
+  </div>
+
+  <!-- JS State Management, Routing, Component Templates and Animations -->
+  <script>
+    // --- STATE MANAGEMENT ---
+    const DEFAULT_PROFILE = {
+      name: 'GameTrader',
+      avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAJh5PSUgB2-1C70Vxf2jAfRI9028OIeOl4UHC-ZMzGOufbZBZf8N4EhQSmm_hWI5Uqf2gBd9Cm38Vhm-TbDI92qTHIRsDyxx5ALJYIKp8WM7l7Bof29xnU6-88L85MoQmVHBSpu8ilid53hwR5KDhz2ZeopsfeyzOnWmBZHF6hdHQnVDjVWpwIFW6-k2Hg-zoozIHYgL6nvxSYlB4i-MpZ0dH52Qnr4RczULy91lt81sk3lM8D-zU0DQ',
+      joinedDate: 'мая 2023',
+      rating: '4.9',
+      reviewsCount: 342,
+      soldCount: 156,
+      successRate: '98%',
+      description: 'Опытный продавец игровых аккаунтов и ключей. Работаю честно и быстро. Гарантирую безопасность и лучшие цены на рынке.'
+    };
+
+    const DEFAULT_LISTINGS = [
+      { id: 1, category: 'GTA V', title: 'GTA V Premium Account', description: 'Полный доступ (Сюжет + Онлайн режим)', price: 799, status: 'В наличии', tag: 'ХИТ', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCIPWdst2vh-lEeE8MBDmRoH7ZR-gacKzR-Wx9L0k0n8V_bErIarmzbeLukt4ZrPui2ElF0QjX679A1f6ImqA7khGt2sni3nB2Ln2H0NPvC8ezLef0VQO4Px5dLkdA5_4BvjPBpBoW9XeW4MIJiZr5PKi0_QhjOiOpnKaHtN0-b0xbJnJ7udpxU847-3h1P-QlZ4DjEWrn4wq8OUNIKDdezVOQIEEhOmW0V1HjqWOd_SFX1ptVqa8Mr7Q' },
+      { id: 2, category: 'GTA V', title: 'GTA Online аккаунт', description: 'Личный аккаунт (50 ур., 100 млн $)', price: 499, status: 'В наличии', tag: '', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDPsMMGk1uUo_QAd9jw7_kidMZGP0G401e2YzWsllj98ffaKoNbeBneTZqb3hrEN0TbX2xfPXrjUFc3ofNSKao8zJIAq-lFI3tqWLt3SEGlz0ceQAnQtiiNcknqJebsGYAp9izrMJgS-bhD-0uGUJIylIEqmAg2VPCDTddDu5iFmSABpoDR6bLCjkqHC9CakDW10MFxxxLQVd8u4Y6Do32kMKa4QTZJL6YedunQhhw2zcB_lwftzjS-2g' },
+      { id: 3, category: 'GTA V', title: 'GTA V (ПК) аккаунт', description: 'Лицензионный чистый аккаунт Epic Games', price: 299, status: 'В наличии', tag: '', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDPsMMGk1uUo_QAd9jw7_kidMZGP0G401e2YzWsllj98ffaKoNbeBneTZqb3hrEN0TbX2xfPXrjUFc3ofNSKao8zJIAq-lFI3tqWLt3SEGlz0ceQAnQtiiNcknqJebsGYAp9izrMJgS-bhD-0uGUJIylIEqmAg2VPCDTddDu5iFmSABpoDR6bLCjkqHC9CakDW10MFxxxLQVd8u4Y6Do32kMKa4QTZJL6YedunQhhw2zcB_lwftzjS-2g' },
+      
+      { id: 4, category: 'CS 2', title: 'CS 2 Prime Account', description: 'Звание Калаш, 10 уровень faceit', price: 899, status: 'В наличии', tag: 'ПОПУЛЯРНО', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuABX4iLh8WGZ9_C-8O7hc5SeroowtzA5RiteLcGRpduf4qSySxUJ2jsx24xytlBpYQyZ8wr3EEJbf7wUbT3ONqUZqmlwTbMhxaK-yMudmqPbEE28lg49xLW2xQNxSVpcmGU4zbKj9apGnsG-wY2ubBmMpa20ssGjKhkTu_kzwxu1aJ8FC0G0VuIhNFsaEQJDRlcbmu1p8vPeE_rb_gUT4nimNRB50GEqlL2cn5ROcdhUcoD_2EEvXreUw' },
+      { id: 5, category: 'CS 2', title: 'CS 2 Аккаунт', description: 'Без прайма, калибровка 10 побед', price: 499, status: 'В наличии', tag: '', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuABX4iLh8WGZ9_C-8O7hc5SeroowtzA5RiteLcGRpduf4qSySxUJ2jsx24xytlBpYQyZ8wr3EEJbf7wUbT3ONqUZqmlwTbMhxaK-yMudmqPbEE28lg49xLW2xQNxSVpcmGU4zbKj9apGnsG-wY2ubBmMpa20ssGjKhkTu_kzwxu1aJ8FC0G0VuIhNFsaEQJDRlcbmu1p8vPeE_rb_gUT4nimNRB50GEqlL2cn5ROcdhUcoD_2EEvXreUw' },
+      { id: 6, category: 'CS 2', title: 'CS 2 Инвентарь', description: 'Нож и скины на сумму 5000 руб', price: 1299, status: 'В наличии', tag: '', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuABX4iLh8WGZ9_C-8O7hc5SeroowtzA5RiteLcGRpduf4qSySxUJ2jsx24xytlBpYQyZ8wr3EEJbf7wUbT3ONqUZqmlwTbMhxaK-yMudmqPbEE28lg49xLW2xQNxSVpcmGU4zbKj9apGnsG-wY2ubBmMpa20ssGjKhkTu_kzwxu1aJ8FC0G0VuIhNFsaEQJDRlcbmu1p8vPeE_rb_gUT4nimNRB50GEqlL2cn5ROcdhUcoD_2EEvXreUw' },
+      
+      { id: 7, category: 'Steam', title: 'Steam Аккаунт', description: '15 лет выслуги, личный, 20 уровень профиля', price: 299, status: 'В наличии', tag: '', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBWNcZrNp_0IPI89qObaubHetiKhAg_uj3zHuSzju0-1cd_0pPXxO061d55XsNk8Z7TaEUOffO2nUREXrwHvn99BtQvsxFivYWP4R_9S18vSJF5M25dDD9gMnvId9pKlDnel8fyMZ5MR4uv7r38sFh9aAt6oX8SIOxLfFzvs7SiLnE5PfKHvEuKEqhHUNKY8rBLY2BKwSah4LAQo2nI3Cemwml_km79gfd98rN6Oqb39Hu108dqqNWYbQ' },
+      { id: 8, category: 'Steam', title: 'Steam (CS2 + другие)', description: '50 игр, Rust, GTA V, Личный аккаунт', price: 499, status: 'В наличии', tag: 'НОВИНКА', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBW3dQN7ShGvn4kdU7u7ih6-3dMtaJclbJgnYaQ1hiepanbtpOYBWWEPKZJFlhPEXvYkDCF11-4QSPIglHb5TGZuSc7662S6ernDyNGAFXBBrjk30BQB9ico_geXuiv5lDqlVf8hqNc5OPYnLiE6P0fY-d-WNC7f158tXRW9jfmsSIYR8rLYt9MblisJddns0VROfbWmUK-6urYlUGdoTeQAUWry1WQ1QypS86i1zhNp_J8Dy92cj4piA' },
+      { id: 9, category: 'Steam', title: 'Steam Инвентарь', description: 'Коллекционные карточки, фоны, гифты игр', price: 399, status: 'В наличии', tag: '', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBWNcZrNp_0IPI89qObaubHetiKhAg_uj3zHuSzju0-1cd_0pPXxO061d55XsNk8Z7TaEUOffO2nUREXrwHvn99BtQvsxFivYWP4R_9S18vSJF5M25dDD9gMnvId9pKlDnel8fyMZ5MR4uv7r38sFh9aAt6oX8SIOxLfFzvs7SiLnE5PfKHvEuKEqhHUNKY8rBLY2BKwSah4LAQo2nI3Cemwml_km79gfd98rN6Oqb39Hu108dqqNWYbQ' },
+      
+      { id: 10, category: 'Valorant', title: 'Valorant Аккаунт', description: 'Звание Платина 2, 12 донат скинов', price: 1299, status: 'В наличии', tag: '', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAkjihwSLJqBjv1XO9emV8pWzcpE3RDlz0h49Qe173Wr-peiMX8acHRyjD9YFc5GKk46GfLKnHr4q8Ld02qG9bF7jagCKxxY3O70F3mHKHq-RkqHXWxvro8ZZGh1oNQIL3AWO5HhjdctHgCiKBkbDfw5hWu0N3fukAhUQ386ULZ_hU5SkZMmZ2UFubdlVIrMrpfyyYQtpvsPpd2OLnCFLvBLVtpqbgMskHWB2iMJDZ6-zjfX-_8hPfy7w' },
+      { id: 11, category: 'Valorant', title: 'Valorant (Прайм)', description: 'Prime Vandal, нож Керамбит, 120 уровень', price: 799, status: 'В наличии', tag: '', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAkjihwSLJqBjv1XO9emV8pWzcpE3RDlz0h49Qe173Wr-peiMX8acHRyjD9YFc5GKk46GfLKnHr4q8Ld02qG9bF7jagCKxxY3O70F3mHKHq-RkqHXWxvro8ZZGh1oNQIL3AWO5HhjdctHgCiKBkbDfw5hWu0N3fukAhUQ386ULZ_hU5SkZMmZ2UFubdlVIrMrpfyyYQtpvsPpd2OLnCFLvBLVtpqbgMskHWB2iMJDZ6-zjfX-_8hPfy7w' },
+      { id: 12, category: 'Valorant', title: 'Valorant Скины', description: 'Личный инвентарь со скинами, полная смена почты', price: 899, status: 'В наличии', tag: '', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAkjihwSLJqBjv1XO9emV8pWzcpE3RDlz0h49Qe173Wr-peiMX8acHRyjD9YFc5GKk46GfLKnHr4q8Ld02qG9bF7jagCKxxY3O70F3mHKHq-RkqHXWxvro8ZZGh1oNQIL3AWO5HhjdctHgCiKBkbDfw5hWu0N3fukAhUQ386ULZ_hU5SkZMmZ2UFubdlVIrMrpfyyYQtpvsPpd2OLnCFLvBLVtpqbgMskHWB2iMJDZ6-zjfX-_8hPfy7w' },
+      
+      { id: 13, category: 'Fortnite', title: 'Fortnite Аккаунт', description: '120 скинов, Travis Scott, 1 сезон', price: 599, status: 'В наличии', tag: '', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAIc8OBnSOW4p61G-llvPlpYoyIfirHbMH5tewwjDDktIwYu8otbk47ynr37lWH675BNKQQ5fc0mgFzFwlWQYh29qkXVHenN0mxcMSZfEvXPadIO1xwhaTFVjWV2enRQcHMcSPG6zsQGPWo4S12bdCuzj-SRXB902vpX4SWgZlUsrVPzxmEuEH45Stjwj2R1IEH7IpYiok_TL5Z6sdmcHWKB3IFDtdJaoL9qHmuifDOl0Cvj06tnAAAHA' },
+      { id: 14, category: 'Fortnite', title: 'Fortnite Скины', description: 'Скины MARVEL, эксклюзивная кирка Minty Ax', price: 899, status: 'В наличии', tag: '', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAIc8OBnSOW4p61G-llvPlpYoyIfirHbMH5tewwjDDktIwYu8otbk47ynr37lWH675BNKQQ5fc0mgFzFwlWQYh29qkXVHenN0mxcMSZfEvXPadIO1xwhaTFVjWV2enRQcHMcSPG6zsQGPWo4S12bdCuzj-SRXB902vpX4SWgZlUsrVPzxmEuEH45Stjwj2R1IEH7IpYiok_TL5Z6sdmcHWKB3IFDtdJaoL9qHmuifDOl0Cvj06tnAAAHA' },
+      { id: 15, category: 'Fortnite', title: 'Fortnite (Полный доступ)', description: 'Родная почта с чеками, 50 скинов', price: 1499, status: 'В наличии', tag: '', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAIc8OBnSOW4p61G-llvPlpYoyIfirHbMH5tewwjDDktIwYu8otbk47ynr37lWH675BNKQQ5fc0mgFzFwlWQYh29qkXVHenN0mxcMSZfEvXPadIO1xwhaTFVjWV2enRQcHMcSPG6zsQGPWo4S12bdCuzj-SRXB902vpX4SWgZlUsrVPzxmEuEH45Stjwj2R1IEH7IpYiok_TL5Z6sdmcHWKB3IFDtdJaoL9qHmuifDOl0Cvj06tnAAAHA' }
+    ];
+
+    const DEFAULT_CHATS = [
+      {
+        id: 1,
+        name: 'Продавец GTA V (GameTrader)',
+        avatar: DEFAULT_PROFILE.avatar,
+        online: true,
+        messages: [
+          { sender: 'receiver', text: 'Здравствуйте! Аккаунт GTA V ещё в наличии.', time: '12:30' },
+          { sender: 'sender', text: 'Да, интересует. Можно больше подробностей?', time: '12:31' },
+          { sender: 'receiver', text: 'Да, конечно. Полный доступ с почтой, пройдена кампания и открыты все персонажи в онлайне.', time: '12:33' }
+        ]
+      },
+      {
+        id: 2,
+        name: 'Steam Аккаунт (Продавец)',
+        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAKs5eAjLhOev7uFN7lhAnHmTSkf17Ek-uIvErom3ZOYIeUEAtU_5pjE-3YTKUJGJ3SKPoLvLyNyU-j6uUrEXQMWy6EF3qiGb_oKFmduWnpvmK4UP6rsdQIVF_Me4W4-sS8_FBwzMnw3O1IuxpP_skxbYrM63mkgIOcnXrUHz7PlmKaqgvdL0WsmXpS1vfhOwVRgce9bzd00sjC-Ct5qXu8TR--d1kqvGNbdAfhP2iTs7t2rHAHuO_X2Q',
+        online: false,
+        messages: [
+          { sender: 'receiver', text: 'Готово, данные аккаунта проверил.', time: '11:30' }
+        ]
+      }
+    ];
+
+    const state = {
+      currentView: 'home',
+      profile: JSON.parse(localStorage.getItem('profile')) || DEFAULT_PROFILE,
+      listings: JSON.parse(localStorage.getItem('listings')) || DEFAULT_LISTINGS,
+      chats: JSON.parse(localStorage.getItem('chats')) || DEFAULT_CHATS,
+      activeChatId: 1,
+      selectedItem: null,
+      searchQuery: '',
+      catalogFilter: 'all',
+      profileTab: 'lots', // lots, reviews, about
+      isEditing: false
+    };
+
+    function saveState() {
+      localStorage.setItem('profile', JSON.stringify(state.profile));
+      localStorage.setItem('listings', JSON.stringify(state.listings));
+      localStorage.setItem('chats', JSON.stringify(state.chats));
+    }
+
+    // --- NAVIGATION ROUTER ---
+    function navigateTo(view, params = {}) {
+      const pageWrapper = document.getElementById('page-content');
+      
+      // Animate out
+      pageWrapper.classList.remove('animate-fadeInUp');
+      pageWrapper.classList.add('animate-fadeOutDown');
+
+      setTimeout(() => {
+        state.currentView = view;
+        if (params.itemId) {
+          state.selectedItem = state.listings.find(x => x.id === params.itemId);
+        }
+        
+        // Render content
+        renderView();
+
+        // Update nav active states
+        updateNavHighlight();
+
+        // Animate in
+        pageWrapper.classList.remove('animate-fadeOutDown');
+        pageWrapper.classList.add('animate-fadeInUp');
+      }, 200);
+    }
+
+    function updateNavHighlight() {
+      const views = ['home', 'catalog', 'messages', 'profile'];
+      views.forEach(v => {
+        const btn = document.getElementById(`nav-btn-${v}`);
+        if (btn) {
+          if (state.currentView === v || (v === 'profile' && state.currentView === 'all_lots')) {
+            btn.classList.remove('text-brand-textMuted');
+            btn.classList.add('text-white', 'bg-white/5', 'active-nav-glow');
+          } else {
+            btn.classList.remove('text-white', 'bg-white/5', 'active-nav-glow');
+            btn.classList.add('text-brand-textMuted');
+          }
+        }
+      });
+
+      // Header profile avatar border active
+      const avatarBtn = document.getElementById('header-profile-avatar');
+      if (avatarBtn) {
+        if (state.currentView === 'profile') {
+          avatarBtn.classList.add('border-brand-red', 'shadow-glow-red');
+        } else {
+          avatarBtn.classList.remove('border-brand-red', 'shadow-glow-red');
+        }
+      }
+    }
+
+    // --- SEARCH HANDLE ---
+    function handleSearch(q) {
+      state.searchQuery = q.trim().toLowerCase();
+      if (state.currentView !== 'catalog') {
+        navigateTo('catalog');
+      } else {
+        renderCatalogContent();
+      }
+    }
+
+    // --- VIEW RENDERER ---
+    function renderView() {
+      const pageWrapper = document.getElementById('page-content');
+      
+      switch(state.currentView) {
+        case 'home':
+          pageWrapper.innerHTML = getHomeHTML();
+          break;
+        case 'catalog':
+          pageWrapper.innerHTML = getCatalogHTML();
+          renderCatalogContent();
+          break;
+        case 'messages':
+          pageWrapper.innerHTML = getMessagesHTML();
+          scrollToChatBottom();
+          break;
+        case 'profile':
+          pageWrapper.innerHTML = getProfileHTML();
+          break;
+        case 'all_lots':
+          pageWrapper.innerHTML = getAllLotsHTML();
+          break;
+        case 'item_detail':
+          pageWrapper.innerHTML = getItemDetailHTML();
+          break;
+      }
+    }
+
+    // --- MOCK LOGIC ---
+    function handleAddListing(e) {
+      e.preventDefault();
+      const form = e.target;
+      const newListing = {
+        id: Date.now(),
+        category: form.category.value,
+        title: form.title.value,
+        description: form.description.value,
+        price: parseFloat(form.price.value),
+        status: 'В наличии',
+        tag: 'НОВИНКА',
+        img: getGameImagePlaceholder(form.category.value)
+      };
+
+      state.listings.unshift(newListing);
+      saveState();
+      navigateTo('profile');
+      alert('Объявление успешно добавлено!');
+    }
+
+    function handleEditProfile(e) {
+      e.preventDefault();
+      const form = e.target;
+      state.profile.name = form.name.value;
+      state.profile.description = form.description.value;
+      saveState();
+      
+      // Update header avatar too
+      const headerAvatar = document.querySelector('#header-profile-avatar img');
+      if (headerAvatar) headerAvatar.src = state.profile.avatar;
+
+      navigateTo('profile');
+      alert('Профиль успешно обновлен!');
+    }
+
+    function handleSendMessage(e) {
+      e.preventDefault();
+      const input = document.getElementById('message-input-box');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const chat = state.chats.find(x => x.id === state.activeChatId);
+      if (chat) {
+        const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        chat.messages.push({ sender: 'sender', text, time });
+        input.value = '';
+        saveState();
+        renderView();
+        
+        // Mock seller auto-response
+        setTimeout(() => {
+          chat.messages.push({
+            sender: 'receiver',
+            text: 'Спасибо за сообщение! Я отвечу вам в ближайшее время.',
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          });
+          saveState();
+          if (state.currentView === 'messages') {
+            renderView();
+          }
+        }, 1500);
+      }
+    }
+
+    function selectChat(chatId) {
+      state.activeChatId = chatId;
+      renderView();
+    }
+
+    function handlePurchase() {
+      // Show payment loading animation
+      const modal = document.getElementById('purchase-modal');
+      const container = document.getElementById('purchase-modal-content');
+      
+      container.innerHTML = `
+        <div class="flex flex-col items-center justify-center p-8 gap-4 text-center">
+          <div class="w-12 h-12 border-4 border-brand-red border-t-transparent rounded-full animate-spin"></div>
+          <h3 class="font-bold text-white text-lg mt-2">Обработка платежа...</h3>
+          <p class="text-xs text-brand-textMuted">Пожалуйста, не закрывайте вкладку.</p>
+        </div>
+      `;
+
+      setTimeout(() => {
+        container.innerHTML = `
+          <div class="flex flex-col items-center justify-center p-8 gap-4 text-center">
+            <div class="w-14 h-14 bg-green-500/10 border border-green-500/30 text-green-500 rounded-full flex items-center justify-center shadow-glow-green animate-bounce">
+              <i class="fa-solid fa-check text-2xl"></i>
+            </div>
+            <h3 class="font-bold text-white text-lg mt-2">Оплата прошла успешно!</h3>
+            <p class="text-xs text-brand-textMuted max-w-xs">Безопасная сделка оформлена. Чат с продавцом открыт для получения данных.</p>
+            <button onclick="navigateTo('messages'); closePurchaseModal();" class="mt-4 px-6 py-2.5 bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold rounded-lg shadow-glow-red transition-all duration-300">
+              Перейти в чат
+            </button>
+          </div>
+        `;
+      }, 2000);
+    }
+
+    function showPurchaseModal() {
+      const modal = document.getElementById('purchase-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closePurchaseModal() {
+      const modal = document.getElementById('purchase-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function getGameImagePlaceholder(category) {
+      const match = state.listings.find(x => x.category === category);
+      return match ? match.img : 'https://lh3.googleusercontent.com/aida-public/AB6AXuAIc8OBnSOW4p61G-llvPlpYoyIfirHbMH5tewwjDDktIwYu8otbk47ynr37lWH675BNKQQ5fc0mgFzFwlWQYh29qkXVHenN0mxcMSZfEvXPadIO1xwhaTFVjWV2enRQcHMcSPG6zsQGPWo4S12bdCuzj-SRXB902vpX4SWgZlUsrVPzxmEuEH45Stjwj2R1IEH7IpYiok_TL5Z6sdmcHWKB3IFDtdJaoL9qHmuifDOl0Cvj06tnAAAHA';
+    }
+
+    function scrollToChatBottom() {
+      const chatArea = document.getElementById('chat-messages-area');
+      if (chatArea) {
+        chatArea.scrollTop = chatArea.scrollHeight;
+      }
+    }
+
+    // --- HTML GENERATORS ---
+
+    // 1. HOME SCREEN
+    function getHomeHTML() {
+      // Banner categories
+      const categories = [
+        { name: 'GTA V', count: '1 245 объявлений', icon: 'fa-gamepad', bg: 'bg-green-900/20 border-green-500/20' },
+        { name: 'Steam', count: '3 842 объявлений', icon: 'fa-envelope-open', bg: 'bg-blue-900/20 border-blue-500/20' },
+        { name: 'Fortnite', count: '987 объявлений', icon: 'fa-person-running', bg: 'bg-indigo-900/20 border-indigo-500/20' },
+        { name: 'Valorant', count: '1 102 объявлений', icon: 'fa-circle-dot', bg: 'bg-red-950/20 border-brand-red/20' },
+        { name: 'CS 2', count: '1 756 объявлений', icon: 'fa-crosshairs', bg: 'bg-amber-900/20 border-amber-500/20' },
+      ];
+
+      const cardsHTML = categories.map(c => `
+        <a class="bg-brand-card rounded-xl p-4 flex items-center justify-between hover:bg-white/5 hover:-translate-y-0.5 transition-all duration-300 border border-white/5 cursor-pointer" onclick="state.catalogFilter='${c.name}'; navigateTo('catalog');">
+          <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-lg flex items-center justify-center overflow-hidden bg-brand-input border border-white/5">
+              <i class="fa-solid ${c.icon} text-brand-red text-xl"></i>
+            </div>
+            <div>
+              <h3 class="font-medium text-sm text-white">${c.name}</h3>
+              <p class="text-xs text-brand-textMuted mt-1">${c.count}</p>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-brand-textMuted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+        </a>
+      `).join('');
+
+      // Listings
+      const listingsHTML = state.listings.slice(0, 4).map(item => `
+        <div onclick="navigateTo('item_detail', {itemId: ${item.id}})" class="bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 hover:shadow-glass hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full">
+          <div class="relative h-44 bg-brand-input overflow-hidden">
+            <img alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="${item.img}">
+            ${item.tag ? `<div class="absolute top-3 left-3 bg-brand-red text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-glow-red">${item.tag}</div>` : ''}
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-medium text-base mb-1 text-white group-hover:text-brand-red transition-colors line-clamp-1">${item.title}</h3>
+              <p class="text-xs text-brand-textMuted mb-4 line-clamp-2">${item.description}</p>
+            </div>
+            <div class="flex items-end justify-between mt-auto">
+              <div>
+                <p class="text-lg font-bold text-brand-red">${item.price} ₽</p>
+                <div class="flex items-center space-x-2 mt-1.5">
+                  <div class="w-2 h-2 rounded-full bg-green-500 shadow-glow-green"></div>
+                  <span class="text-[10px] text-brand-textMuted">В наличии · Моментально</span>
+                </div>
+              </div>
+              <button class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center border border-white/5 transition-all">
+                <i class="fa-solid fa-arrow-right text-xs text-brand-textMuted group-hover:text-white"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      return `
+        <!-- Hero Section -->
+        <main class="w-full max-w-screen-2xl mx-auto px-6 py-8 space-y-10">
+          <section class="relative rounded-3xl overflow-hidden h-[340px] flex items-center bg-brand-card border border-white/5 shadow-glass">
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/70 to-transparent z-10"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(229,57,53,0.15),transparent_45%)]"></div>
+            
+            <div class="relative z-20 max-w-xl pl-12 pr-6 space-y-6">
+              <span class="inline-block bg-brand-red/10 border border-brand-red/20 text-brand-red text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-glow-red">Игровой маркетплейс</span>
+              <h1 class="text-3xl md:text-4xl font-extrabold leading-tight text-white tracking-wide">
+                Покупайте и продавайте игровые ценности безопасно
+              </h1>
+              <p class="text-sm text-brand-textMuted leading-relaxed">
+                Тысячи проверенных продавцов, моментальная доставка данных, гарантия возврата средств при любых форс-мажорах.
+              </p>
+              <div class="flex items-center gap-4">
+                <button onclick="navigateTo('catalog')" class="px-6 py-3 bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold rounded-xl transition-all duration-300 shadow-glow-red">
+                  Перейти к покупкам
+                </button>
+                <button onclick="navigateTo('profile')" class="px-6 py-3 bg-transparent hover:bg-white/5 border border-brand-border text-white text-xs font-bold rounded-xl transition-all duration-300">
+                  Мой профиль
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Popular Categories -->
+          <section class="space-y-5">
+            <h2 class="text-xl font-bold text-white tracking-wide">Популярные категории</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+              ${cardsHTML}
+            </div>
+          </section>
+
+          <!-- Latest Listings -->
+          <section class="space-y-5">
+            <div class="flex justify-between items-end">
+              <h2 class="text-xl font-bold text-white tracking-wide">Последние предложения</h2>
+              <a class="text-brand-red text-sm font-semibold hover:underline cursor-pointer" onclick="navigateTo('catalog')">Все предложения</a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              ${listingsHTML}
+            </div>
+          </section>
+        </main>
+      `;
+    }
+
+    // 2. CATALOG SCREEN
+    function getCatalogHTML() {
+      const categories = ['all', 'GTA V', 'CS 2', 'Steam', 'Valorant', 'Fortnite'];
+      const tabsHTML = categories.map(cat => `
+        <button onclick="state.catalogFilter='${cat}'; renderCatalogContent();" 
+          class="catalog-tab-btn py-2 px-4 rounded-xl text-xs font-bold transition-all duration-300 border ${state.catalogFilter === cat ? 'bg-brand-red text-white border-brand-red shadow-glow-red' : 'bg-brand-card text-brand-textMuted border-brand-border hover:text-white'}">
+          ${cat === 'all' ? 'Все игры' : cat}
+        </button>
+      `).join('');
+
+      return `
+        <main class="w-full max-w-screen-2xl mx-auto px-6 py-8 space-y-8 flex-1 flex flex-col">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+              <h1 class="text-2xl font-bold text-white tracking-wide">Каталог товаров</h1>
+              <p class="text-xs text-brand-textMuted mt-1">Используйте поиск и фильтры по играм для быстрого поиска.</p>
+            </div>
+            <!-- Category Tabs Grid -->
+            <div class="flex flex-wrap gap-2.5">
+              ${tabsHTML}
+            </div>
+          </div>
+
+          <!-- Catalog Target Results -->
+          <div id="catalog-results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 flex-1">
+            <!-- Rendered by renderCatalogContent() -->
+          </div>
+        </main>
+      `;
+    }
+
+    function renderCatalogContent() {
+      // Highlight correct tab
+      const btns = document.querySelectorAll('.catalog-tab-btn');
+      btns.forEach(btn => {
+        const text = btn.innerText.trim();
+        const isAll = state.catalogFilter === 'all' && text === 'Все игры';
+        const isGame = text === state.catalogFilter;
+        if (isAll || isGame) {
+          btn.className = 'catalog-tab-btn py-2 px-4 rounded-xl text-xs font-bold transition-all duration-300 border bg-brand-red text-white border-brand-red shadow-glow-red';
+        } else {
+          btn.className = 'catalog-tab-btn py-2 px-4 rounded-xl text-xs font-bold transition-all duration-300 border bg-brand-card text-brand-textMuted border-brand-border hover:text-white';
+        }
+      });
+
+      const container = document.getElementById('catalog-results');
+      if (!container) return;
+
+      let items = state.listings;
+      
+      // Filter by category
+      if (state.catalogFilter !== 'all') {
+        items = items.filter(x => x.category === state.catalogFilter);
+      }
+
+      // Filter by search query
+      if (state.searchQuery) {
+        items = items.filter(x => 
+          x.title.toLowerCase().includes(state.searchQuery) ||
+          x.description.toLowerCase().includes(state.searchQuery) ||
+          x.category.toLowerCase().includes(state.searchQuery)
+        );
+      }
+
+      if (items.length === 0) {
+        container.className = "flex flex-col items-center justify-center py-16 gap-3 text-center col-span-full";
+        container.innerHTML = `
+          <i class="fa-solid fa-magnifying-glass text-brand-textMuted text-4xl mb-2 animate-pulse"></i>
+          <h3 class="text-white font-bold text-lg">Объявления не найдены</h3>
+          <p class="text-xs text-brand-textMuted max-w-xs">Попробуйте изменить поисковый запрос или выбрать другую категорию игры.</p>
+        `;
+        return;
+      }
+
+      container.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6";
+      container.innerHTML = items.map(item => `
+        <div onclick="navigateTo('item_detail', {itemId: ${item.id}})" class="bg-brand-card rounded-2xl overflow-hidden border border-brand-border hover:border-brand-textMuted/30 hover:shadow-glass hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full">
+          <div class="relative h-44 bg-brand-input overflow-hidden">
+            <img alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="${item.img}">
+            ${item.tag ? `<div class="absolute top-3 left-3 bg-brand-red text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-glow-red">${item.tag}</div>` : ''}
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-medium text-base mb-1 text-white group-hover:text-brand-red transition-colors line-clamp-1">${item.title}</h3>
+              <p class="text-xs text-brand-textMuted mb-4 line-clamp-2">${item.description}</p>
+            </div>
+            <div class="flex items-end justify-between mt-auto">
+              <div>
+                <p class="text-lg font-bold text-brand-red">${item.price} ₽</p>
+                <div class="flex items-center space-x-2 mt-1.5">
+                  <div class="w-2 h-2 rounded-full bg-green-500 shadow-glow-green"></div>
+                  <span class="text-[10px] text-brand-textMuted">В наличии · Моментально</span>
+                </div>
+              </div>
+              <button class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center border border-white/5 transition-all">
+                <i class="fa-solid fa-arrow-right text-xs text-brand-textMuted group-hover:text-white"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 3. MESSAGES SCREEN
+    function getMessagesHTML() {
+      const activeChat = state.chats.find(x => x.id === state.activeChatId) || state.chats[0];
+      
+      const chatsListHTML = state.chats.map(c => `
+        <div onclick="selectChat(${c.id})" class="flex items-center gap-4 p-4 border-b border-brand-border cursor-pointer hover:bg-white/[0.02] transition-all duration-200 ${c.id === activeChat.id ? 'bg-white/5 border-l-2 border-brand-red' : ''}">
+          <div class="relative shrink-0">
+            <img alt="avatar" class="w-11 h-11 rounded-full object-cover border border-white/10" src="${c.avatar}">
+            ${c.online ? `<span class="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-500 ring-2 ring-brand-card shadow-glow-green"></span>` : ''}
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex justify-between items-baseline mb-1">
+              <span class="font-bold text-xs text-white truncate">${c.name}</span>
+              <span class="text-[10px] text-brand-textMuted font-light shrink-0 ml-2">12:45</span>
+            </div>
+            <p class="text-xs text-brand-textMuted truncate font-light">${c.messages.length ? c.messages[c.messages.length-1].text : 'Нет сообщений'}</p>
+          </div>
+        </div>
+      `).join('');
+
+      const messagesHTML = activeChat.messages.map(msg => `
+        <div class="flex ${msg.sender === 'sender' ? 'self-end' : 'self-start'} max-w-[70%]">
+          <div class="${msg.sender === 'sender' ? 'bg-gradient-to-br from-brand-red to-red-700 border border-white/15' : 'bg-brand-input border border-white/5'} py-2.5 px-4 rounded-2xl ${msg.sender === 'sender' ? 'rounded-tr-sm' : 'rounded-tl-sm'} relative flex items-end gap-3.5 shadow-glass-inset">
+            <p class="text-sm leading-relaxed text-white font-light">${msg.text}</p>
+            <div class="flex items-center gap-1 shrink-0 pb-0.5 text-[10px] ${msg.sender === 'sender' ? 'text-white/70' : 'text-brand-textMuted'}">
+              <span>${msg.time}</span>
+              ${msg.sender === 'sender' ? '<i class="fa-solid fa-check-double text-[9px]"></i>' : ''}
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      return `
+        <main class="flex-1 flex overflow-hidden w-full max-w-screen-2xl mx-auto px-6 py-6 gap-6 z-10 relative">
+          <!-- Sidebar Chats -->
+          <aside class="w-[280px] bg-brand-card rounded-3xl flex flex-col border border-brand-border shadow-glass shrink-0 overflow-hidden relative">
+            <div class="p-5 border-b border-brand-border shrink-0">
+              <h2 class="text-lg font-bold text-white">Сообщения</h2>
+            </div>
+            <div class="flex-1 overflow-y-auto">
+              ${chatsListHTML}
+            </div>
+          </aside>
+
+          <!-- Chat Window -->
+          <section class="flex-1 bg-brand-card rounded-3xl flex flex-col border border-brand-border shadow-glass overflow-hidden relative">
+            <!-- Chat Header -->
+            <div class="px-6 py-3.5 border-b border-brand-border flex justify-between items-center bg-white/[0.01] shrink-0">
+              <div class="flex items-center gap-4">
+                <img alt="avatar" class="w-10 h-10 rounded-full border border-white/10 object-cover" src="${activeChat.avatar}">
+                <div>
+                  <h3 class="font-bold text-sm text-white">${activeChat.name}</h3>
+                  <span class="text-[10px] font-semibold text-green-500 uppercase tracking-wider">${activeChat.online ? 'онлайн' : 'офлайн'}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Messages Area -->
+            <div id="chat-messages-area" class="flex-1 overflow-y-auto p-6 flex flex-col gap-4 bg-black/10">
+              ${messagesHTML}
+            </div>
+
+            <!-- Chat Input Area -->
+            <form onsubmit="handleSendMessage(event)" class="p-3 bg-white/[0.01] border-t border-brand-border shrink-0">
+              <div class="bg-brand-input border border-white/5 shadow-glass-inset rounded-xl flex items-center p-1.5 gap-2 focus-within:border-brand-red/50 transition-all duration-300">
+                <button type="button" class="p-2 rounded-lg text-brand-textMuted hover:text-white transition-colors">
+                  <i class="fa-solid fa-paperclip text-sm"></i>
+                </button>
+                <input id="message-input-box" class="flex-1 bg-transparent border-none text-white focus:ring-0 placeholder-brand-textMuted text-xs font-light px-1" placeholder="Напишите сообщение..." type="text"/>
+                <button type="button" class="p-2 rounded-lg text-brand-textMuted hover:text-white transition-colors">
+                  <i class="fa-regular fa-face-smile text-sm"></i>
+                </button>
+                <button type="submit" class="w-8.5 h-8.5 bg-brand-red hover:bg-brand-redHover text-white rounded-lg flex items-center justify-center transition-all duration-300 shadow-glow-red">
+                  <i class="fa-solid fa-paper-plane text-xs"></i>
+                </button>
+              </div>
+            </form>
+          </section>
+        </main>
+      `;
+    }
+
+    // 4. PROFILE SCREEN
+    function getProfileHTML() {
+      // Render dynamic tabs
+      let tabsContent = '';
+      if (state.profileTab === 'lots') {
+        // Group lots by category
+        const categories = ['GTA V', 'CS 2', 'Steam', 'Valorant', 'Fortnite'];
+        const colsHTML = categories.map(cat => {
+          const catListings = state.listings.filter(x => x.category === cat).slice(0, 3);
+          const banner = getGameImagePlaceholder(cat);
+          const lotsListHTML = catListings.map(item => `
+            <div class="flex flex-col gap-0.5">
+              <div class="flex justify-between items-start gap-2">
+                <span class="text-xs text-brand-text hover:text-white truncate cursor-pointer" onclick="navigateTo('item_detail', {itemId: ${item.id}})">${item.title}</span>
+                <span class="text-xs font-bold text-brand-red shrink-0">${item.price} ₽</span>
+              </div>
+            </div>
+          `).join('');
+
+          return `
+            <div class="bg-brand-card rounded-2xl border border-brand-border overflow-hidden flex flex-col h-full hover:border-brand-textMuted/30 transition-all duration-300">
+              <div class="h-28 w-full overflow-hidden relative">
+                <img class="w-full h-full object-cover" src="${banner}" alt="${cat}">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-card/90 to-transparent"></div>
+              </div>
+              <div class="p-4 flex-1 flex flex-col justify-between">
+                <div class="mb-4">
+                  <h3 class="font-bold text-base text-white">${cat}</h3>
+                  <span class="text-xs text-brand-textMuted">${state.listings.filter(x => x.category === cat).length} лотов</span>
+                </div>
+                <div class="space-y-3.5 mb-5">
+                  ${lotsListHTML || '<p class="text-xs text-brand-textMuted">Нет лотов в категории</p>'}
+                </div>
+                <button onclick="navigateTo('all_lots')" class="w-full py-2 bg-white/5 hover:bg-white/10 border border-white/5 text-xs font-medium text-brand-text rounded-lg transition-all duration-300">
+                  Все лоты
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        tabsContent = `
+          <div class="flex justify-between items-end mb-4">
+            <h2 class="text-lg font-bold text-white">Лоты по категориям</h2>
+            <a class="text-brand-red text-xs font-semibold hover:underline flex items-center gap-1.5 cursor-pointer" onclick="navigateTo('all_lots')">
+              <span>Смотреть все лоты</span>
+              <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </a>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            ${colsHTML}
+          </div>
+        `;
+      } else if (state.profileTab === 'reviews') {
+        const reviews = [
+          { user: 'PlayerOne', text: 'Отличный продавец! Аккаунт получил мгновенно, всё как в описании. Рекомендую!', date: 'Сегодня, 12:45' },
+          { user: 'NickPro', text: 'Быстрая доставка, честный продавец. Покупаю не первый раз, всегда всё на высшем уровне.', date: 'Вчера, 18:30' },
+          { user: 'AlexGaming', text: 'Отличные цены и поддержка 24/7. Помогли с выбором, остался доволен!', date: 'Вчера, 15:20' },
+          { user: 'GameMaster', text: 'Аккаунт полностью соответствует описанию. Безопасная сделка, рекомендую!', date: '2 дня назад, 20:15' }
+        ];
+
+        const reviewsHTML = reviews.map(r => `
+          <div class="bg-brand-card rounded-2xl border border-brand-border p-5 flex flex-col justify-between gap-4 hover:border-brand-textMuted/30 transition-all">
+            <div class="space-y-3">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-gray-800 overflow-hidden flex-shrink-0 flex items-center justify-center text-xs font-bold text-white">
+                  ${r.user[0]}
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold text-white">${r.user}</h4>
+                  <div class="flex items-center gap-0.5 mt-0.5">
+                    <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                    <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                    <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                    <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                    <i class="fa-solid fa-star text-green-500 text-[10px]"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="text-xs text-brand-textMuted leading-relaxed">${r.text}</p>
+            </div>
+            <span class="text-[10px] text-brand-textMuted">${r.date}</span>
+          </div>
+        `).join('');
+
+        tabsContent = `
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            ${reviewsHTML}
+          </div>
+        `;
+      } else {
+        // About Tab
+        tabsContent = `
+          <div class="bg-brand-card border border-brand-border rounded-2xl p-6 space-y-4 max-w-xl">
+            <h3 class="font-bold text-white text-base">Информация о GameTrader</h3>
+            <p class="text-xs text-brand-textMuted leading-relaxed">
+              Мы занимаемся дистрибуцией цифровых ключей и аккаунтов с 2023 года. Каждый товар проходит тщательную предварительную проверку и поставляется с бессрочной гарантией.
+            </p>
+            <div class="space-y-2 text-xs">
+              <div class="flex justify-between border-b border-brand-border pb-2"><span class="text-brand-textMuted">Часы работы</span><span class="text-white font-medium">10:00 – 02:00</span></div>
+              <div class="flex justify-between border-b border-brand-border pb-2"><span class="text-brand-textMuted">Среднее время доставки</span><span class="text-white font-medium">Менее 3-х минут</span></div>
+              <div class="flex justify-between"><span class="text-brand-textMuted">Способ оплаты</span><span class="text-white font-medium">СБП, Карты РФ, Криптовалюта</span></div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Modals
+      const editModalHTML = `
+        <div id="edit-profile-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+          <div class="bg-brand-card border border-brand-border rounded-3xl p-6 w-full max-w-md space-y-4">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-white text-lg">Изменить профиль</h3>
+              <button onclick="document.getElementById('edit-profile-modal').classList.add('hidden')" class="text-brand-textMuted hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form onsubmit="handleEditProfile(event)" class="space-y-4">
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-semibold text-brand-textMuted">Имя пользователя</label>
+                <input name="name" type="text" value="${state.profile.name}" class="w-full bg-brand-input border border-brand-border focus:border-brand-red focus:ring-0 rounded-xl py-2 px-3 text-xs text-white">
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-semibold text-brand-textMuted">Описание профиля</label>
+                <textarea name="description" rows="4" class="w-full bg-brand-input border border-brand-border focus:border-brand-red focus:ring-0 rounded-xl py-2 px-3 text-xs text-white leading-relaxed">${state.profile.description}</textarea>
+              </div>
+              <button type="submit" class="w-full py-3 bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold rounded-xl shadow-glow-red transition-all duration-300">Сохранить</button>
+            </form>
+          </div>
+        </div>
+      `;
+
+      const addListingModalHTML = `
+        <div id="add-listing-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+          <div class="bg-brand-card border border-brand-border rounded-3xl p-6 w-full max-w-md space-y-4">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-white text-lg">Создать объявление</h3>
+              <button onclick="document.getElementById('add-listing-modal').classList.add('hidden')" class="text-brand-textMuted hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form onsubmit="handleAddListing(event)" class="space-y-4">
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-semibold text-brand-textMuted">Игра / Категория</label>
+                <select name="category" class="w-full bg-brand-input border border-brand-border focus:border-brand-red focus:ring-0 rounded-xl py-2 px-3 text-xs text-white">
+                  <option value="GTA V">GTA V</option>
+                  <option value="CS 2">CS 2</option>
+                  <option value="Steam">Steam</option>
+                  <option value="Valorant">Valorant</option>
+                  <option value="Fortnite">Fortnite</option>
+                </select>
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-semibold text-brand-textMuted">Название лота</label>
+                <input name="title" type="text" placeholder="Например, CS 2 Личный Прайм" required class="w-full bg-brand-input border border-brand-border focus:border-brand-red focus:ring-0 rounded-xl py-2 px-3 text-xs text-white">
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-semibold text-brand-textMuted">Подробное описание</label>
+                <input name="description" type="text" placeholder="Уровень, скины, звание..." required class="w-full bg-brand-input border border-brand-border focus:border-brand-red focus:ring-0 rounded-xl py-2 px-3 text-xs text-white">
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-semibold text-brand-textMuted">Цена (в рублях)</label>
+                <input name="price" type="number" placeholder="500" required class="w-full bg-brand-input border border-brand-border focus:border-brand-red focus:ring-0 rounded-xl py-2 px-3 text-xs text-white">
+              </div>
+              <button type="submit" class="w-full py-3 bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold rounded-xl shadow-glow-red transition-all duration-300">Опубликовать лот</button>
+            </form>
+          </div>
+        </div>
+      `;
+
+      return `
+        <main class="w-full max-w-screen-2xl mx-auto px-6 py-8 space-y-8">
+          <!-- Seller Profile Card -->
+          <section class="bg-brand-card rounded-3xl border border-brand-border p-8 flex flex-col lg:flex-row justify-between items-start gap-8 relative overflow-hidden">
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-8">
+              <div class="relative flex-shrink-0">
+                <div class="w-32 h-32 rounded-full overflow-hidden border-2 border-white/10 relative">
+                  <img class="w-full h-full object-cover" src="${state.profile.avatar}" alt="Avatar">
+                </div>
+                <span class="absolute bottom-1.5 right-2 block h-5 w-5 rounded-full bg-green-500 ring-4 ring-brand-card shadow-glow-green"></span>
+              </div>
+
+              <div class="flex flex-col gap-5 text-center sm:text-left">
+                <div>
+                  <div class="flex items-center justify-center sm:justify-start gap-2">
+                    <h1 class="text-2xl font-bold text-white tracking-wide">${state.profile.name}</h1>
+                    <svg class="w-5 h-5 text-brand-red fill-current" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                  </div>
+                  <div class="flex items-center justify-center sm:justify-start gap-2 text-xs text-brand-textMuted mt-1">
+                    <span class="text-green-500 font-semibold">Онлайн</span>
+                    <span>·</span>
+                    <span>На сайте с ${state.profile.joinedDate}</span>
+                  </div>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3">
+                  <div class="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
+                    <i class="fa-solid fa-star text-amber-500 text-sm"></i>
+                    <span class="font-bold text-white text-sm">${state.profile.rating}</span>
+                    <span class="text-xs text-brand-textMuted">(${state.profile.reviewsCount} отзывов)</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-full border border-white/5 text-xs text-brand-textMuted font-medium">
+                    <i class="fa-solid fa-shield-halved text-brand-red"></i>
+                    <span>Надежный продавец</span>
+                  </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-3 gap-6 pt-5 border-t border-brand-border mt-1">
+                  <div>
+                    <div class="text-xl font-bold text-white">${state.profile.soldCount}</div>
+                    <div class="text-xs text-brand-textMuted mt-0.5">Продано</div>
+                  </div>
+                  <div>
+                    <div class="text-xl font-bold text-white">${state.profile.reviewsCount}</div>
+                    <div class="text-xs text-brand-textMuted mt-0.5">Отзыва</div>
+                  </div>
+                  <div>
+                    <div class="text-xl font-bold text-white">${state.profile.successRate}</div>
+                    <div class="text-xs text-brand-textMuted mt-0.5">Успешных сделок</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Buttons Column -->
+            <div class="flex flex-col gap-6 w-full lg:w-96 flex-shrink-0 lg:border-l lg:border-brand-border lg:pl-8 justify-center">
+              <div class="flex flex-col gap-3">
+                <button onclick="document.getElementById('add-listing-modal').classList.remove('hidden')" class="w-full py-3 bg-brand-red hover:bg-brand-redHover text-white text-sm font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-glow-red">
+                  <i class="fa-solid fa-circle-plus"></i>
+                  <span>Создать объявление</span>
+                </button>
+                <button onclick="document.getElementById('edit-profile-modal').classList.remove('hidden')" class="w-full py-3 bg-transparent hover:bg-white/5 border border-brand-border hover:border-brand-textMuted text-brand-text text-sm font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300">
+                  <i class="fa-solid fa-user-gear"></i>
+                  <span>Изменить профиль</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Tabs Controls -->
+          <section class="space-y-6">
+            <div class="flex border-b border-brand-border gap-6 text-sm font-semibold">
+              <button onclick="state.profileTab='lots'; renderView();" class="pb-3 transition-colors ${state.profileTab === 'lots' ? 'text-brand-red border-b-2 border-brand-red font-bold' : 'text-brand-textMuted hover:text-white'}">Лоты по категориям</button>
+              <button onclick="state.profileTab='reviews'; renderView();" class="pb-3 transition-colors ${state.profileTab === 'reviews' ? 'text-brand-red border-b-2 border-brand-red font-bold' : 'text-brand-textMuted hover:text-white'}">Отзывы о продавце</button>
+              <button onclick="state.profileTab='about'; renderView();" class="pb-3 transition-colors ${state.profileTab === 'about' ? 'text-brand-red border-b-2 border-brand-red font-bold' : 'text-brand-textMuted hover:text-white'}">О себе</button>
+            </div>
+            
+            <div class="transition-all duration-300">
+              ${tabsContent}
+            </div>
+          </section>
+        </main>
+        
+        <!-- Render Modals -->
+        ${editModalHTML}
+        ${addListingModalHTML}
+      `;
+    }
+
+    // 5. ALL LOTS SCREEN
+    function getAllLotsHTML() {
+      const categories = ['GTA V', 'CS 2', 'Steam', 'Valorant', 'Fortnite'];
+      const categoriesSections = categories.map(cat => {
+        const catListings = state.listings.filter(x => x.category === cat);
+        const banner = getGameImagePlaceholder(cat);
+        const rowsHTML = catListings.map(item => `
+          <tr class="hover:bg-white/[0.02] transition-colors border-b border-brand-border/30">
+            <td class="p-4 pl-6 font-medium text-white max-w-md truncate cursor-pointer" onclick="navigateTo('item_detail', {itemId: ${item.id}})">${item.title}</td>
+            <td class="p-4 text-brand-textMuted">${item.description}</td>
+            <td class="p-4 text-green-500 font-medium">${item.status}</td>
+            <td class="p-4 text-right pr-6">
+              <div class="flex items-center justify-end gap-3.5">
+                <span class="font-bold text-brand-red text-base">${item.price} ₽</span>
+                <button onclick="navigateTo('item_detail', {itemId: ${item.id}})" class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+
+        return `
+          <section class="space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center border border-white/10 bg-brand-input">
+                <img class="w-full h-full object-cover" src="${banner}" alt="${cat}">
+              </div>
+              <h2 class="text-base font-bold text-white">${cat} <span class="text-xs text-brand-textMuted font-normal ml-2">(${catListings.length} лотов)</span></h2>
+            </div>
+            
+            <div class="bg-brand-card rounded-2xl border border-brand-border overflow-hidden">
+              <table class="w-full text-left border-collapse text-xs md:text-sm">
+                <thead>
+                  <tr class="bg-brand-input border-b border-brand-border text-brand-textMuted font-medium">
+                    <th class="p-4 pl-6">Описание товара</th>
+                    <th class="p-4">Категория</th>
+                    <th class="p-4">Наличие</th>
+                    <th class="p-4 text-right pr-6 w-44">Цена / Купить</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-brand-border text-brand-text">
+                  ${rowsHTML || `<tr><td colspan="4" class="p-4 text-center text-brand-textMuted">Нет активных лотов</td></tr>`}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        `;
+      }).join('');
+
+      return `
+        <main class="w-full max-w-screen-2xl mx-auto px-6 py-8 space-y-8">
+          <div class="flex items-center gap-3">
+            <a class="flex items-center gap-2 text-brand-textMuted hover:text-white transition-colors text-xs font-semibold cursor-pointer" onclick="navigateTo('profile')">
+              <i class="fa-solid fa-arrow-left"></i>
+              <span>Назад к профилю</span>
+            </a>
+            <span class="text-brand-border">/</span>
+            <span class="text-white text-xs font-semibold">Все лоты GameTrader</span>
+          </div>
+
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-brand-border pb-6">
+            <div>
+              <h1 class="text-2xl font-bold text-white tracking-wide flex items-center gap-2">
+                <span>Активные лоты продавца GameTrader</span>
+                <span class="text-xs font-medium text-green-500 bg-green-500/10 border border-green-500/20 px-2.5 py-0.5 rounded-full shadow-glow-green">онлайн</span>
+              </h1>
+              <p class="text-xs text-brand-textMuted mt-1">Все категории и товары отображены сплошным списком в стиле FunPay.</p>
+            </div>
+            <a class="py-2.5 px-5 bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-glow-red cursor-pointer" onclick="navigateTo('messages')">
+              <i class="fa-regular fa-comment-dots"></i>
+              <span>Написать продавцу</span>
+            </a>
+          </div>
+
+          <div class="space-y-8">
+            ${categoriesSections}
+          </div>
+        </main>
+      `;
+    }
+
+    // 6. ITEM DETAIL SCREEN
+    function getItemDetailHTML() {
+      const item = state.selectedItem;
+      if (!item) return `<p class="p-8 text-center text-brand-textMuted">Товар не выбран.</p>`;
+
+      const purchaseModalHTML = `
+        <div id="purchase-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+          <div id="purchase-modal-content" class="bg-brand-card border border-brand-border rounded-3xl p-6 w-full max-w-sm space-y-5">
+            <div class="flex justify-between items-center border-b border-brand-border pb-3">
+              <h3 class="font-bold text-white text-base">Оплата заказа</h3>
+              <button onclick="closePurchaseModal()" class="text-brand-textMuted hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            
+            <div class="space-y-2 text-xs">
+              <div class="flex justify-between text-brand-textMuted"><span>Товар</span><span class="text-white font-medium truncate max-w-xs">${item.title}</span></div>
+              <div class="flex justify-between text-brand-textMuted"><span>Комиссия сервиса</span><span class="text-white font-medium">0 ₽</span></div>
+              <div class="flex justify-between border-t border-brand-border pt-2 text-sm font-bold"><span>Итого к оплате</span><span class="text-brand-red">${item.price} ₽</span></div>
+            </div>
+
+            <div class="space-y-3">
+              <label class="text-[10px] font-bold text-brand-textMuted uppercase tracking-wider">Выберите платежную систему</label>
+              <div class="grid grid-cols-2 gap-3">
+                <button onclick="handlePurchase()" class="py-3 px-4 bg-brand-input border border-brand-border hover:border-brand-red rounded-xl flex flex-col items-center justify-center gap-1.5 text-xs text-white transition-all">
+                  <i class="fa-solid fa-mobile-screen-button text-brand-red text-base"></i>
+                  <span>СБП</span>
+                </button>
+                <button onclick="handlePurchase()" class="py-3 px-4 bg-brand-input border border-brand-border hover:border-brand-red rounded-xl flex flex-col items-center justify-center gap-1.5 text-xs text-white transition-all">
+                  <i class="fa-regular fa-credit-card text-brand-red text-base"></i>
+                  <span>Карта РФ</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      return `
+        <main class="w-full max-w-screen-2xl mx-auto px-6 py-8 space-y-8">
+          <!-- Back navigation -->
+          <div class="flex items-center gap-3">
+            <a class="flex items-center gap-2 text-brand-textMuted hover:text-white transition-colors text-xs font-semibold cursor-pointer" onclick="navigateTo('catalog')">
+              <i class="fa-solid fa-arrow-left"></i>
+              <span>Назад в каталог</span>
+            </a>
+            <span class="text-brand-border">/</span>
+            <span class="text-white text-xs font-semibold">${item.title}</span>
+          </div>
+
+          <!-- Product Main Card -->
+          <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left & Center Details -->
+            <div class="lg:col-span-2 space-y-6">
+              <div class="relative rounded-3xl overflow-hidden h-[360px] bg-brand-card border border-brand-border shadow-glass">
+                <img class="w-full h-full object-cover" src="${item.img}" alt="${item.title}">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent"></div>
+              </div>
+
+              <!-- Content details -->
+              <div class="bg-brand-card rounded-3xl border border-brand-border p-6 space-y-6">
+                <div>
+                  <h1 class="text-2xl font-bold text-white tracking-wide">${item.title}</h1>
+                  <span class="inline-block mt-2 text-xs font-medium text-brand-red bg-brand-red/10 border border-brand-red/20 px-3 py-1 rounded-full shadow-glow-red">${item.category}</span>
+                </div>
+
+                <div class="space-y-3">
+                  <h3 class="font-bold text-white text-sm">Описание лота</h3>
+                  <p class="text-xs text-brand-textMuted leading-relaxed">${item.description}</p>
+                </div>
+
+                <div class="space-y-3 border-t border-brand-border pt-6">
+                  <h3 class="font-bold text-white text-sm">Гарантии и доставка</h3>
+                  <ul class="list-none space-y-2 text-xs text-brand-textMuted">
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-shield text-brand-red"></i><span>Безопасная сделка: Продавец получит оплату только после вашей проверки товара.</span></li>
+                    <li class="flex items-center gap-2"><i class="fa-regular fa-clock text-brand-red"></i><span>Моментальная выдача: Доступ к товару сразу после подтверждения транзакции.</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Purchasing Sidebar -->
+            <div class="space-y-6">
+              <!-- Pricing Card -->
+              <div class="bg-brand-card rounded-3xl border border-brand-border p-6 space-y-6">
+                <div class="space-y-1">
+                  <span class="text-xs text-brand-textMuted uppercase font-bold tracking-wider">Цена лота</span>
+                  <div class="text-3xl font-extrabold text-brand-red drop-shadow-[0_0_8px_rgba(229,57,53,0.3)]">${item.price} ₽</div>
+                </div>
+
+                <div class="space-y-3">
+                  <button onclick="showPurchaseModal()" class="w-full py-3.5 bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-glow-red">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Купить лот</span>
+                  </button>
+                  <button onclick="navigateTo('messages')" class="w-full py-3.5 bg-transparent hover:bg-white/5 border border-brand-border hover:border-brand-textMuted text-brand-text text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition-all duration-300">
+                    <i class="fa-regular fa-comment-dots"></i>
+                    <span>Обсудить с продавцом</span>
+                  </button>
+                </div>
+
+                <div class="pt-4 border-t border-brand-border flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 border border-white/10">
+                    <img class="w-full h-full object-cover" src="${state.profile.avatar}" alt="Seller">
+                  </div>
+                  <div>
+                    <h4 class="text-xs font-bold text-white hover:underline cursor-pointer" onclick="navigateTo('profile')">${state.profile.name}</h4>
+                    <div class="flex items-center gap-1 text-[10px] text-brand-textMuted mt-0.5">
+                      <i class="fa-solid fa-star text-amber-500"></i>
+                      <span>4.9</span>
+                      <span>(342 отзыва)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+        
+        <!-- Render Purchase Modal -->
+        ${purchaseModalHTML}
+      `;
+    }
+
+    // --- INITIAL MOUNT ---
+    window.addEventListener('DOMContentLoaded', () => {
+      renderView();
+      updateNavHighlight();
+    });
+
+    // Handle Forms Intercepts
+    window.handleEditProfile = handleEditProfile;
+    window.handleAddListing = handleAddListing;
+    window.handleSendMessage = handleSendMessage;
+  </script>
+</body>
+</html>
