@@ -177,6 +177,7 @@
     const DEFAULT_PROFILE = {
       name: 'GameTrader',
       avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAJh5PSUgB2-1C70Vxf2jAfRI9028OIeOl4UHC-ZMzGOufbZBZf8N4EhQSmm_hWI5Uqf2gBd9Cm38Vhm-TbDI92qTHIRsDyxx5ALJYIKp8WM7l7Bof29xnU6-88L85MoQmVHBSpu8ilid53hwR5KDhz2ZeopsfeyzOnWmBZHF6hdHQnVDjVWpwIFW6-k2Hg-zoozIHYgL6nvxSYlB4i-MpZ0dH52Qnr4RczULy91lt81sk3lM8D-zU0DQ',
+      banner: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBW3dQN7ShGvn4kdU7u7ih6-3dMtaJclbJgnYaQ1hiepanbtpOYBWWEPKZJFlhPEXvYkDCF11-4QSPIglHb5TGZuSc7662S6ernDyNGAFXBBrjk30BQB9ico_geXuiv5lDqlVf8hqNc5OPYnLiE6P0fY-d-WNC7f158tXRW9jfmsSIYR8rLYt9MblisJddns0VROfbWmUK-6urYlUGdoTeQAUWry1WQ1QypS86i1zhNp_J8Dy92cj4piA',
       joinedDate: 'мая 2023',
       rating: '4.9',
       reviewsCount: 342,
@@ -259,6 +260,10 @@
       selectedStars: 5,
       tempPurchasedItem: null
     };
+
+    if (!state.profile.banner) {
+      state.profile.banner = DEFAULT_PROFILE.banner;
+    }
 
     function saveState() {
       localStorage.setItem('profile', JSON.stringify(state.profile));
@@ -456,6 +461,7 @@
       const form = event.target;
       state.profile.name = form.name.value;
       state.profile.avatar = form.avatar.value;
+      state.profile.banner = form.banner.value;
       state.profile.description = form.description.value;
       saveState();
       
@@ -1160,71 +1166,82 @@
 
       return `
         <main class="w-full max-w-screen-2xl mx-auto px-6 py-8 space-y-8">
-          <!-- Seller profile details -->
-          <section class="bg-brand-card rounded-3xl border border-brand-border p-8 flex flex-col lg:flex-row justify-between items-start gap-8 relative overflow-hidden">
-            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-8">
-              <div class="relative flex-shrink-0">
-                <div class="w-32 h-32 rounded-full overflow-hidden border-2 border-white/10 relative">
-                  <img class="w-full h-full object-cover" src="${state.profile.avatar}" alt="Avatar">
-                </div>
-                <span class="absolute bottom-1.5 right-2 block h-5 w-5 rounded-full bg-green-500 ring-4 ring-brand-card shadow-glow-green"></span>
-              </div>
-
-              <div class="flex flex-col gap-5 text-center sm:text-left">
-                <div>
-                  <div class="flex items-center justify-center sm:justify-start gap-2">
-                    <h1 class="text-2xl font-bold text-white tracking-wide">${state.profile.name}</h1>
-                    <svg class="w-5 h-5 text-brand-red fill-current" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                  </div>
-                  <div class="flex items-center justify-center sm:justify-start gap-2 text-xs text-brand-textMuted mt-1">
-                    <span class="text-green-500 font-semibold">Онлайн</span>
-                    <span>·</span>
-                    <span>На сайте с ${state.profile.joinedDate}</span>
-                  </div>
-                </div>
-
-                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3">
-                  <div class="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
-                    <i class="fa-solid fa-star text-amber-500 text-sm"></i>
-                    <span class="font-bold text-white text-sm">${state.profile.rating}</span>
-                    <span class="text-xs text-brand-textMuted">(${state.profile.reviewsCount} отзывов)</span>
-                  </div>
-                  <div class="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-full border border-white/5 text-xs text-brand-textMuted font-medium">
-                    <i class="fa-solid fa-shield-halved text-brand-red"></i>
-                    <span>Надежный продавец</span>
-                  </div>
-                </div>
-
-                <!-- Stats -->
-                <div class="grid grid-cols-3 gap-6 pt-5 border-t border-brand-border mt-1">
-                  <div>
-                    <div class="text-xl font-bold text-white">${state.profile.soldCount}</div>
-                    <div class="text-xs text-brand-textMuted mt-0.5">Продано</div>
-                  </div>
-                  <div>
-                    <div class="text-xl font-bold text-white">${state.profile.reviewsCount}</div>
-                    <div class="text-xs text-brand-textMuted mt-0.5">Отзыва</div>
-                  </div>
-                  <div>
-                    <div class="text-xl font-bold text-white">${state.profile.successRate}</div>
-                    <div class="text-xs text-brand-textMuted mt-0.5">Успешных сделок</div>
-                  </div>
-                </div>
-              </div>
+          <!-- Seller profile details with horizontal banner -->
+          <section class="bg-brand-card rounded-3xl border border-brand-border overflow-hidden relative shadow-glass flex flex-col">
+            <!-- Banner Cover -->
+            <div class="h-40 sm:h-48 w-full overflow-hidden relative">
+              <img class="w-full h-full object-cover" src="${state.profile.banner}" alt="Banner">
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-card to-transparent"></div>
             </div>
 
-            <!-- Right Buttons Column -->
-            <div class="flex flex-col gap-6 w-full lg:w-96 flex-shrink-0 lg:border-l lg:border-brand-border lg:pl-8 justify-center">
-              <div class="flex flex-col gap-3">
-                <button onclick="document.getElementById('add-listing-modal').classList.remove('hidden')" class="w-full py-3 bg-brand-red hover:bg-brand-redHover text-white text-sm font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-glow-red">
+            <!-- Profile details body -->
+            <div class="px-6 pb-6 -mt-10 sm:-mt-14 relative flex flex-col lg:flex-row justify-between items-start gap-6">
+              
+              <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">
+                <!-- Avatar -->
+                <div class="relative flex-shrink-0">
+                  <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-brand-card relative shadow-glass">
+                    <img class="w-full h-full object-cover" src="${state.profile.avatar}" alt="Avatar">
+                  </div>
+                  <span class="absolute bottom-1.5 right-1.5 block h-4 w-4 sm:h-5 sm:w-5 rounded-full bg-green-500 ring-4 ring-brand-card shadow-glow-green"></span>
+                </div>
+
+                <!-- Text stats -->
+                <div class="flex flex-col gap-4 text-center sm:text-left pt-12 sm:pt-16">
+                  <div>
+                    <div class="flex items-center justify-center sm:justify-start gap-2">
+                      <h1 class="text-xl sm:text-2xl font-bold text-white tracking-wide">${state.profile.name}</h1>
+                      <svg class="w-5 h-5 text-brand-red fill-current" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <div class="flex items-center justify-center sm:justify-start gap-2 text-xs text-brand-textMuted mt-1">
+                      <span class="text-green-500 font-semibold">Онлайн</span>
+                      <span>·</span>
+                      <span>На сайте с ${state.profile.joinedDate}</span>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
+                    <div class="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
+                      <i class="fa-solid fa-star text-amber-500 text-sm"></i>
+                      <span class="font-bold text-white text-sm">${state.profile.rating}</span>
+                      <span class="text-xs text-brand-textMuted">(${state.profile.reviewsCount} отзывов)</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-full border border-white/5 text-xs text-brand-textMuted font-medium">
+                      <i class="fa-solid fa-shield-halved text-brand-red"></i>
+                      <span>Надежный продавец</span>
+                    </div>
+                  </div>
+
+                  <!-- Stats Row -->
+                  <div class="grid grid-cols-3 gap-6 pt-5 border-t border-brand-border mt-1">
+                    <div>
+                      <div class="text-base sm:text-lg font-bold text-white">${state.profile.soldCount}</div>
+                      <div class="text-[10px] text-brand-textMuted mt-0.5">Продано</div>
+                    </div>
+                    <div>
+                      <div class="text-base sm:text-lg font-bold text-white">${state.profile.reviewsCount}</div>
+                      <div class="text-[10px] text-brand-textMuted mt-0.5">Отзыва</div>
+                    </div>
+                    <div>
+                      <div class="text-base sm:text-lg font-bold text-white">${state.profile.successRate}</div>
+                      <div class="text-[10px] text-brand-textMuted mt-0.5">Успешных сделок</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right button widgets -->
+              <div class="flex flex-col gap-3 w-full lg:w-72 flex-shrink-0 pt-6 lg:pt-16 lg:self-end">
+                <button onclick="document.getElementById('add-listing-modal').classList.remove('hidden')" class="w-full py-3 bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-glow-red">
                   <i class="fa-solid fa-circle-plus"></i>
                   <span>Создать объявление</span>
                 </button>
-                <button onclick="navigateTo('edit_profile')" class="w-full py-3 bg-transparent hover:bg-white/5 border border-brand-border hover:border-brand-textMuted text-brand-text text-sm font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300">
+                <button onclick="navigateTo('edit_profile')" class="w-full py-3 bg-transparent hover:bg-white/5 border border-brand-border hover:border-brand-textMuted text-brand-text text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition-all duration-300">
                   <i class="fa-solid fa-user-gear"></i>
                   <span>Изменить профиль</span>
                 </button>
               </div>
+
             </div>
           </section>
 
@@ -1449,29 +1466,35 @@
       `;
     }
 
-    function getEditProfileHTML() {
+    let avatarIndex = 0;
+    function cycleAvatarPreset() {
       const avatars = [
         'https://lh3.googleusercontent.com/aida-public/AB6AXuA6rNyIAO0jU1LCzPPyhfUEhR4qR25_Rv26DfS8QfmJKr8NChObO6N-2ITz5IGjxC6Ip4ZXzPYpKtjU-kBb80pB5Trg17Fl6U7SgpyRGnOWj04HjB6PDqvfQU2IrGC_u2inSUANOpFP4ZToSVZJV6CtY0ajPo78qKz_geJE7tr8ObP7g0oXzE8hFnMHzbVQ28_VOt7MC8atbuDKl9ApPXhxF9UiKaGPeo7SM2z2I-7OSqH12BsLC7WRAw',
         'https://lh3.googleusercontent.com/aida-public/AB6AXuAKs5eAjLhOev7uFN7lhAnHmTSkf17Ek-uIvErom3ZOYIeUEAtU_5pjE-3YTKUJGJ3SKPoLvLyNyU-j6uUrEXQMWy6EF3qiGb_oKFmduWnpvmK4UP6rsdQIVF_Me4W4-sS8_FBwzMnw3O1IuxpP_skxbYrM63mkgIOcnXrUHz7PlmKaqgvdL0WsmXpS1vfhOwVRgce9bzd00sjC-Ct5qXu8TR--d1kqvGNbdAfhP2iTs7t2rHAHuO_X2Q',
         'https://lh3.googleusercontent.com/aida-public/AB6AXuAJh5PSUgB2-1C70Vxf2jAfRI9028OIeOl4UHC-ZMzGOufbZBZf8N4EhQSmm_hWI5Uqf2gBd9Cm38Vhm-TbDI92qTHIRsDyxx5ALJYIKp8WM7l7Bof29xnU6-88L85MoQmVHBSpu8ilid53hwR5KDhz2ZeopsfeyzOnWmBZHF6hdHQnVDjVWpwIFW6-k2Hg-zoozIHYgL6nvxSYlB4i-MpZ0dH52Qnr4RczULy91lt81sk3lM8D-zU0DQ',
         'https://lh3.googleusercontent.com/aida-public/AB6AXuCIPWdst2vh-lEeE8MBDmRoH7ZR-gacKzR-Wx9L0k0n8V_bErIarmzbeLukt4ZrPui2ElF0QjX679A1f6ImqA7khGt2sni3nB2Ln2H0NPvC8ezLef0VQO4Px5dLkdA5_4BvjPBpBoW9XeW4MIJiZr5PKi0_QhjOiOpnKaHtN0-b0xbJnJ7udpxU847-3h1P-QlZ4DjEWrn4wq8OUNIKDdezVOQIEEhOmW0V1HjqWOd_SFX1ptVqa8Mr7Q',
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuBWNcZrNp_0IPI89qObaubHetiKhAg_uj3zHuSzju0-1cd_0pPXxO061d55XsNk8Z7TaEUOffO2nUREXrwHvn99BtQvsxFivYWP4R_9S18vSJF5M25dDD9gMnvId9pKlDnel8fyMZ5MR4uv7r38sFh9aAt6oX8SIOxLfFzvs7SiLnE5PfKHvEuKEqhHUNKY8rBLY2BKwSah4LAQo2nI3Cemwml_km79gfd98rN6Oqb39Hu108dqqNWYbQ',
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuAkjihwSLJqBjv1XO9emV8pWzcpE3RDlz0h49Qe173Wr-peiMX8acHRyjD9YFc5GKk46GfLKnHr4q8Ld02qG9bF7jagCKxxY3O70F3mHKHq-RkqHXWxvro8ZZGh1oNQIL3AWO5HhjdctHgCiKBkbDfw5hWu0N3fukAhUQ386ULZ_hU5SkZMmZ2UFubdlVIrMrpfyyYQtpvsPpd2OLnCFLvBLVtpqbgMskHWB2iMJDZ6-zjfX-_8hPfy7w',
         'https://lh3.googleusercontent.com/aida-public/AB6AXuAIc8OBnSOW4p61G-llvPlpYoyIfirHbMH5tewwjDDktIwYu8otbk47ynr37lWH675BNKQQ5fc0mgFzFwlWQYh29qkXVHenN0mxcMSZfEvXPadIO1xwhaTFVjWV2enRQcHMcSPG6zsQGPWo4S12bdCuzj-SRXB902vpX4SWgZlUsrVPzxmEuEH45Stjwj2R1IEH7IpYiok_TL5Z6sdmcHWKB3IFDtdJaoL9qHmuifDOl0Cvj06tnAAAHA',
         'https://lh3.googleusercontent.com/aida-public/AB6AXuDPsMMGk1uUo_QAd9jw7_kidMZGP0G401e2YzWsllj98ffaKoNbeBneTZqb3hrEN0TbX2xfPXrjUFc3ofNSKao8zJIAq-lFI3tqWLt3SEGlz0ceQAnQtiiNcknqJebsGYAp9izrMJgS-bhD-0uGUJIylIEqmAg2VPCDTddDu5iFmSABpoDR6bLCjkqHC9CakDW10MFxxxLQVd8u4Y6Do32kMKa4QTZJL6YedunQhhw2zcB_lwftzjS-2g'
       ];
+      avatarIndex = (avatarIndex + 1) % avatars.length;
+      selectAvatarChoice(avatars[avatarIndex]);
+    }
 
-      const avatarsGridHTML = avatars.map(url => `
-        <button type="button" onclick="selectAvatarChoice('${url}')" class="w-14 h-14 rounded-full overflow-hidden border border-white/10 hover:border-brand-red active:scale-95 transition-all relative group flex-shrink-0">
-          <img class="w-full h-full object-cover" src="${url}">
-          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-            <i class="fa-solid fa-check text-white text-xs"></i>
-          </div>
-        </button>
-      `).join('');
+    let bannerIndex = 0;
+    function cycleBannerPreset() {
+      const banners = [
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuBW3dQN7ShGvn4kdU7u7ih6-3dMtaJclbJgnYaQ1hiepanbtpOYBWWEPKZJFlhPEXvYkDCF11-4QSPIglHb5TGZuSc7662S6ernDyNGAFXBBrjk30BQB9ico_geXuiv5lDqlVf8hqNc5OPYnLiE6P0fY-d-WNC7f158tXRW9jfmsSIYR8rLYt9MblisJddns0VROfbWmUK-6urYlUGdoTeQAUWry1WQ1QypS86i1zhNp_J8Dy92cj4piA',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAkjihwSLJqBjv1XO9emV8pWzcpE3RDlz0h49Qe173Wr-peiMX8acHRyjD9YFc5GKk46GfLKnHr4q8Ld02qG9bF7jagCKxxY3O70F3mHKHq-RkqHXWxvro8ZZGh1oNQIL3AWO5HhjdctHgCiKBkbDfw5hWu0N3fukAhUQ386ULZ_hU5SkZMmZ2UFubdlVIrMrpfyyYQtpvsPpd2OLnCFLvBLVtpqbgMskHWB2iMJDZ6-zjfX-_8hPfy7w',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuBWNcZrNp_0IPI89qObaubHetiKhAg_uj3zHuSzju0-1cd_0pPXxO061d55XsNk8Z7TaEUOffO2nUREXrwHvn99BtQvsxFivYWP4R_9S18vSJF5M25dDD9gMnvId9pKlDnel8fyMZ5MR4uv7r38sFh9aAt6oX8SIOxLfFzvs7SiLnE5PfKHvEuKEqhHUNKY8rBLY2BKwSah4LAQo2nI3Cemwml_km79gfd98rN6Oqb39Hu108dqqNWYbQ'
+      ];
+      bannerIndex = (bannerIndex + 1) % banners.length;
+      selectBannerChoice(banners[bannerIndex]);
+    }
 
+    function getEditProfileHTML() {
       return `
-        <main class="w-full max-w-screen-xl mx-auto px-6 py-8 space-y-8 flex-1 animate-fadeInUp">
+        <main class="w-full max-w-screen-2xl mx-auto px-6 py-8 space-y-8 flex-1 animate-fadeInUp">
+          
           <!-- Back navigation -->
           <div class="flex items-center gap-3">
             <a class="flex items-center gap-2 text-brand-textMuted hover:text-white transition-colors text-xs font-semibold cursor-pointer" onclick="navigateTo('profile')">
@@ -1479,79 +1502,181 @@
               <span>Назад к профилю</span>
             </a>
             <span class="text-brand-border">/</span>
-            <span class="text-white text-xs font-semibold">Настройки профиля</span>
+            <span class="text-white text-xs font-semibold">Оформление профиля</span>
           </div>
 
-          <!-- Edit Container -->
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <!-- Left Side Panel: Live Preview Card -->
-            <div class="bg-brand-card rounded-3xl border border-brand-border p-8 flex flex-col items-center justify-center text-center gap-6 shadow-glass h-fit">
-              <h3 class="text-xs font-bold text-brand-textMuted uppercase tracking-wider">Предпросмотр профиля</h3>
-              <div class="relative">
-                <img id="edit-avatar-preview" src="${state.profile.avatar}" class="w-28 h-28 rounded-full object-cover border border-brand-red/50 shadow-glow-red">
-                <span class="absolute bottom-1 right-1.5 block h-4 w-4 rounded-full bg-green-500 ring-4 ring-brand-card shadow-glow-green"></span>
+          <!-- Top Action Title Section -->
+          <form onsubmit="handleEditProfile(event)" class="space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-brand-border pb-6">
+              <div>
+                <h1 class="text-2xl font-bold text-white tracking-wide">Оформление профиля</h1>
+                <p class="text-xs text-brand-textMuted mt-1">Настройте внешний вид вашего профиля. Это поможет вам выделиться и привлечь больше покупателей.</p>
               </div>
-              <div class="space-y-1">
-                <h4 id="edit-name-preview" class="text-base font-bold text-white">${state.profile.name}</h4>
-                <div class="flex items-center justify-center gap-1.5 text-[10px] text-brand-textMuted font-semibold">
-                  <span class="text-green-500">онлайн</span>
-                  <span>·</span>
-                  <span>рейтинг ${state.profile.rating}</span>
-                </div>
-              </div>
-              <p id="edit-description-preview" class="text-xs text-brand-textMuted leading-relaxed max-w-xs line-clamp-3">${state.profile.description}</p>
+              <button type="submit" class="py-3 px-6 bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold rounded-xl shadow-glow-red transition-all duration-300">
+                Сохранить изменения
+              </button>
             </div>
 
-            <!-- Right Side Panel: Edit Settings form -->
-            <div class="lg:col-span-2 bg-brand-card rounded-3xl border border-brand-border p-8 space-y-6 shadow-glass">
-              <div>
-                <h2 class="text-lg font-bold text-white">Настройки профиля</h2>
-                <p class="text-xs text-brand-textMuted mt-1">Измените аватарку, никнейм и личную информацию продавца.</p>
-              </div>
-
-              <form onsubmit="handleEditProfile(event)" class="space-y-6">
+            <!-- Customization Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              
+              <!-- Left Customized Blocks (Avatar & Banner Settings) -->
+              <div class="lg:col-span-2 space-y-8">
                 
-                <!-- Circular Avatars Grid Selection -->
-                <div class="space-y-3">
-                  <label class="text-[10px] font-bold text-brand-textMuted uppercase tracking-wider block">Выбрать готовую аватарку</label>
-                  <div class="flex flex-wrap gap-3">
-                    ${avatarsGridHTML}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  
+                  <!-- Avatar Customizer Card -->
+                  <div class="bg-brand-card rounded-3xl border border-brand-border p-6 space-y-6 relative flex flex-col justify-between">
+                    <div class="flex justify-between items-center">
+                      <h3 class="font-bold text-white text-sm">Аватар</h3>
+                      <button type="button" onclick="cycleAvatarPreset()" class="w-8 h-8 rounded-full bg-brand-input hover:bg-white/5 border border-white/5 flex items-center justify-center text-brand-textMuted hover:text-white transition-colors" title="Случайный пресет">
+                        <i class="fa-solid fa-pen text-xs"></i>
+                      </button>
+                    </div>
+                    
+                    <div class="flex flex-col items-center justify-center py-4">
+                      <div class="relative">
+                        <img id="edit-avatar-preview" src="${state.profile.avatar}" class="w-24 h-24 rounded-full object-cover border-2 border-brand-red shadow-glow-red">
+                      </div>
+                    </div>
+
+                    <div class="space-y-4">
+                      <!-- Input Field for custom URL -->
+                      <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-brand-textMuted uppercase tracking-wider block">Ссылка на аватарку (URL)</label>
+                        <input id="edit-avatar-input" name="avatar" type="text" value="${state.profile.avatar}" oninput="document.getElementById('edit-avatar-preview').src = this.value; document.getElementById('edit-live-avatar-preview').src = this.value;" class="w-full bg-brand-input border border-brand-border focus:border-brand-red focus:ring-0 rounded-xl py-2 px-3 text-xs text-white">
+                      </div>
+                      
+                      <button type="button" onclick="cycleAvatarPreset()" class="w-full py-2.5 bg-transparent hover:bg-white/5 border border-white/10 hover:border-white/20 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition-all">
+                        <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                        <span>Изменить аватар</span>
+                      </button>
+                      <p class="text-[9px] text-brand-textMuted text-center leading-relaxed">JPG, PNG или WEBP. Макс. размер 5 МБ. Рекомендуемый размер 512x512px.</p>
+                    </div>
+                  </div>
+
+                  <!-- Banner Customizer Card -->
+                  <div class="bg-brand-card rounded-3xl border border-brand-border p-6 space-y-6 relative flex flex-col justify-between">
+                    <div class="flex justify-between items-center">
+                      <h3 class="font-bold text-white text-sm">Баннер профиля</h3>
+                      <button type="button" onclick="cycleBannerPreset()" class="w-8 h-8 rounded-full bg-brand-input hover:bg-white/5 border border-white/5 flex items-center justify-center text-brand-textMuted hover:text-white transition-colors" title="Случайный пресет">
+                        <i class="fa-solid fa-pen text-xs"></i>
+                      </button>
+                    </div>
+
+                    <div class="flex flex-col items-center justify-center py-4">
+                      <div class="w-full h-24 rounded-xl overflow-hidden border border-white/10 relative">
+                        <img id="edit-banner-preview" src="${state.profile.banner}" class="w-full h-full object-cover">
+                      </div>
+                    </div>
+
+                    <div class="space-y-4">
+                      <!-- Input Field for custom URL -->
+                      <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-brand-textMuted uppercase tracking-wider block">Ссылка на баннер (URL)</label>
+                        <input id="edit-banner-input" name="banner" type="text" value="${state.profile.banner}" oninput="document.getElementById('edit-banner-preview').src = this.value; document.getElementById('edit-live-banner-preview').src = this.value;" class="w-full bg-brand-input border border-brand-border focus:border-brand-red focus:ring-0 rounded-xl py-2 px-3 text-xs text-white">
+                      </div>
+
+                      <button type="button" onclick="cycleBannerPreset()" class="w-full py-2.5 bg-transparent hover:bg-white/5 border border-white/10 hover:border-white/20 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition-all">
+                        <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                        <span>Изменить баннер</span>
+                      </button>
+                      <p class="text-[9px] text-brand-textMuted text-center leading-relaxed">JPG, PNG или WEBP. Макс. размер 10 МБ. Рекомендуемый размер 1920x480px.</p>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Text Profile Inputs (Name, Description) -->
+                <div class="bg-brand-card rounded-3xl border border-brand-border p-6 space-y-4">
+                  <div class="flex flex-col gap-1.5">
+                    <label class="text-[10px] font-bold text-brand-textMuted uppercase tracking-wider block">Имя пользователя (Никнейм)</label>
+                    <input name="name" type="text" value="${state.profile.name}" oninput="document.getElementById('edit-name-preview').innerText = this.value" class="w-full bg-brand-input border border-brand-border focus:border-brand-red focus:ring-0 rounded-xl py-3 px-4 text-xs text-white" required>
+                  </div>
+                  <div class="flex flex-col gap-1.5">
+                    <label class="text-[10px] font-bold text-brand-textMuted uppercase tracking-wider block">Описание профиля</label>
+                    <textarea name="description" rows="3" oninput="document.getElementById('edit-description-preview').innerText = this.value" class="w-full bg-brand-input border border-brand-border focus:border-brand-red focus:ring-0 rounded-xl py-3 px-4 text-xs text-white leading-relaxed">${state.profile.description}</textarea>
                   </div>
                 </div>
 
-                <!-- Custom Avatar URL link -->
-                <div class="flex flex-col gap-1.5">
-                  <label class="text-[10px] font-bold text-brand-textMuted uppercase tracking-wider block">Ссылка на аватарку (URL)</label>
-                  <input id="edit-avatar-input" name="avatar" type="text" value="${state.profile.avatar}" oninput="document.getElementById('edit-avatar-preview').src = this.value" class="w-full bg-brand-input border border-brand-border focus:border-brand-red focus:ring-0 rounded-xl py-3 px-4 text-xs text-white">
+              </div>
+
+              <!-- Right Column: Live Profile Preview matching Reference exactly -->
+              <div class="space-y-6">
+                <h3 class="text-xs font-bold text-brand-textMuted uppercase tracking-wider block pl-2">Предпросмотр профиля</h3>
+                
+                <div class="bg-brand-card rounded-3xl border border-brand-border overflow-hidden shadow-glass relative pb-6">
+                  
+                  <!-- Top Banner image -->
+                  <div class="h-28 w-full overflow-hidden relative">
+                    <img id="edit-live-banner-preview" class="w-full h-full object-cover" src="${state.profile.banner}">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-card/90 to-transparent"></div>
+                  </div>
+
+                  <!-- Details Overlay -->
+                  <div class="px-6 -mt-8 relative space-y-4">
+                    
+                    <!-- Avatar overlapping -->
+                    <div class="relative w-20 h-20">
+                      <img id="edit-live-avatar-preview" class="w-full h-full object-cover rounded-full border-2 border-brand-red shadow-glow-red" src="${state.profile.avatar}">
+                      <span class="absolute bottom-0 right-1 block h-4 w-4 rounded-full bg-green-500 ring-2 ring-brand-card shadow-glow-green"></span>
+                    </div>
+
+                    <!-- Nickname and Online status -->
+                    <div class="space-y-1">
+                      <div class="flex items-center gap-1.5">
+                        <h4 class="text-lg font-bold text-white"><span id="edit-name-live-text">${state.profile.name}</span></h4>
+                        <svg class="w-4 h-4 text-brand-red fill-current" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                      </div>
+                      <span class="text-[10px] font-semibold text-green-500 uppercase tracking-wider block">Онлайн</span>
+                    </div>
+
+                    <!-- Star and Verification Row -->
+                    <div class="flex items-center gap-2.5 text-[11px] text-brand-textMuted border-b border-brand-border/60 pb-4">
+                      <div class="flex items-center gap-1 text-white">
+                        <i class="fa-solid fa-star text-amber-500"></i>
+                        <span class="font-bold">${state.profile.rating}</span>
+                        <span class="text-brand-textMuted">(${state.profile.reviewsCount} отзывов)</span>
+                      </div>
+                      <span>|</span>
+                      <div class="flex items-center gap-1 text-brand-textMuted">
+                        <i class="fa-solid fa-shield-halved text-brand-red"></i>
+                        <span>Надежный продавец</span>
+                      </div>
+                    </div>
+
+                    <!-- Stats Row (4 Columns matching screen 2) -->
+                    <div class="grid grid-cols-4 gap-2 text-center pt-2">
+                      <div>
+                        <div class="text-sm font-bold text-white">${state.profile.soldCount}</div>
+                        <div class="text-[9px] text-brand-textMuted mt-0.5">Продано</div>
+                      </div>
+                      <div>
+                        <div class="text-sm font-bold text-white">${state.profile.reviewsCount}</div>
+                        <div class="text-[9px] text-brand-textMuted mt-0.5">Отзыва</div>
+                      </div>
+                      <div>
+                        <div class="text-sm font-bold text-white">${state.profile.successRate}</div>
+                        <div class="text-[9px] text-brand-textMuted mt-0.5">Успешных</div>
+                      </div>
+                      <div>
+                        <div class="text-sm font-bold text-white">24/7</div>
+                        <div class="text-[9px] text-brand-textMuted mt-0.5">Поддержка</div>
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
 
-                <!-- Nickname name -->
-                <div class="flex flex-col gap-1.5">
-                  <label class="text-[10px] font-bold text-brand-textMuted uppercase tracking-wider block">Имя пользователя (Никнейм)</label>
-                  <input name="name" type="text" value="${state.profile.name}" oninput="document.getElementById('edit-name-preview').innerText = this.value" class="w-full bg-brand-input border border-brand-border focus:border-brand-red focus:ring-0 rounded-xl py-3 px-4 text-xs text-white" required>
-                </div>
-
-                <!-- Profile Description -->
-                <div class="flex flex-col gap-1.5">
-                  <label class="text-[10px] font-bold text-brand-textMuted uppercase tracking-wider block">Описание профиля</label>
-                  <textarea name="description" rows="3" oninput="document.getElementById('edit-description-preview').innerText = this.value" class="w-full bg-brand-input border border-brand-border focus:border-brand-red focus:ring-0 rounded-xl py-3 px-4 text-xs text-white leading-relaxed">${state.profile.description}</textarea>
-                </div>
-
-                <!-- Form Controls -->
-                <div class="flex gap-4 pt-2">
-                  <button type="submit" class="flex-1 py-3.5 bg-brand-red hover:bg-brand-redHover text-white text-xs font-bold rounded-xl shadow-glow-red transition-all duration-300">
-                    Сохранить изменения
-                  </button>
-                  <button type="button" onclick="navigateTo('profile')" class="flex-1 py-3.5 bg-transparent hover:bg-white/5 border border-brand-border text-brand-text text-xs font-bold rounded-xl transition-all duration-300">
+                <div class="flex gap-3">
+                  <button type="button" onclick="navigateTo('profile')" class="flex-1 py-3 bg-transparent hover:bg-white/5 border border-brand-border text-brand-text text-xs font-bold rounded-xl transition-all">
                     Отмена
                   </button>
                 </div>
+              </div>
 
-              </form>
             </div>
-
-          </div>
+          </form>
         </main>
       `;
     }
@@ -1559,8 +1684,19 @@
     function selectAvatarChoice(url) {
       const input = document.getElementById('edit-avatar-input');
       const preview = document.getElementById('edit-avatar-preview');
+      const livePreview = document.getElementById('edit-live-avatar-preview');
       if (input) input.value = url;
       if (preview) preview.src = url;
+      if (livePreview) livePreview.src = url;
+    }
+
+    function selectBannerChoice(url) {
+      const input = document.getElementById('edit-banner-input');
+      const preview = document.getElementById('edit-banner-preview');
+      const livePreview = document.getElementById('edit-live-banner-preview');
+      if (input) input.value = url;
+      if (preview) preview.src = url;
+      if (livePreview) livePreview.src = url;
     }
 
     // --- INITIAL MOUNT ---
@@ -1588,6 +1724,9 @@
     window.setReviewStars = setReviewStars;
     window.submitReview = submitReview;
     window.selectAvatarChoice = selectAvatarChoice;
+    window.selectBannerChoice = selectBannerChoice;
+    window.cycleAvatarPreset = cycleAvatarPreset;
+    window.cycleBannerPreset = cycleBannerPreset;
   </script>
 </body>
 </html>
