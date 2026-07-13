@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Все лоты GameTrader</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0A0A0A',
+              card: '#141414',
+              input: '#1A1A1A',
+              border: '#1F1F1F',
+              red: '#E53935',
+              redHover: '#FF4D49',
+              text: '#E0E0E0',
+              textMuted: '#888888',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          boxShadow: {
+            'glass': '0 4px 30px rgba(0, 0, 0, 0.5)',
+            'glass-inset': 'inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+            'glow-red': '0 0 15px rgba(229, 57, 53, 0.4)',
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-brand-dark text-brand-text min-h-screen pb-12 font-sans antialiased selection:bg-brand-red selection:text-white">
+  
+  <!-- BEGIN: Header -->
+  <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-md border-b border-white/5 py-4 px-6 flex items-center justify-between">
+    <div class="flex items-center space-x-8 w-full max-w-screen-2xl mx-auto">
+      <!-- Logo -->
+      <a class="flex items-center flex-shrink-0" href="gaming_marketplace.html">
+        <svg fill="none" height="46" viewBox="0 0 40 46" width="40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 0L39.0526 11V33L20 44L0.947441 33V11L20 0Z" stroke="#E53935" stroke-width="2"></path>
+          <path d="M28.5 22.5C28.5 24.9853 26.4853 27 24 27C21.5147 27 19.5 24.9853 19.5 22.5C19.5 20.0147 21.5147 18 24 18C26.4853 18 28.5 20.0147 28.5 22.5Z" fill="#E53935"></path>
+          <path d="M16 22.5C16 24.9853 13.9853 27 11.5 27C9.01472 27 7 24.9853 7 22.5C7 20.0147 9.01472 18 11.5 18C13.9853 18 16 20.0147 16 22.5Z" fill="#E53935"></path>
+          <rect fill="#0A0A0A" height="7" width="2" x="23" y="19"></rect>
+          <rect fill="#0A0A0A" height="2" width="7" x="20.5" y="21.5"></rect>
+          <circle cx="10" cy="22.5" fill="#0A0A0A" r="1.5"></circle>
+          <circle cx="13" cy="22.5" fill="#0A0A0A" r="1.5"></circle>
+          <path d="M12.5 13L16 16.5M27.5 13L24 16.5" stroke="#E53935" stroke-linecap="round" stroke-width="2"></path>
+        </svg>
+      </a>
+
+      <!-- Search (Expanded) -->
+      <div class="flex-1">
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="w-5 h-5 text-brand-textMuted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </div>
+          <input class="block w-full pl-10 pr-3 py-2.5 border border-transparent rounded-lg leading-5 bg-brand-input text-white placeholder-brand-textMuted focus:outline-none focus:bg-white/5 focus:border-white/10 sm:text-sm transition-colors" placeholder="Поиск по играм, категориям, объявлениям..." type="text">
+        </div>
+      </div>
+
+      <!-- Actions (Grouped Right) -->
+      <div class="flex items-center space-x-4 flex-shrink-0">
+        <a class="text-brand-textMuted hover:text-white relative flex items-center" title="Категории" href="gaming_marketplace_catalog.html">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+        </a>
+        <a class="text-brand-textMuted hover:text-white relative flex items-center" title="Чаты" href="gaming_marketplace_messages.html">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+        </a>
+        <button class="text-brand-textMuted hover:text-white relative" title="Уведомления">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+          <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-brand-red ring-2 ring-brand-dark"></span>
+        </button>
+        <a class="h-8 w-8 rounded-full overflow-hidden border border-brand-red shadow-glow-red flex-shrink-0 cursor-pointer block" title="Профиль" href="gaming_marketplace_profile.html">
+          <img alt="User Avatar" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6rNyIAO0jU1LCzPPyhfUEhR4qR25_Rv26DfS8QfmJKr8NChObO6N-2ITz5IGjxC6Ip4ZXzPYpKtjU-kBb80pB5Trg17Fl6U7SgpyRGnOWj04HjB6PDqvfQU2IrGC_u2inSUANOpFP4ZToSVZJV6CtY0ajPo78qKz_geJE7tr8ObP7g0oXzE8hFnMHzbVQ28_VOt7MC8atbuDKl9ApPXhxF9UiKaGPeo7SM2z2I-7OSqH12BsLC7WRAw">
+        </a>
+      </div>
+    </div>
+  </header>
+  <!-- END: Header -->
+
+  <!-- BEGIN: MainContent -->
+  <main class="w-full max-w-screen-2xl mx-auto px-6 py-8 space-y-8">
+    
+    <!-- Navigation Back -->
+    <div class="flex items-center gap-3">
+      <a class="flex items-center gap-2 text-brand-textMuted hover:text-white transition-colors text-sm font-semibold" href="gaming_marketplace_profile.html">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Назад к профилю</span>
+      </a>
+      <span class="text-brand-border">/</span>
+      <span class="text-white text-sm font-semibold">Все лоты GameTrader</span>
+    </div>
+
+    <!-- Title Section -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-brand-border pb-6">
+      <div>
+        <h1 class="text-2xl font-bold text-white tracking-wide flex items-center gap-2">
+          <span>Активные лоты продавца GameTrader</span>
+          <span class="text-xs font-medium text-green-500 bg-green-500/10 border border-green-500/20 px-2 py-0.5 rounded-full">онлайн</span>
+        </h1>
+        <p class="text-sm text-brand-textMuted mt-1">Все категории и товары отображены сплошным списком в стиле FunPay.</p>
+      </div>
+      <a class="py-2.5 px-5 bg-brand-red hover:bg-brand-redHover text-white text-sm font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-glow-red" href="gaming_marketplace_messages.html">
+        <i class="fa-regular fa-comment-dots"></i>
+        <span>Написать продавцу</span>
+      </a>
+    </div>
+
+    <!-- Categories Listings Area (Fully opened, vertical table format) -->
+    <div class="space-y-10">
+
+      <!-- Category 1: GTA V -->
+      <section class="space-y-4">
+        <!-- Category Title -->
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPsMMGk1uUo_QAd9jw7_kidMZGP0G401e2YzWsllj98ffaKoNbeBneTZqb3hrEN0TbX2xfPXrjUFc3ofNSKao8zJIAq-lFI3tqWLt3SEGlz0ceQAnQtiiNcknqJebsGYAp9izrMJgS-bhD-0uGUJIylIEqmAg2VPCDTddDu5iFmSABpoDR6bLCjkqHC9CakDW10MFxxxLQVd8u4Y6Do32kMKa4QTZJL6YedunQhhw2zcB_lwftzjS-2g" alt="GTA V">
+          </div>
+          <h2 class="text-lg font-bold text-white">GTA V <span class="text-xs text-brand-textMuted font-normal ml-2">(1245 лотов)</span></h2>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-brand-card rounded-2xl border border-brand-border overflow-hidden">
+          <table class="w-full text-left border-collapse text-xs md:text-sm">
+            <thead>
+              <tr class="bg-brand-input border-b border-brand-border text-brand-textMuted font-medium">
+                <th class="p-4 pl-6">Описание товара</th>
+                <th class="p-4">Категория</th>
+                <th class="p-4">Наличие</th>
+                <th class="p-4 text-right pr-6 w-44">Цена / Купить</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-brand-border text-brand-text">
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-4 pl-6 font-medium text-white max-w-md truncate">GTA V Premium Account (Сюжет + Онлайн режим)</td>
+                <td class="p-4 text-brand-textMuted">Аккаунты Epic Games</td>
+                <td class="p-4 text-green-500 font-medium">В наличии</td>
+                <td class="p-4 text-right pr-6">
+                  <div class="flex items-center justify-end gap-3">
+                    <span class="font-bold text-brand-red text-base">799 ₽</span>
+                    <button class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-4 pl-6 font-medium text-white max-w-md truncate">GTA Online Личный аккаунт (50 ур., 100 млн $)</td>
+                <td class="p-4 text-brand-textMuted">Аккаунты Social Club</td>
+                <td class="p-4 text-green-500 font-medium">В наличии</td>
+                <td class="p-4 text-right pr-6">
+                  <div class="flex items-center justify-end gap-3">
+                    <span class="font-bold text-brand-red text-base">499 ₽</span>
+                    <button class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-4 pl-6 font-medium text-white max-w-md truncate">GTA V (ПК) Чистый аккаунт для онлайна</td>
+                <td class="p-4 text-brand-textMuted">Аккаунты Steam / Epic</td>
+                <td class="p-4 text-green-500 font-medium">В наличии</td>
+                <td class="p-4 text-right pr-6">
+                  <div class="flex items-center justify-end gap-3">
+                    <span class="font-bold text-brand-red text-base">299 ₽</span>
+                    <button class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Category 2: CS 2 -->
+      <section class="space-y-4">
+        <!-- Category Title -->
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABX4iLh8WGZ9_C-8O7hc5SeroowtzA5RiteLcGRpduf4qSySxUJ2jsx24xytlBpYQyZ8wr3EEJbf7wUbT3ONqUZqmlwTbMhxaK-yMudmqPbEE28lg49xLW2xQNxSVpcmGU4zbKj9apGnsG-wY2ubBmMpa20ssGjKhkTu_kzwxu1aJ8FC0G0VuIhNFsaEQJDRlcbmu1p8vPeE_rb_gUT4nimNRB50GEqlL2cn5ROcdhUcoD_2EEvXreUw" alt="CS 2">
+          </div>
+          <h2 class="text-lg font-bold text-white">CS 2 <span class="text-xs text-brand-textMuted font-normal ml-2">(876 лотов)</span></h2>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-brand-card rounded-2xl border border-brand-border overflow-hidden">
+          <table class="w-full text-left border-collapse text-xs md:text-sm">
+            <thead>
+              <tr class="bg-brand-input border-b border-brand-border text-brand-textMuted font-medium">
+                <th class="p-4 pl-6">Описание товара</th>
+                <th class="p-4">Категория</th>
+                <th class="p-4">Наличие</th>
+                <th class="p-4 text-right pr-6 w-44">Цена / Купить</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-brand-border text-brand-text">
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-4 pl-6 font-medium text-white max-w-md truncate">CS 2 Prime Account (Звание Калаш, 10 уровень)</td>
+                <td class="p-4 text-brand-textMuted">Аккаунты Прайм</td>
+                <td class="p-4 text-green-500 font-medium">В наличии</td>
+                <td class="p-4 text-right pr-6">
+                  <div class="flex items-center justify-end gap-3">
+                    <span class="font-bold text-brand-red text-base">899 ₽</span>
+                    <button class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-4 pl-6 font-medium text-white max-w-md truncate">CS 2 Аккаунт (Без прайма, калибровка 10/10)</td>
+                <td class="p-4 text-brand-textMuted">Аккаунты Новые</td>
+                <td class="p-4 text-green-500 font-medium">В наличии</td>
+                <td class="p-4 text-right pr-6">
+                  <div class="flex items-center justify-end gap-3">
+                    <span class="font-bold text-brand-red text-base">499 ₽</span>
+                    <button class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-4 pl-6 font-medium text-white max-w-md truncate">CS 2 Инвентарь (Красивые скины на сумму 5000 руб)</td>
+                <td class="p-4 text-brand-textMuted">Предметы / Скины</td>
+                <td class="p-4 text-green-500 font-medium">В наличии</td>
+                <td class="p-4 text-right pr-6">
+                  <div class="flex items-center justify-end gap-3">
+                    <span class="font-bold text-brand-red text-base">1 299 ₽</span>
+                    <button class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Category 3: Steam -->
+      <section class="space-y-4">
+        <!-- Category Title -->
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWNcZrNp_0IPI89qObaubHetiKhAg_uj3zHuSzju0-1cd_0pPXxO061d55XsNk8Z7TaEUOffO2nUREXrwHvn99BtQvsxFivYWP4R_9S18vSJF5M25dDD9gMnvId9pKlDnel8fyMZ5MR4uv7r38sFh9aAt6oX8SIOxLfFzvs7SiLnE5PfKHvEuKEqhHUNKY8rBLY2BKwSah4LAQo2nI3Cemwml_km79gfd98rN6Oqb39Hu108dqqNWYbQ" alt="Steam">
+          </div>
+          <h2 class="text-lg font-bold text-white">Steam <span class="text-xs text-brand-textMuted font-normal ml-2">(342 лота)</span></h2>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-brand-card rounded-2xl border border-brand-border overflow-hidden">
+          <table class="w-full text-left border-collapse text-xs md:text-sm">
+            <thead>
+              <tr class="bg-brand-input border-b border-brand-border text-brand-textMuted font-medium">
+                <th class="p-4 pl-6">Описание товара</th>
+                <th class="p-4">Категория</th>
+                <th class="p-4">Наличие</th>
+                <th class="p-4 text-right pr-6 w-44">Цена / Купить</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-brand-border text-brand-text">
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-4 pl-6 font-medium text-white max-w-md truncate">Steam Аккаунт (15 лет выслуги, личный, 20 уровень)</td>
+                <td class="p-4 text-brand-textMuted">Аккаунты с выслугой</td>
+                <td class="p-4 text-green-500 font-medium">В наличии</td>
+                <td class="p-4 text-right pr-6">
+                  <div class="flex items-center justify-end gap-3">
+                    <span class="font-bold text-brand-red text-base">299 ₽</span>
+                    <button class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-4 pl-6 font-medium text-white max-w-md truncate">Steam (CS2 Prime + 50 игр, Rust, GTA V)</td>
+                <td class="p-4 text-brand-textMuted">Аккаунты с играми</td>
+                <td class="p-4 text-green-500 font-medium">В наличии</td>
+                <td class="p-4 text-right pr-6">
+                  <div class="flex items-center justify-end gap-3">
+                    <span class="font-bold text-brand-red text-base">499 ₽</span>
+                    <button class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-4 pl-6 font-medium text-white max-w-md truncate">Steam Инвентарь (Уровни профиля, карточки, фоны)</td>
+                <td class="p-4 text-brand-textMuted">Инвентарь / Гифты</td>
+                <td class="p-4 text-green-500 font-medium">В наличии</td>
+                <td class="p-4 text-right pr-6">
+                  <div class="flex items-center justify-end gap-3">
+                    <span class="font-bold text-brand-red text-base">399 ₽</span>
+                    <button class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Category 4: Valorant -->
+      <section class="space-y-4">
+        <!-- Category Title -->
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkjihwSLJqBjv1XO9emV8pWzcpE3RDlz0h49Qe173Wr-peiMX8acHRyjD9YFc5GKk46GfLKnHr4q8Ld02qG9bF7jagCKxxY3O70F3mHKHq-RkqHXWxvro8ZZGh1oNQIL3AWO5HhjdctHgCiKBkbDfw5hWu0N3fukAhUQ386ULZ_hU5SkZMmZ2UFubdlVIrMrpfyyYQtpvsPpd2OLnCFLvBLVtpqbgMskHWB2iMJDZ6-zjfX-_8hPfy7w" alt="Valorant">
+          </div>
+          <h2 class="text-lg font-bold text-white">Valorant <span class="text-xs text-brand-textMuted font-normal ml-2">(654 лота)</span></h2>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-brand-card rounded-2xl border border-brand-border overflow-hidden">
+          <table class="w-full text-left border-collapse text-xs md:text-sm">
+            <thead>
+              <tr class="bg-brand-input border-b border-brand-border text-brand-textMuted font-medium">
+                <th class="p-4 pl-6">Описание товара</th>
+                <th class="p-4">Категория</th>
+                <th class="p-4">Наличие</th>
+                <th class="p-4 text-right pr-6 w-44">Цена / Купить</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-brand-border text-brand-text">
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-4 pl-6 font-medium text-white max-w-md truncate">Valorant Аккаунт (Платина 2, 12 крутых скинов)</td>
+                <td class="p-4 text-brand-textMuted">Аккаунты с рангом</td>
+                <td class="p-4 text-green-500 font-medium">В наличии</td>
+                <td class="p-4 text-right pr-6">
+                  <div class="flex items-center justify-end gap-3">
+                    <span class="font-bold text-brand-red text-base">1 299 ₽</span>
+                    <button class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-4 pl-6 font-medium text-white max-w-md truncate">Valorant (Прайм инвентарь, Prime Vandal, 120 ур.)</td>
+                <td class="p-4 text-brand-textMuted">Донат-аккаунты</td>
+                <td class="p-4 text-green-500 font-medium">В наличии</td>
+                <td class="p-4 text-right pr-6">
+                  <div class="flex items-center justify-end gap-3">
+                    <span class="font-bold text-brand-red text-base">799 ₽</span>
+                    <button class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-4 pl-6 font-medium text-white max-w-md truncate">Valorant Скины (Reaver Vandal + Нож Керамбит)</td>
+                <td class="p-4 text-brand-textMuted">Аккаунты со скинами</td>
+                <td class="p-4 text-green-500 font-medium">В наличии</td>
+                <td class="p-4 text-right pr-6">
+                  <div class="flex items-center justify-end gap-3">
+                    <span class="font-bold text-brand-red text-base">899 ₽</span>
+                    <button class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Category 5: Fortnite -->
+      <section class="space-y-4">
+        <!-- Category Title -->
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIc8OBnSOW4p61G-llvPlpYoyIfirHbMH5tewwjDDktIwYu8otbk47ynr37lWH675BNKQQ5fc0mgFzFwlWQYh29qkXVHenN0mxcMSZfEvXPadIO1xwhaTFVjWV2enRQcHMcSPG6zsQGPWo4S12bdCuzj-SRXB902vpX4SWgZlUsrVPzxmEuEH45Stjwj2R1IEH7IpYiok_TL5Z6sdmcHWKB3IFDtdJaoL9qHmuifDOl0Cvj06tnAAAHA" alt="Fortnite">
+          </div>
+          <h2 class="text-lg font-bold text-white">Fortnite <span class="text-xs text-brand-textMuted font-normal ml-2">(987 лотов)</span></h2>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-brand-card rounded-2xl border border-brand-border overflow-hidden">
+          <table class="w-full text-left border-collapse text-xs md:text-sm">
+            <thead>
+              <tr class="bg-brand-input border-b border-brand-border text-brand-textMuted font-medium">
+                <th class="p-4 pl-6">Описание товара</th>
+                <th class="p-4">Категория</th>
+                <th class="p-4">Наличие</th>
+                <th class="p-4 text-right pr-6 w-44">Цена / Купить</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-brand-border text-brand-text">
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-4 pl-6 font-medium text-white max-w-md truncate">Fortnite Аккаунт (120 скинов, Travis Scott, 1 сезон)</td>
+                <td class="p-4 text-brand-textMuted">Аккаунты с редкими скинами</td>
+                <td class="p-4 text-green-500 font-medium">В наличии</td>
+                <td class="p-4 text-right pr-6">
+                  <div class="flex items-center justify-end gap-3">
+                    <span class="font-bold text-brand-red text-base">599 ₽</span>
+                    <button class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-4 pl-6 font-medium text-white max-w-md truncate">Fortnite Скины (Кирка Минти, Скины Marvel & DC)</td>
+                <td class="p-4 text-brand-textMuted">Личные аккаунты</td>
+                <td class="p-4 text-green-500 font-medium">В наличии</td>
+                <td class="p-4 text-right pr-6">
+                  <div class="flex items-center justify-end gap-3">
+                    <span class="font-bold text-brand-red text-base">899 ₽</span>
+                    <button class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="p-4 pl-6 font-medium text-white max-w-md truncate">Fortnite (Полный доступ, родная почта, чеки покупки)</td>
+                <td class="p-4 text-brand-textMuted">Аккаунты с почтой</td>
+                <td class="p-4 text-green-500 font-medium">В наличии</td>
+                <td class="p-4 text-right pr-6">
+                  <div class="flex items-center justify-end gap-3">
+                    <span class="font-bold text-brand-red text-base">1 499 ₽</span>
+                    <button class="px-3.5 py-1.5 bg-brand-red/10 border border-brand-red/20 hover:bg-brand-red text-brand-red hover:text-white rounded-lg text-xs font-semibold transition-all duration-200">Купить</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  <!-- END: MainContent -->
+
+</body>
+</html>
