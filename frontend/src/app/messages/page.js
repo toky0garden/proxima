@@ -28,12 +28,12 @@ export default function Messages() {
 
   // Load messages for the selected chat from real API
   useEffect(() => {
-    if (!authLoading && activeChatId && isAuthenticated) {
-      api.listMessages(activeChatId).then(msgs => {
+    if (!authLoading && activeChat?.id && isAuthenticated) {
+      api.listMessages(activeChat.id).then(msgs => {
         setCurrentMessages(msgs || []);
       }).catch(() => setCurrentMessages([]));
     }
-  }, [activeChatId, authLoading, isAuthenticated]);
+  }, [activeChat?.id, authLoading, isAuthenticated]);
 
   // Scroll to bottom when messages change or chat switch
   useEffect(() => {
@@ -95,8 +95,19 @@ export default function Messages() {
 
   if (!activeChat) {
     return (
-      <main className="w-full max-w-screen-xl mx-auto px-6 py-8 flex-1 flex items-center justify-center text-center">
-        <p className="text-xs text-brand-textMuted">Загрузка переписок...</p>
+      <main className="w-full max-w-screen-md mx-auto px-6 py-12 flex-1 flex items-center justify-center text-center">
+        <div className="bg-brand-card border border-brand-border rounded-3xl p-8 space-y-5">
+          <h1 className="text-2xl font-bold">Диалогов пока нет</h1>
+          <p className="text-sm text-brand-textMuted">
+            Откройте карточку товара и нажмите «Обсудить с продавцом», чтобы начать переписку.
+          </p>
+          <Link
+            href="/catalog"
+            className="inline-block py-3 px-6 bg-brand-red hover:bg-brand-redHover text-white text-sm font-bold rounded-xl"
+          >
+            Перейти в каталог
+          </Link>
+        </div>
       </main>
     );
   }
