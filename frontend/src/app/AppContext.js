@@ -243,11 +243,12 @@ export function AppProvider({ children }) {
       // Load listings from real API (fallback to local if fails)
       try {
         const remoteListings = await api.listListings({ limit: 100 });
-        if (Array.isArray(remoteListings) && remoteListings.length > 0) {
-          // Normalize backend shape to frontend shape (price_minor -> price, add img placeholder)
-          const normalized = remoteListings.map(normalizeListing);
-          setListings(normalized);
-        }
+        // An empty successful response is authoritative. Local demo data is used
+        // only when the API cannot be reached, never as fake production lots.
+        const normalized = Array.isArray(remoteListings)
+          ? remoteListings.map(normalizeListing)
+          : [];
+        setListings(normalized);
       } catch (e) {
         // Keep the local catalog available while the backend is temporarily unreachable.
         if (typeof window !== 'undefined' && !window.__listingsWarned) {
