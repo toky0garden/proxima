@@ -287,6 +287,9 @@
 
       setTimeout(() => {
         state.currentView = view;
+        if (window.location.hash !== '#' + view) {
+          window.location.hash = view;
+        }
         if (params.itemId) {
           state.selectedItem = state.listings.find(x => x.id === params.itemId);
         }
@@ -1701,8 +1704,21 @@
 
     // --- INITIAL MOUNT ---
     window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (['home', 'catalog', 'messages', 'profile', 'all_lots', 'item_detail', 'edit_profile'].includes(hash)) {
+        state.currentView = hash;
+      }
       renderView();
       updateNavHighlight();
+    });
+
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && hash !== state.currentView && ['home', 'catalog', 'messages', 'profile', 'all_lots', 'item_detail', 'edit_profile'].includes(hash)) {
+        state.currentView = hash;
+        renderView();
+        updateNavHighlight();
+      }
     });
 
     // Exports to window namespace for inline HTML buttons
