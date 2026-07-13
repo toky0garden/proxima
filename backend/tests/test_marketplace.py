@@ -1,4 +1,5 @@
 import io
+from types import SimpleNamespace
 
 import pytest
 from httpx import AsyncClient
@@ -27,7 +28,24 @@ def png_file() -> bytes:
 
 
 @pytest.mark.asyncio
-async def test_profile_and_avatar(client: AsyncClient) -> None:
+async def test_profile_and_avatar(client: AsyncClient, monkeypatch: pytest.MonkeyPatch) -> None:
+    uploaded_contents: list[bytes] = []
+    deleted_blobs: list[str] = []
+
+    async def fake_upload(user_id, content: bytes):
+        uploaded_contents.append(content)
+        suffix = len(uploaded_contents)
+        return SimpleNamespace(
+            url=(f"https://example.public.blob.vercel-storage.com/avatars/{user_id}-{suffix}.webp"),
+            pathname=f"avatars/{user_id}-{suffix}.webp",
+        )
+
+    async def fake_delete(url_or_pathname: str | None) -> None:
+        if url_or_pathname:
+            deleted_blobs.append(url_or_pathname)
+
+    monkeypatch.setattr("app.api.routes.users.upload_avatar_blob", fake_upload)
+    monkeypatch.setattr("app.api.routes.users.delete_avatar_blob", fake_delete)
     user, headers = await create_user(client, "profile_user")
 
     updated = await client.patch(
@@ -51,11 +69,17 @@ async def test_profile_and_avatar(client: AsyncClient) -> None:
     )
     assert avatar.status_code == 200, avatar.text
     avatar_url = avatar.json()["avatar_url"]
-    assert avatar_url.startswith("/api/v1/users/avatars/")
-    downloaded_avatar = await client.get(avatar_url)
-    assert downloaded_avatar.status_code == 200
-    assert downloaded_avatar.headers["content-type"] == "image/webp"
-    assert downloaded_avatar.content.startswith(b"RIFF")
+    assert avatar_url.startswith("https://example.public.blob.vercel-storage.com/")
+    assert uploaded_contents[0].startswith(b"RIFF")
+
+    replaced_avatar = await client.post(
+        "/api/v1/users/me/avatar",
+        headers=headers,
+        files={"file": ("avatar.png", png_file(), "image/png")},
+    )
+    assert replaced_avatar.status_code == 200
+    assert replaced_avatar.json()["avatar_url"].endswith(f"/{user['id']}-2.webp")
+    assert deleted_blobs == [f"avatars/{user['id']}-1.webp"]
 
     invalid_avatar = await client.post(
         "/api/v1/users/me/avatar",
@@ -66,6 +90,10 @@ async def test_profile_and_avatar(client: AsyncClient) -> None:
 
     deleted = await client.delete("/api/v1/users/me/avatar", headers=headers)
     assert deleted.status_code == 204
+    assert deleted_blobs == [
+        f"avatars/{user['id']}-1.webp",
+        f"avatars/{user['id']}-2.webp",
+    ]
     me = await client.get("/api/v1/users/me", headers=headers)
     assert me.json()["avatar_url"] is None
 

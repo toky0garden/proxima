@@ -21,6 +21,9 @@ class Avatar(UUIDTimestampMixin, Base):
         nullable=False,
     )
     content_type: Mapped[str] = mapped_column(String(50), default="image/webp", nullable=False)
-    data: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)
+    # Kept for avatars uploaded before Vercel Blob was enabled.
+    data: Mapped[bytes | None] = mapped_column(LargeBinary, nullable=True)
+    url: Mapped[str | None] = mapped_column(String(2048), nullable=True)
+    pathname: Mapped[str | None] = mapped_column(String(1024), nullable=True)
 
     user: Mapped["User"] = relationship(back_populates="avatar")

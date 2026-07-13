@@ -32,6 +32,7 @@ class Settings(BaseSettings):
     refresh_token_expire_days: int = Field(default=30, ge=1, le=90)
     jwt_issuer: str = "proxima-api"
     jwt_audience: str = "proxima-client"
+    blob_read_write_token: str | None = Field(default=None, repr=False)
 
     @model_validator(mode="after")
     def select_development_database(self):

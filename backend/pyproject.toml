@@ -16,6 +16,7 @@ dependencies = [
     "PyJWT==2.13.0",
     "Pillow==12.3.0",
     "python-multipart==0.0.32",
+    "vercel==0.6.0",
 ]
 
 [tool.pytest.ini_options]
